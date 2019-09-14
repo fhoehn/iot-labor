@@ -185,6 +185,7 @@ Eine weiter Aufgabe wäre das bereitstellen eines REST Services für die letzten
 Der zweite Teil des Labors befasste sich mit dem Anschließen eines Arduinos (ESP8266MOD) an das System. Zu Beginn sollte eine einfache Lampe mit dem Arduino an- und ausgeschalten werden können. Danach wurde sich damit befasst, einen Wassersensor und einen Servomotor anzuschließen. Diese solten dann über MQTT miteinander verbunden werden. 
 
 ## Entwicklungsumgebung aufsetzen
+
  Bevor mit der eigentlichen etnwicklung begonnen werden konnte, musste eine Entwicklungsumgebung aufgesetzt werden, die es uns ermöglicht C-Code für den Arduino zu entwicklen und diesen dann auch auf dem arduino laufen zu lassen. Dazu gingen wir wie folgt vor.
 
  1. Visual Studio Code installieren
@@ -204,32 +205,32 @@ Der zweite Teil des Labors befasste sich mit dem Anschließen eines Arduinos (ES
     #TODO[Add example project code]
 
     
-4. Mit WiFi verbinden
+## Mit WiFi verbinden
    
-    Um vom Arduino Nachrichten an den Raspbery schicken zu könne, wird eine WiFi-Verbindung benötigt. Dazu gibt es verschiedene Möglichkeiten. In diesem Fall nutzen wir einen WiFi-Manager um uns mit dem WiFi verbinden zu können. Der Wifi-Manager agiert dabei folgendermaßen:
+ Um vom Arduino Nachrichten an den Raspbery schicken zu könne, wird eine WiFi-Verbindung benötigt. Dazu gibt es verschiedene Möglichkeiten. In diesem Fall nutzen wir einen WiFi-Manager um uns mit dem WiFi verbinden zu können. Der Wifi-Manager agiert dabei folgendermaßen:
     
-    - Device erstellt Access Point (neues WLAN-Netz)
-    - Nach dem Verbinden mit dem WLAN wird man automatisch eine Website zum Einloggen weitergeleitet
-    - Das Gerät listet dort alle WLAN-Netze in der Umgebung auf
-    - Nun kann man ein Netz auswählen, mit dem man sich verbinden möchte
-    - Wenn es sich um ein gesichertes Netz handelt, muss das Password eingegebn werden
-    - Das Gerät verbindet sich automatisch mit dem WLAN und speichert die Credentials in einem Secure Storage
-    - Das Gerät verbindet sich nun immer automatisch mit diesem WLAN
-    - Zum erneuten Eingeben der Daten muss der Speicher gelöscht werden
+- Device erstellt Access Point (neues WLAN-Netz)
+- Nach dem Verbinden mit dem WLAN wird man automatisch eine Website zum Einloggen weitergeleitet
+- Das Gerät listet dort alle WLAN-Netze in der Umgebung auf
+- Nun kann man ein Netz auswählen, mit dem man sich verbinden möchte
+- Wenn es sich um ein gesichertes Netz handelt, muss das Password eingegebn werden
+- Das Gerät verbindet sich automatisch mit dem WLAN und speichert die Credentials in einem Secure Storage
+- Das Gerät verbindet sich nun immer automatisch mit diesem WLAN
+- Zum erneuten Eingeben der Daten muss der Speicher gelöscht werden
     
-    Danach ist das Gerät mit dem WLAN verbunden und wir können nun damit fortfahren die Nachrichten an den MQTT-Broker des Raspberies zu senden.  
+Danach ist das Gerät mit dem WLAN verbunden und wir können nun damit fortfahren die Nachrichten an den MQTT-Broker des Raspberies zu senden.  
 
     #TODO[add Code]
 
 ## Wassersensor anbinden
 
-    Nun sollen die Daten des Wasserseonsor verarbeitet werden. Im ersten Schritt soll ein Motor angesteuert werden, der sich auf 90 Grad dreht, sobald der Wassersensor sich im Wasser befindet. Ansonten soll der Motor zurück auf die Ausgangssituation fahren. 
+Nun sollen die Daten des Wasserseonsor verarbeitet werden. Im ersten Schritt soll ein Motor angesteuert werden, der sich auf 90 Grad dreht, sobald der Wassersensor sich im Wasser befindet. Ansonten soll der Motor zurück auf die Ausgangssituation fahren. 
 
     #TODO[add Code]
 
 ## MQTT anbinden
 
-    Anstatt nur den Motor zu schalten, sollen die Daten des Wassersensors nun via MQTT an den Raspbery übertragen werden. Dazu muss der Arduino die gesammelten Daten verarbeiten und an den Broker senden. Darum kümmert sich folgendes Programm.
+ Anstatt nur den Motor zu schalten, sollen die Daten des Wassersensors nun via MQTT an den Raspbery übertragen werden. Dazu muss der Arduino die gesammelten Daten verarbeiten und an den Broker senden. Darum kümmert sich folgendes Programm.
 
     #TODO[add Code]
    
