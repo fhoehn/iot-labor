@@ -11,7 +11,7 @@ Laborbericht für das Mastermodul 'Internet of Things'
 
 ## Eingesetzte Software
 
-# Tag 1
+# Teil 1 - NFC und MQTT
 
 Zu Beginn des Labors musste zuerst der Raspberry PI konfiguriert werden, damit mit dem Entwickeln der Scenarios begonnen werden konnte. 
 Dazu muss der Rapsberry mit dem WLAN verbunden werden und um später mit Hilfe des PuTTY darauf zugreifen zu können muss SSH aktiviert wreden. 
@@ -176,5 +176,60 @@ Die UIDs der einzelnen NFC-Chips können nun per Python programm eingelesen werd
 
    #TODO[Add Image here]
 
+## REST Service bereitstellen
 
+Eine weiter Aufgabe wäre das bereitstellen eines REST Services für die letzten 10 eingelesen UIDs gewesen. Diese Aufgabe haben wir aus Zeitgründen nicht implementiert, wird jedoch für den weiteren Verlauf auch nicht benötigt. 
+
+# Teil 2 - Arduino
+
+Der zweite Teil des Labors befasste sich mit dem Anschließen eines Arduinos (ESP8266MOD) an das System. Zu Beginn sollte eine einfache Lampe mit dem Arduino an- und ausgeschalten werden können. Danach wurde sich damit befasst, einen Wassersensor und einen Servomotor anzuschließen. Diese solten dann über MQTT miteinander verbunden werden. 
+
+## Entwicklungsumgebung aufsetzen
+ Bevor mit der eigentlichen etnwicklung begonnen werden konnte, musste eine Entwicklungsumgebung aufgesetzt werden, die es uns ermöglicht C-Code für den Arduino zu entwicklen und diesen dann auch auf dem arduino laufen zu lassen. Dazu gingen wir wie folgt vor.
+
+ 1. Visual Studio Code installieren
+    
+    Als erstes installierten wir Visual Studio Code mit dem zusätzlichen Plugin "Plattform IO". Diese kann in Visual Studio Code über den Pluginmanager installiert werden. 
+
+2. Treiber installieren
+
+    Um den C-Code über ein USB-Kabel auf den Arduino aufspielen zu können, muss zuerst der Treiber dafür installiert werden. Da Windows in unserem Fall nicht automatisch den Treiber finden konnte, mussten wir diesen manuell herunterladen und dann installieren. 
+
+3. Beispielprojekt
+   
+    Nach dem erfolgreichen einrichten sollte nun ein einfaches Beispielprojekt auf den Arduino aufgespielt werden. 
+
+    #TODO[Add example project URL]
+
+    #TODO[Add example project code]
+
+    
+4. Mit WiFi verbinden
+   
+    Um vom Arduino Nachrichten an den Raspbery schicken zu könne, wird eine WiFi-Verbindung benötigt. Dazu gibt es verschiedene Möglichkeiten. In diesem Fall nutzen wir einen WiFi-Manager um uns mit dem WiFi verbinden zu können. Der Wifi-Manager agiert dabei folgendermaßen:
+    
+    - Device erstellt Access Point (neues WLAN-Netz)
+    - Nach dem Verbinden mit dem WLAN wird man automatisch eine Website zum Einloggen weitergeleitet
+    - Das Gerät listet dort alle WLAN-Netze in der Umgebung auf
+    - Nun kann man ein Netz auswählen, mit dem man sich verbinden möchte
+    - Wenn es sich um ein gesichertes Netz handelt, muss das Password eingegebn werden
+    - Das Gerät verbindet sich automatisch mit dem WLAN und speichert die Credentials in einem Secure Storage
+    - Das Gerät verbindet sich nun immer automatisch mit diesem WLAN
+    - Zum erneuten Eingeben der Daten muss der Speicher gelöscht werden
+    
+    Danach ist das Gerät mit dem WLAN verbunden und wir können nun damit fortfahren die Nachrichten an den MQTT-Broker des Raspberies zu senden.  
+
+    #TODO[add Code]
+
+5. Wassersensor anbinden
+
+    Nun sollen die Daten des Wasserseonsor verarbeitet werden. Im ersten Schritt soll ein Motor angesteuert werden, der sich auf 90 Grad dreht, sobald der Wassersensor sich im Wasser befindet. Ansonten soll der Motor zurück auf die Ausgangssituation fahren. 
+
+    #TODO[add Code]
+
+6. MQTT anbinden
+
+    Anstatt nur den Motor zu schalten, sollen die Daten des Wassersensors nun via MQTT an den Raspbery übertragen werden. Dazu muss der Arduino die gesammelten Daten verarbeiten und an den Broker senden. Darum kümmert sich folgendes Programm.
+
+    #TODO[add Code]
    
