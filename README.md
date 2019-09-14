@@ -103,3 +103,78 @@ Nachdem der Raspberry konfiguriert wurde, konnte nun damit begonnen werden ein k
             time.sleep(1)
         
     Nach dem Starten des Programms liest es nun jede Millisekunde den aktuellen Wert des NFC-Lesegerätes ein und gibt diesen auf der Konsole aus. Wenn verschiedene NFC-Chips auf das Lesegerät gehalten werden, werden nun die IDs dieser Chips auf der Konsole ausgegeben. 
+
+## UIDs an MQTT-Broker senden
+
+Die UIDs der einzelnen NFC-Chips können nun per Python programm eingelesen werden. Die nächste Aufgabe ist das Anbinden eines MQTT-Brokers. Die eingelesenen UIDs sollen an den MQTT-Broker gesendet werden. Dazu wird ein Node-RED Server verwendet. [Mehr Details über Node-RED finden sie hier](https://nodered.org/)
+
+1. Node-RED installieren
+   
+   Zuerst muss der Node-RED MQTT-Broker installiert werden. Dazu nutzen wir 'npm'.
+
+        npm install node-red-contrib-mqtt-broker
+
+2. Node-RED starten
+   
+   Nach dem erfolgreichen installieren von Node-RED muss dies nun gestartet werden. 
+
+        node-red-start
+
+    Danach kann die Node-RED Weboberfläche unter `https://<ip>:1880` erreicht werden. Die IP des Raspberry, welche auch zum verbinden via PuTTY genutzt wird, muss dazu verwendet werden. 
+
+3. Flow erstellen
+
+    Als nächstes sollte ein Flow erstellt werden, welcher Nachrichten vom MQTT-Broker entgegen nimmt nd im Node-RED als DEBUG-Information ausgibt. 
+    
+    1. Wir erstellen einen Flow, der eine MQTT-Eingabe hat, die eine Verbindungen zu einer Debug-Ausgabe besitzt. Dazu müssen die zwei Bauteile per Drag and Drop von der Toolbox eingefügt und miteinander vernunden werden. 
+    
+    #TODO[Add Image here]
+
+    2. Danach muss der MQTT-Server eingestellt werden. Dies kann in den Eigenschaften des Inputs getan werden. 
+   
+    #TODO[Add Image here]
+
+    3. Das Topic der Eingabe muss ebenfalls festgelegt werden. Dazu tragen wir in den Eigenschaften der der MQTT-Eingabe das Topic "/nfc/1" ein.
+   
+    #TODO[Add Image here]
+
+    4. Danach muss der Flow nur noch deployed werden.
+
+    #TODO[Add Image here]
+
+4. Daten an MQTT senden
+
+    Nach dem erfolgreichen Erstellen des Flows zum Verarbeiten der MQTT-Nachrichten sollen nun die Daten von der NFC-Chips an die Queue geschickt werden. Dies geschieht wiederum in einem Python Programm. Dafür legen wir eine neue Datei an und programmieren in dieser unser neues Programm.
+
+        broker.py
+
+        import time
+        import nxppy
+        import paho.mqtt.client as mqtt
+
+        mifare = nxppy.Mifare()
+
+        mqttsender = mqtt.Client('clientId0123456')
+        mqttsender.connect("localhost", 1883)
+        mqttsender.subscribe("/nfc/card")
+
+        while True:
+            try:
+                uid = mifare.select()
+                print(mqttsender.publish("/nfc/card", uid))
+                print(uid)
+            except nxppy.SelectError:
+                pass
+
+            time.sleep(0.3)
+        
+    Diese Programm ist eine Erweiterung des letzten Programms. Anstelle die UIDs nur auf der Konsole auszugeben, werden die Daten nun auch and den MQTT-Broker gesendet. Diese Nachrichten können dann von Node-RED abgegriffen und unser Flow gestartet werden. Dazu muss das Programm nur noch gestartet und verschieden NFC-Chips auf das Lesegerät gelegt werden. 
+
+5. DEBUG Informationen einsehen
+   
+   In Node-RED können wir nun die Nachrichten einsehen.
+
+   #TODO[Add Image here]
+
+
+   
