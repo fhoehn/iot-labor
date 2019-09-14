@@ -221,13 +221,13 @@ Der zweite Teil des Labors befasste sich mit dem Anschließen eines Arduinos (ES
 
     #TODO[add Code]
 
-5. Wassersensor anbinden
+## Wassersensor anbinden
 
     Nun sollen die Daten des Wasserseonsor verarbeitet werden. Im ersten Schritt soll ein Motor angesteuert werden, der sich auf 90 Grad dreht, sobald der Wassersensor sich im Wasser befindet. Ansonten soll der Motor zurück auf die Ausgangssituation fahren. 
 
     #TODO[add Code]
 
-6. MQTT anbinden
+## MQTT anbinden
 
     Anstatt nur den Motor zu schalten, sollen die Daten des Wassersensors nun via MQTT an den Raspbery übertragen werden. Dazu muss der Arduino die gesammelten Daten verarbeiten und an den Broker senden. Darum kümmert sich folgendes Programm.
 
