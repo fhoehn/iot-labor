@@ -69,3 +69,37 @@ Dazu muss der Rapsberry mit dem WLAN verbunden werden und um später mit Hilfe d
 7. Serial Peripheral Interface (SPI) konfigurieren
 
     Falls dies noch nicht konfiguriert wurde muss dies nun getan werden. In unserem Fall war dies schon konfiguriert. 
+
+## NFC einlesen
+
+Nachdem der Raspberry konfiguriert wurde, konnte nun damit begonnen werden ein kleines Programm zum einlesen von NFC-Chips zu erstellen.
+
+1. nxppy-Library installieren
+    
+    Die nxppy-Library wird zum einfachen Einlesen und Schreiben von NFC-Chips benötigt. Diese musste zuerst installiert werden. 
+
+        pip install nxppy
+
+2. UID von NFC ausgeben
+   
+   Mit Hilfe eines kleinen Python-Programms kann die UID eines NFC-Chips eingelesen und auf der Konsole ausgegeben werden. 
+
+        test1.py
+
+        import nxppy
+        import time
+
+        mifare = nxppy.Mifare()
+
+        # Print card UIDs as they are detected
+        while True:
+            try:
+                uid = mifare.select()
+                print(uid)
+            except nxppy.SelectError:
+                # SelectError is raised if no card is in the field.
+                pass
+
+            time.sleep(1)
+        
+    Nach dem Starten des Programms liest es nun jede Millisekunde den aktuellen Wert des NFC-Lesegerätes ein und gibt diesen auf der Konsole aus. Wenn verschiedene NFC-Chips auf das Lesegerät gehalten werden, werden nun die IDs dieser Chips auf der Konsole ausgegeben. 
