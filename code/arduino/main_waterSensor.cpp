@@ -1,14 +1,12 @@
 /*
- * Blink
- * Turns on an LED on for one second,
- * then off for one second, repeatedly.
+ * Watersensor and servo
+ * Reads the sensor data from a watersensor and prints it out.
+ * Also is moving a servo according to the data of the water sensor.
  */
 
 #include "Arduino.h"
 #include <Servo.h>
-//#include <WiFiManager.h>
 
-//WiFiManager wifiManager;
 Servo servo;
 
 void setup()
@@ -20,10 +18,6 @@ void setup()
 
   Serial.begin(115200);
   Serial.println("Starting program");
-
-  //WiFi.begin("WILaWiFi063C", "p7-15Dex9.4A");
-  //wifiManager.autoConnect("WILaWiFi063C", "p7-15Dex9.4A");  
-  //wifiManager.autoConnect("TEST1", "test");  
 }
 
 void loop()
