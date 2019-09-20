@@ -341,7 +341,115 @@ Nun sollen die Daten des Wasserseonsor verarbeitet werden. Im ersten Schritt sol
 
  Anstatt nur den Motor zu schalten, sollen die Daten des Wassersensors nun via MQTT an den Raspbery übertragen werden. Dazu muss der Arduino die gesammelten Daten verarbeiten und an den Broker senden. Dieser Anwendungsfall kann mithilfe des folgenden Programms umgesetzt werden:
 
-    #TODO[add Code]
+    /*
+    * MQTT
+    * sends and receives data from the mqtt.
+    */
+
+    #include "Arduino.h"
+    #include <Servo.h>
+    #include <WiFiManager.h>
+    #include <PubSubClient.h>
+
+    WiFiManager wifiManager;
+    Servo servo;
+    WiFiClient espClient;
+    PubSubClient client(espClient);
+    char msg[50];
+
+    void callback(char* topic, byte* payload, unsigned int length) {
+        Serial.print("Message arrived [");
+        Serial.print(topic);
+        Serial.print("] ");
+        for (int i = 0; i < length; i++) {
+            Serial.print((char)payload[i]);
+        }
+        Serial.println();
+
+        // Switch on the LED if an 1 was received as first character
+        if ((char)payload[0] == '0') {
+            digitalWrite(BUILTIN_LED, LOW);   // Turn the LED on 
+        } else {
+            digitalWrite(BUILTIN_LED, HIGH);  // Turn the LED off by making the voltage HIGH
+        }
+    }
+
+    void setup()
+    {
+        // initialize LED digital pin as an output.
+        pinMode(LED_BUILTIN, OUTPUT);
+
+        servo.attach(14);
+
+        Serial.begin(115200);
+        Serial.println("Starting program");
+
+        //Connect with WLAN
+        WiFi.begin("<ENTER THE WLAN-ID HERE>", "<ENTER THE PW HERE>");
+
+        client.setServer("10.0.1.53", 1883);
+        client.setCallback(callback);
+    }
+
+
+
+    void reconnect() {
+        // Loop until we're reconnected
+        while (!client.connected()) {
+            Serial.print("Attempting MQTT connection...");
+            // Create a random client ID
+            String clientId = "ESP8266Client-";
+            clientId += String(random(0xffff), HEX);
+            // Attempt to connect
+            if (client.connect(clientId.c_str())) {
+            Serial.println("connected");
+            // Once connected, publish an announcement...
+            client.publish("/nfc/1", "Connected a new water sensor");
+            // ... and resubscribe
+            client.subscribe("/nfc/callback");
+            } else {
+            Serial.print("failed, rc=");
+            Serial.print(client.state());
+            Serial.println(" try again in 5 seconds");
+            // Wait 5 seconds before retrying
+            delay(5000);
+            }
+        }
+    }
+
+
+    void loop()
+    {
+        long int waterSensor = analogRead(A0);
+        Serial.println(waterSensor);
+
+        if(waterSensor < 100)
+        {
+            servo.write(0);
+        }
+        else if(waterSensor < 200)
+        {
+            servo.write(90);
+        }
+        else
+        {
+            servo.write(180);
+        }
+
+        if (!client.connected()) {
+            reconnect();
+        }
+        client.loop();
+
+        //Create a message for the sensor data
+        snprintf (msg, 50, "Water #%ld", waterSensor);
+        //Publish the message to MQTT
+        client.publish("/nfc/1", msg);
+
+        //Wait 5 seconds
+        delay(5000); 
+    }
+
 
 # Tag 2 Einbindung mit OpenHab
    

@@ -44,6 +44,7 @@ void setup()
   Serial.begin(115200);
   Serial.println("Starting program");
 
+//Mit dem WLAN verbinden
   WiFi.begin("WILaWiFi063C", "p7-15Dex9.4A");
 
   client.setServer("10.0.1.53", 1883);
