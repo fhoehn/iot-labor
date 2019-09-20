@@ -242,7 +242,33 @@ Der nächste Abschnitt des Laborversuchs befasst sich mit dem Anschluss eines Ar
     
 Die konfigurierte WLAN-Verbindung ermöglicht nun, dass Nachrichten an den MQTT-Broker des Raspberies gesendet werden können.  
 
-    #TODO[add Code]
+    /*
+     * WiFiManager
+     * Opens a new Wifi which can be used for entering the connection details of the WIFI which should be used.
+     */
+
+    #include "Arduino.h"
+    #include <WiFiManager.h>
+
+    WiFiManager wifiManager;
+
+    void setup()
+    {
+      // initialize LED digital pin as an output.
+      pinMode(LED_BUILTIN, OUTPUT);
+
+      Serial.begin(115200);
+      Serial.println("Starting program");
+
+      //Because we want to have a secured device, we are using a default password
+      wifiManager.autoConnect("TEST1", "test123");  
+    }
+
+    void loop()
+    {
+      //Nothing to do here
+      delay(1000); 
+    }
 
 ## Anbindung des Wassersensors und Motors?
 
