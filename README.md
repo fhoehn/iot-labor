@@ -484,11 +484,11 @@ Um eine einfache Oberfläche für die Blockchain zu erhalten nutzen wir ein weit
 
 Als nächstes muss die Software eingerichtet werden. Als erstes öffnen wir dazu die zuvor installierte Applikation Ganache. Dort erstellen wir einen neuen Workspace und verbinden uns mit dem Server (in unserem Fall lokal, die Blockchain kann aber auch auf einem Seperaten Server installiert werden). 
 
-    ![Screenshot Ganache Serverkonfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/ganache/ganacheServerConfiguration.PNG?raw=true "Serverkonfiguration")
+![Screenshot Ganache Serverkonfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/ganache/ganacheServerConfiguration.PNG?raw=true "Serverkonfiguration")
 
 Nach dem Speichern des Workspaces öffnet sich eine Liste der aktuellen Accounts, wie sie in der Blockchain momentan hinterlegt sind. 
 
-    ![Screenshot Accounts in Ganache](https://github.com/fhoehn/iot-labor/blob/master/images/ganache/ganacheListWithAccounts.PNG?raw=true "Liste der Accounts mit ihrem aktuellen Guthaben")
+![Screenshot Accounts in Ganache](https://github.com/fhoehn/iot-labor/blob/master/images/ganache/ganacheListWithAccounts.PNG?raw=true "Liste der Accounts mit ihrem aktuellen Guthaben")
 
 
 ## Smart-Contract implementieren
