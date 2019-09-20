@@ -150,19 +150,19 @@ Basierend auf dem erstellten Python-Programm für das Auslesen der UIDs, wird al
     
     1. Der zu erstellende Flow weist eine MQTT-Eingabe mit einer Verbindungen zu einer Debug-Ausgabe auf. Diese beiden Bauteile können per Drag and Drop von der Toolbox eingefügt und miteinander vernunden werden. 
     
-    #TODO[Add Image here]
+        ![Screenshot des ersten Flows](https://github.com/fhoehn/iot-labor/blob/master/images/nodeRED/firstFlow.PNG?raw=true "Erstellter Flow mit Ein- und Ausgabe")
 
-    1. Im nächsten Schritt muss der MQTT-Server eingestellt werden. Dies kann in den Eigenschaften des Inputs erfolgen. 
+    2. Im nächsten Schritt muss der MQTT-Server eingestellt werden. Dies kann in den Eigenschaften des Inputs erfolgen. 
    
-    #TODO[Add Image here]
+        ![Screenshot Server Einstellen](https://github.com/fhoehn/iot-labor/blob/master/images/nodeRED/configMqttNode.PNG?raw=true "Einstellen des MQTT-Servers")
 
-    1. Das Topic der Eingabe muss ebenfalls festgelegt werden. Dazu wird in den Eigenschaften der der MQTT-Eingabe das Topic "/nfc/1" angelegt.
+    3. Das Topic der Eingabe muss ebenfalls festgelegt werden. Dazu wird in den Eigenschaften der der MQTT-Eingabe das Topic "/nfc/1" angelegt.
    
-    #TODO[Add Image here]
+        ![Screenshot des Topics](https://github.com/fhoehn/iot-labor/blob/master/images/nodeRED/configMqttInput.PNG?raw=true "Topic Eingabe")
 
-    1. Anschließend muss der erstellte Flow auf den Raspberry eingespielt werden. Hierbei ist zu beachten, dass jede Änderung ein erneutes deployen voraussetzt.
+    4. Anschließend muss der erstellte Flow auf den Raspberry eingespielt werden. Hierbei ist zu beachten, dass jede Änderung ein erneutes deployen voraussetzt.
 
-    #TODO[Add Image here]
+        ![Screenshot des Deploy-Buttons](https://github.com/fhoehn/iot-labor/blob/master/images/nodeRED/deployFlow.PNG?raw=true "Deploy Flow")
 
 4. Übertragung von Daten an den MQTT Broker
 
