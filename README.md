@@ -455,3 +455,48 @@ Die neuen Sensordaten werden alle 5 Sekunden an MQTT geschickt. Ebenso werden al
 # Tag 2 Einbindung mit OpenHab
    
 Am zweiten Tag
+
+
+# Tag 3 Blockchain Integration
+
+Nachdem in den vorherigen Teilen verschiedene Sensoren mittels MQTT miteinander verbunden werden konnten, soll nun eine Blockchain Integration durchgeführt werden. Ziel dieses Teils ist die Einbindung von Smart-Contracts zur Schaltung von Sensoren. In unserem Beispiel soll ein Smart-Contract entwickelt werden, der dem Nutzer, welche die Lampe abhängig vom Wassersensor schalten möchte, ein bestimmter Geldbetrag in Rechnug gestellt werden. 
+Um diese Scenario umsetzen zu können sollen die Smart-Contracts von Etherium eingesetzt werden. Sobald ein Nutzer seine NFC-Karte auf den Sensor legt, soll geschaut werden, ob der Nutzer noch genung Guthaben hat. Wenn dies der Fall ist soll im das Geld abgebucht und auf ein anderes Konto (dem Betreiber) zugeschrieben werden. Danach soll die Lampe geschaltet werden. 
+
+## Installation
+
+Um eine eigene Blockchain zum Testen bereitstellen zu können, soll Truffle eingesetzt werden. Truffle hilft den Entwicklern auf einfache Art und Weise Smart-Contracts for Etherium zu erstellen und zu testen. Die Installation von Truffle und Co. findet diesmal jedoch nicht auf dem Raspberry statt, sondern wird in unserem Fall auf einem seperaten Rechner bereitgestellt. 
+
+### Node.js installiern
+
+Bevor mit der Installation von Truffle begonnen werden kann, muss jedoch Node.js installiert werden. Dazu laden wir die neuste Version von [Node.js.](https://nodejs.org/download) herunter und installieren diese. 
+
+### Truffle installieren
+
+Als nächstes muss [Truffle](https://www.trufflesuite.com/) installiert werden. Dazu führen wir folgenden Befehl über NPM aus:
+
+    npm install truffle -g
+
+### Ganache installieren
+
+Um eine einfache Oberfläche für die Blockchain zu erhalten nutzen wir ein weiters Tool mit dem Namen [Ganache](https://www.trufflesuite.com/ganache). Diese laden wir uns von der Webseite herunter und installieren es. 
+
+## Einrichten
+
+Als nächstes muss die Software eingerichtet werden. Als erstes öffnen wir dazu die zuvor installierte Applikation Ganache. Dort erstellen wir einen neuen Workspace und verbinden uns mit dem Server (in unserem Fall lokal, die Blockchain kann aber auch auf einem Seperaten Server installiert werden). 
+
+    ![Screenshot Ganache Serverkonfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/ganache/ganacheServerConfiguration.PNG?raw=true "Serverkonfiguration")
+
+Nach dem Speichern des Workspaces öffnet sich eine Liste der aktuellen Accounts, wie sie in der Blockchain momentan hinterlegt sind. 
+
+    ![Screenshot Accounts in Ganache](https://github.com/fhoehn/iot-labor/blob/master/images/ganache/ganacheListWithAccounts.PNG?raw=true "Liste der Accounts mit ihrem aktuellen Guthaben")
+
+
+## Smart-Contract implementieren
+
+Hier ein Beispiel wie wir einen Smart-Contract implementiert haben
+
+## Blockchain in IOT-Netz einbinden
+
+Hier dann noch Code wie man aus dem Python Programm auf die Blockchain Zugreift
+
+
