@@ -222,10 +222,29 @@ Der nächste Abschnitt des Laborversuchs befasst sich mit dem Anschluss eines Ar
    
     Nachdem der richtige Treiber installiert wurde, wird ein Beispielprojekt auf den Arduino aufgespielt. 
 
-    #TODO[Add example project URL]
+    /*
+    * Blink
+    * Turns on an LED on for one second,
+    * then off for one second, repeatedly.
+    */
 
-    #TODO[Add example project code]
+    #include "Arduino.h"
 
+    void setup()
+    {
+
+    pinMode(13, OUTPUT);
+    }
+
+    void loop()
+    {
+        digitalWrite(13, HIGH);
+        delay(1000);
+        digitalWrite(13, LOW);
+        delay(1000);
+    }
+
+    Das Beispielprojekt bringt die eingebaute LED des Arduino zum Blinken. Jede Sekunde wechselt es zwischen an und aus.
     
 ## Aufbau einer WLAN-Verbindung für den Arduino
    
