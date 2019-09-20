@@ -450,6 +450,7 @@ Nun sollen die Daten des Wasserseonsor verarbeitet werden. Im ersten Schritt sol
         delay(5000); 
     }
 
+Die neuen Sensordaten werden alle 5 Sekunden an MQTT geschickt. Ebenso werden alle 5 Sekunden die neuen Nachrichten überprüft. Wenn neue Nachrichten vorhanden sind, werden diese ausgegeben. Wenn das erste Zeichen der empfangenen Nachricht eine 1 ist, wird die eingebaute LED des Arduinos eingeschaltet. Andererseits wird diese ausgeschaltet. Um eine dauerhafte Verbindung mit MQTT zu haben, wird allle 5 Sekunden überprüft ob eine Verbindung zum MQTT-Server vorhanden ist. Wenn dies nicht der Fall ist, wird versucht eine neue Verbindung aufzubauen. Um das Programm nutzen zu können, müssen die Nutzerdaten des WLANs in der Setup-Method eingetragen werden. Diese wurden aus Sicherheitsgründen in diesem Beispiel entfernt. 
 
 # Tag 2 Einbindung mit OpenHab
    
