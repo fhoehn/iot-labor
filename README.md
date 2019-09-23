@@ -488,7 +488,7 @@ Allerdings scheiterte die Installation des OpenHab-Pakets erneut, da das Paket a
 
 Anschließend kann die OpenHab-Seite über die Ip und den Port 8080 aufgerufen werden. Da der Port 8080 bereits von einer anderen Anwendung belegt war, musste der Port umgeändert werden. Die Änderung des Ports kann durch eine Anpassung der Konfigurationsdatei, die auf dem Verzeichnis etc/default abgelegt ist, erfolgen.
 
-![Screenshot OpenHab Add-Ons Installation](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/AddHueBinding.PNG?raw=true "Installation eines Hue Bindings")
+![Screenshot OpenHab Add-Ons Installation](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/AddHueBinding.png?raw=true "Installation eines Hue Bindings")
 
 ## Anbindung einer Hue Bridge und Hue Lampen
 
