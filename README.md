@@ -655,6 +655,66 @@ Zu berücksichtigen ist, dass dafür Python mit der Version 2.7 benötigt wird. 
 
 ### Integration der Blockchain
 
+Nach der Installation der benötigten Bibliotheken, kann mit der Integration der Blockchain in das IOT-Scenario begonnen werden. Dazu erstellen wir auf dem PC eine neue Javascript-Datei. In dieser fügen wir nun das Programm hinzu, dass die Integration zwischen Blockchain und IOT-Netz durchführen soll. Das Programm soll sich mit der Blockchain und MQTT verbinden und bei neuen Nachrichten den Smart-Contract der Blockchain ausführen. Dazu nutzen wir folgenden Code:
+
+    var mqtt    = require('mqtt');
+    const Web3 = require('web3');
+
+    const web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"));
+
+    var client  = mqtt.connect("mqtt://10.0.1.53",{clientId:"mqttjs01"});
+    console.log("connected flag  " + client.connected);
+
+    //handle incoming messages
+    client.on('message',function(topic, message, packet){
+        console.log("message is "+ message);
+        console.log("topic is "+ topic);
+        executedSmartContractAsync();
+    });
+
+    //handle connected
+    client.on("connect",function(){	
+        console.log("connected  "+ client.connected);
+    });
+    //handle errors
+    client.on("error",function(error){
+        console.log("Can't connect" + error);
+        process.exit(1);
+    });
+
+
+    var options={
+        retain:true,
+        qos:1
+    };
+
+    var topic="/water/out";
+    console.log("subscribing to topics");
+    client.subscribe(topic,{qos:1});
+
+
+    var fs = require('fs');
+    var json = JSON.parse(fs.readFileSync('C:/Users/fhoeh/git/ethereum/build/contracts/Light_New.json').toString());
+    var abi = json['abi'];
+
+    async function executedSmartContractAsync()
+    {
+        contract = new web3.eth.Contract(abi, "0x1B214466430f5Bf1D92fD60c506c15C5879d66f9");
+        console.log(contract);
+        let returnedMessage = await contract.methods.getMessage().call();
+        
+        console.log("Contract answered: ",returnedMessage);
+    }
+    executedSmartContractAsync();
+
+    console.log("end of script");
+
+Zuerst werden die Module MQTT und Web3 geladen. Dann stellen wir eine Verbindung mit der lokalen Blockchain mit der Hilfe von Web3 her. Danach wird eine Verbindung über MQTT mit dem Rapsberry aufgebaut. Bei eingehenden Nachrichten sollen diese zuerst auf der Konsole ausgegeben und dann die executedSmartContractAsync()-Methode ausgefürht werden. Um auf eingehende Sensordaten reagieren zu können, subscribed sich das Programm auf das Topic "/water/out". Bevor der Smart-Contract ausgehführt werden kann, muss die ABI (Application binrary interface) des Smart-Contracts eingelesen werden. Diese wird benötigt, um auf die Schnittstelle zugreifen zu können. Die ABI wurde dabei während der Compilierung des Smart-Contracts erstellt und im Build-Verzeichniss abgelegt. Diese wird nun eingelesen, und genutzt. 
+Durch die ABI kann nun auf die getMessage()-Methode des Smart-Contracts zugegriffen werden. 
+Wenn das Programm nun gestartet wird und neue Sensordaten über MQTT erhalten werden, wird der Smart-Contract ausgeführt und auf der Console folgendes ausgegeben:
+
+    Contract answered: Hello World
+
 
 ## Ausblick/Beschreibung des angestrebten Smart Contracts-Szenarios
 
