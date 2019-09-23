@@ -488,12 +488,90 @@ Allerdings scheiterte die Installation des OpenHab-Pakets erneut, da das Paket a
 
 Anschließend kann die OpenHab-Seite über die Ip und den Port 8080 aufgerufen werden. Da der Port 8080 bereits von einer anderen Anwendung belegt war, musste der Port umgeändert werden. Die Änderung des Ports kann durch eine Anpassung der Konfigurationsdatei, die auf dem Verzeichnis etc/default abgelegt ist, erfolgen.
 
+
+## Anbindung einer Hue Bridge und Hue Lampe
+
+Im nächsten Abschnitt des Laborversuchs wurden den Studenten vom Dozenten mit OpenHab anzubindende Geräte vorgestellt. Für die Durchführung des hier dargestellten Laborversuchs, fiel die Wahl auf die Hue Bridge und die Hue Lam-pe. Die Hue Bridge verfügt über keine WLAN-Funktion, weshalb ein Ethernet Kabel an das Gerät angeschlossen wird. Anschließend kann die Anbindung der Hue Bridge mit OpenHab und der Steuerung der Hue Lampen erfolgen. Für die Anbindung der Hue Bridge muss im OpenHab die PaperUI aufgerufen werden und anschließend über den Reiter Add Ons das Binding „Hue Binding“ installiert werden. Die nachfolgende Abbildung visualisiert das Hinzufügen des Hue Bindings:
 ![Screenshot OpenHab Add-Ons Installation](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/AddHueBinding.png?raw=true "Installation eines Hue Bindings")
 
-## Anbindung einer Hue Bridge und Hue Lampen
+Anschließend werden unter dem Reiter „inbox“ alle für die Kopplung verfügbaren Geräte angezeigt:
 
-Im nächsten Abschnitt des Laborversuchs wurden den Studenten vom Dozenten mit OpenHab anzubindende Geräte vorgestellt. Für die Durchführung des hier dargestellten Laborversuchs, fiel die Wahl auf die Hue Bridge und die Hue Lam-pe. Die Hue Bridge verfügt über keine WLAN-Funktion, weshalb ein Ethernet Kabel an das Gerät angeschlossen wird. Anschließend kann die Anbindung der Hue Bridge mit OpenHab und der Steuerung der Hue Lampen erfolgen. Für die Anbindung der Hue Bridge muss im OpenHab die PaperUI aufgerufen werden und anschließend über den Reiter Add Ons das Binding „Hue Binding“ installiert werden.
+![Screenshot OpenHab Inbox-Übersicht](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Inbox.png?raw=true "Übersicht der anzukoppelnden Geräte")
 
+Alle verfügbaren Things stehen nach Betätigung der Häkchen über den Reiter „Configuration“ zur Konfiguration zur Verfügung:
+
+![Screenshot OpenHab Configuration_Things-Übersicht](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Configuration_Things2.png?raw=true "Übersicht der konfigurierbaren Things")
+
+Für die Anbindung und Steuerung des Things ist ein Channel und ein Item zu konfigurieren. Dies kann durch ein Doppelklick auf dem entsprechenden Thing erfolgen. In der aufgepoppten Channelkonfiguration ist anschließend ein Channelname, Label und der Typ des Channels zu definieren. Zur Verdeutlichung wird im Folgenden eine Beispiel Channelkonfiguration veranschaulicht:
+
+![Screenshot OpenHab Channel-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Link_Channel.png?raw=true "Beispielhafte Channel-Konfiguration")
+
+Nach Betätigung des im rechten unteren Rand befindlichen „Link“-Buttons, steht das zu steuernde Thing im Reiter Control zur Steuerung zur Verfügung:
+
+![Screenshot OpenHab Control-Übersicht](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Overview_Control.png?raw=true "Übersicht der steuerbaren Things")
+
+Als nächstes sollte die Steuerung der Lampe über das Kommunikationsprotokoll „MQTT“ umgesetzt werden. Ziel war es, die Lampe, abhängig vom ermittelten Feuchtigkeitswert durch den Wassersensor, zu dimmen.
+Für die Kommunikation über MQTT kann das auf OpenHab verfügbare MQTT-Binding genutzt werden. Die Installation wird erneut über den Reiter „Add-Ons“ umgesetzt. Als nächstes ist unter dem Reiter „Inbox“ ein neuer Eintrag zu erstel-len, der zu folgenden Auswahlmöglichkeiten führt:
+
+![Screenshot OpenHab MQTT Thing Binding-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Options_MQTT_ThingBinding.png?raw=true "Konfigurationsmöglichkeiten vom MQTT-Binding")
+
+Für den oben genannten Anwendungsfall werden lediglich ein MQTT Broker und ein Generic MQTT Thing benötigt. Dementsprechend wird als erstes ein MQTT Broker erstellt. Dem Broker ist ein Name und die IP-Adresse des Raspberry Pis zu übergeben. Als Port wird die 1883 gewählt. Die hier beschriebenen Brokereinstel-lungen sind der nächsten Abbildung zu entnehmen:
+
+![Screenshot OpenHab MQTT Broker-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Configuration_MQTT_Broker.png?raw=true "Konfiguration eines MQTT-Brokers")
+
+Nachdem der MQTT Broker konfiguriert ist, ist anschließend noch ein Generic MQTT Thing zu erstellen. Diesem Thing ist anschließend ein Name zu übergeben und einem Broker zuzuweisen. Nach diesen beiden Schritten, können dem neu angelegten MQTT Thing mehrere Channels zugewiesen werden. Für diesen Chan-nel werden folgende Angaben vergeben:
+
+    •	Channel Typ: Erwartetes Rückgabeformat (beispielsweise text value)
+    •	Channel ID: Gibt an unter welchem Namen  
+    •	MQTT Topic: Als Topic wird der beim Auslesen des Wassersensors ver-wendete topic „/water/out“ gewählt
+
+Um nun die Lampenbeleuchtung über MQTT zu steuern, muss eine Regel unter etc/openhab2/rules/default.rules erstellt und beispielsweise mit dem folgenden Code versehen werden:
+
+    rule "Water_Lamp_on"
+    when
+            Item GernericMQTTThing_ changed
+    then
+            if(GenericMQTTThing_.state > 100){
+                    Lamp1.sendCommand(ON)
+            }
+            if(GenericMQTTThing_.state <= 100){
+                    Lamp1.sendCommand(OFF)
+            }
+    end
+
+Hierbei wird definiert, dass sobald der Wassersensor einen Wert über 100 an das MQTT Thing übergibt, die Lampe eingeschaltet wird. Bei einem darunter liegen-dem Wert wird die Lampe ausgeschaltet. Der Name des zu steuernden Things, kann beispielsweise über den Aufruf der Openhab-log ermittelt werden:
+
+    Openhab-cli showlogs
+#TO Change
+Im nächsten Schritt wurde der Laborversuch dahingehend ergänzt, dass eine dimmbare Lampe angebunden wurde. Abhängig von dem ausgegebenen Was-sersensor-Wert sollte die Lampenhelligkeit um einen entsprechenden prozentualen Wert verringert oder gesteigert werden. Eine zusätzliche Bedingung ist, dass ein autorisierter Benutzer diesen Vorgang auslöst. Dieser Anwendungsfall lässt sich mit einer spezifischen ID einer NFC-Karte umsetzen. Für die Implementierung diesen Anwendungsfall musste die Regel folgendermaßen erweitert werden:
+
+    rule "Water_Lamp_on"
+    when
+            Item GernericMQTTThing_ changed
+    then
+            if(GenericMQTTThing_.state > 200){
+                    Lamp1.sendCommand("100%")
+            }
+            if(GenericMQTTThing_.state <= 199){
+                    Lamp1.sendCommand(50%)
+            }
+    end
+
+    rule "Water_Lamp_on_2"
+    when
+            Item MyNFCThing_ changed
+    then
+            if(MyNFCThing_.state == '043E436A643481'){
+                    Lamp2.sendCommand("ON")
+            }
+            else{
+                    Lamp2.sendCommand(OFF)
+            }
+    end
+
+Die folgende Abbildung zeigt die prozentuale Änderung der Lampenbeleuchtung an. Für diesen Versuch wurde der Wassersensor im Wechsel befeuchtet und ge-trocknet. Zusätzlich wird die Beleuchtungsänderung nur geändert, sofern die rich-tige NFC-Karte an den NFC-Lesegeräte gehalten wurde:
+
+![Screenshot OpenHab MQTT Broker-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Configuration_MQTT_Broker.png?raw=true "Konfiguration eines MQTT-Brokers")
 
 # Tag 3 Blockchain Integration
 
