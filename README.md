@@ -454,7 +454,7 @@ Die neuen Sensordaten werden alle 5 Sekunden an MQTT geschickt. Ebenso werden al
 
 # Tag 2 OpenHab Integration
    
-Im nächsten Schritt wird der Laborversuch um die Software „OpenHab“ ergänzt, mit dessen Hilfe die Realisierung einer  Homeautomatisierung ermöglicht wird. Dies erfolgt beispielsweise dadurch, dass eine Vielzahl von Bibliotheken mitgelie-fert wird. Die Architektur von OpenHab weist einen skalierfähigen Charakter auf und lässt sich mit einem Baukasten vergleichen, da unterschiedliche Technologien und Systeme an die Architektur angebunden werden können. 
+Im nächsten Schritt wird der Laborversuch um die Software „OpenHab“ ergänzt, mit dessen Hilfe die Realisierung einer  Homeautomatisierung ermöglicht wird. Dies erfolgt beispielsweise dadurch, dass eine Vielzahl von Bibliotheken mitgeliefert wird. Die Architektur von OpenHab weist einen skalierfähigen Charakter auf und lässt sich mit einem Baukasten vergleichen, da unterschiedliche Technologien und Systeme an die Architektur angebunden werden können. 
 
 ## Installation
 
@@ -462,7 +462,7 @@ Für die Installation bietet OpenHab eine [Installationsanleitung auf ihrer Webs
 
     wget -qO - 'https://bintray.com/user/downloadSubjectPublicKey?username=openhab' | sudo apt-key add
 
-Im nächsten Schritt wird für das Advanced Packacking Tool (APT) der HTTPS-transport aktiviert:
+Im nächsten Schritt wird für das Advanced Packacking Tool (APT) der HTTPS-Transport aktiviert:
 
     sudo apt-get install apt-transport-https
 
@@ -482,7 +482,7 @@ Nachdem diese Schritte durchgeführt wurden, hat sich unter Zunahme [einer weite
 
     sudo apt-get update && sudo apt-get install open-java8-jdk
 
-Allerdings scheiterte die Installation des OpenHab-Pakets erneut, da das Paket als eine unsichere Paketinstallation angesehen wird. Dementsprechend war das Hin-zufügen des Repositories mit dem Zusatz [trusted=yes] zu versehen. Auf dieser Weise wird allen Quellen in diesem Repository vertraut. Der mit diesem Zusatz angereicherte Befehl lässt sich wie folgt aufschlüsseln:
+Allerdings scheiterte die Installation des OpenHab-Pakets erneut, da das Paket als eine unsichere Paketinstallation angesehen wird. Dementsprechend war das Hinzufügen des Repositories mit dem Zusatz [trusted=yes] zu versehen. Auf dieser Weise wird allen Quellen in diesem Repository vertraut. Der mit diesem Zusatz angereicherte Befehl lässt sich wie folgt aufschlüsseln:
 
     echo 'deb [trusted=yes] https://dl.bintray.com/openhab/apt-repo2 stable main' | sudo tee /etc/apt/sources.list.d/openhab2.list
 
@@ -491,7 +491,7 @@ Anschließend kann die OpenHab-Seite über die Ip und den Port 8080 aufgerufen w
 
 ## Anbindung einer Hue Bridge und Hue Lampe
 
-Im nächsten Abschnitt des Laborversuchs wurden den Studenten vom Dozenten mit OpenHab anzubindende Geräte vorgestellt. Für die Durchführung des hier dargestellten Laborversuchs, fiel die Wahl auf die Hue Bridge und die Hue Lam-pe. Die Hue Bridge verfügt über keine WLAN-Funktion, weshalb ein Ethernet Kabel an das Gerät angeschlossen wird. Anschließend kann die Anbindung der Hue Bridge mit OpenHab und der Steuerung der Hue Lampen erfolgen. Für die Anbindung der Hue Bridge muss im OpenHab die PaperUI aufgerufen werden und anschließend über den Reiter Add Ons das Binding „Hue Binding“ installiert werden. Die nachfolgende Abbildung visualisiert das Hinzufügen des Hue Bindings:
+Im nächsten Abschnitt des Laborversuchs wurden den Studenten vom Dozenten mit OpenHab anzubindende Geräte vorgestellt. Für die Durchführung des hier dargestellten Laborversuchs, fiel die Wahl auf die Hue Bridge und die Hue Lampe. Die Hue Bridge verfügt über keine WLAN-Funktion, weshalb ein Ethernet Kabel an das Gerät angeschlossen wird. Anschließend kann die Anbindung der Hue Bridge mit OpenHab und der Steuerung der Hue Lampen erfolgen. Für die Anbindung der Hue Bridge muss im OpenHab die PaperUI aufgerufen werden und anschließend über den Reiter Add Ons das Binding „Hue Binding“ installiert werden. Die nachfolgende Abbildung visualisiert das Hinzufügen des Hue Bindings:
 ![Screenshot OpenHab Add-Ons Installation](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/AddHueBinding.png?raw=true "Installation eines Hue Bindings")
 
 Anschließend werden unter dem Reiter „inbox“ alle für die Kopplung verfügbaren Geräte angezeigt:
@@ -511,7 +511,7 @@ Nach Betätigung des im rechten unteren Rand befindlichen „Link“-Buttons, st
 ![Screenshot OpenHab Control-Übersicht](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Overview_Control.png?raw=true "Übersicht der steuerbaren Things")
 
 Als nächstes sollte die Steuerung der Lampe über das Kommunikationsprotokoll „MQTT“ umgesetzt werden. Ziel war es, die Lampe, abhängig vom ermittelten Feuchtigkeitswert durch den Wassersensor, zu dimmen.
-Für die Kommunikation über MQTT kann das auf OpenHab verfügbare MQTT-Binding genutzt werden. Die Installation wird erneut über den Reiter „Add-Ons“ umgesetzt. Als nächstes ist unter dem Reiter „Inbox“ ein neuer Eintrag zu erstel-len, der zu folgenden Auswahlmöglichkeiten führt:
+Für die Kommunikation über MQTT kann das auf OpenHab verfügbare MQTT-Binding genutzt werden. Die Installation wird erneut über den Reiter „Add-Ons“ umgesetzt. Als nächstes ist unter dem Reiter „Inbox“ ein neuer Eintrag zu erstellen, der zu folgenden Auswahlmöglichkeiten führt:
 
 ![Screenshot OpenHab MQTT Thing Binding-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Options_MQTT_ThingBinding.png?raw=true "Konfigurationsmöglichkeiten vom MQTT-Binding")
 
@@ -519,11 +519,11 @@ Für den oben genannten Anwendungsfall werden lediglich ein MQTT Broker und ein 
 
 ![Screenshot OpenHab MQTT Broker-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Configuration_MQTT_Broker.png?raw=true "Konfiguration eines MQTT-Brokers")
 
-Nachdem der MQTT Broker konfiguriert ist, ist anschließend noch ein Generic MQTT Thing zu erstellen. Diesem Thing ist anschließend ein Name zu übergeben und einem Broker zuzuweisen. Nach diesen beiden Schritten, können dem neu angelegten MQTT Thing mehrere Channels zugewiesen werden. Für diesen Chan-nel werden folgende Angaben vergeben:
+Nachdem der MQTT Broker konfiguriert ist, ist anschließend noch ein Generic MQTT Thing zu erstellen. Diesem Thing ist anschließend ein Name zu übergeben und einem Broker zuzuweisen. Nach diesen beiden Schritten, können dem neu angelegten MQTT Thing mehrere Channels zugewiesen werden. Für diesen Channel werden folgende Angaben vergeben:
 
     •	Channel Typ: Erwartetes Rückgabeformat (beispielsweise text value)
     •	Channel ID: Gibt an unter welchem Namen  
-    •	MQTT Topic: Als Topic wird der beim Auslesen des Wassersensors ver-wendete topic „/water/out“ gewählt
+    •	MQTT Topic: Als Topic wird der beim Auslesen des Wassersensors verwendete topic „/water/out“ gewählt
 
 Um nun die Lampenbeleuchtung über MQTT zu steuern, muss eine Regel unter etc/openhab2/rules/default.rules erstellt und beispielsweise mit dem folgenden Code versehen werden:
 
@@ -543,7 +543,7 @@ Hierbei wird definiert, dass sobald der Wassersensor einen Wert über 100 an das
 
     Openhab-cli showlogs
 #TO Change
-Im nächsten Schritt wurde der Laborversuch dahingehend ergänzt, dass eine dimmbare Lampe angebunden wurde. Abhängig von dem ausgegebenen Was-sersensor-Wert sollte die Lampenhelligkeit um einen entsprechenden prozentualen Wert verringert oder gesteigert werden. Eine zusätzliche Bedingung ist, dass ein autorisierter Benutzer diesen Vorgang auslöst. Dieser Anwendungsfall lässt sich mit einer spezifischen ID einer NFC-Karte umsetzen. Für die Implementierung diesen Anwendungsfall musste die Regel folgendermaßen erweitert werden:
+Im nächsten Schritt wurde der Laborversuch dahingehend ergänzt, dass eine dimmbare Lampe angebunden wurde. Abhängig von dem ausgegebenen Wassersensor-Wert sollte die Lampenhelligkeit um einen entsprechenden prozentualen Wert verringert oder gesteigert werden. Eine zusätzliche Bedingung ist, dass ein autorisierter Benutzer diesen Vorgang auslöst. Dieser Anwendungsfall lässt sich mit einer spezifischen ID einer NFC-Karte umsetzen. Für die Implementierung diesen Anwendungsfall musste die Regel folgendermaßen erweitert werden:
 
     rule "Water_Lamp_on"
     when
@@ -569,7 +569,7 @@ Im nächsten Schritt wurde der Laborversuch dahingehend ergänzt, dass eine dimm
             }
     end
 
-Die folgende Abbildung zeigt die prozentuale Änderung der Lampenbeleuchtung an. Für diesen Versuch wurde der Wassersensor im Wechsel befeuchtet und getrocknet. Zusätzlich wird die Beleuchtungsänderung nur geändert, sofern die rich-tige NFC-Karte an den NFC-Lesegeräte gehalten wurde:
+Die folgende Abbildung zeigt die prozentuale Änderung der Lampenbeleuchtung an. Für diesen Versuch wurde der Wassersensor im Wechsel befeuchtet und getrocknet. Zusätzlich wird die Beleuchtungsänderung nur geändert, sofern die richtige NFC-Karte an das NFC-Lesegerät gehalten wurde:
 
 ![Screenshot OpenHab Finale Control-Übersicht](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Overview_Controloptions.png?raw=true "Übersicht der Control-Items")
 
