@@ -452,9 +452,47 @@ Nun sollen die Daten des Wasserseonsor verarbeitet werden. Im ersten Schritt sol
 
 Die neuen Sensordaten werden alle 5 Sekunden an MQTT geschickt. Ebenso werden alle 5 Sekunden die neuen Nachrichten überprüft. Wenn neue Nachrichten vorhanden sind, werden diese ausgegeben. Wenn das erste Zeichen der empfangenen Nachricht eine 1 ist, wird die eingebaute LED des Arduinos eingeschaltet. Andererseits wird diese ausgeschaltet. Um eine dauerhafte Verbindung mit MQTT zu haben, wird allle 5 Sekunden überprüft ob eine Verbindung zum MQTT-Server vorhanden ist. Wenn dies nicht der Fall ist, wird versucht eine neue Verbindung aufzubauen. Um das Programm nutzen zu können, müssen die Nutzerdaten des WLANs in der Setup-Method eingetragen werden. Diese wurden aus Sicherheitsgründen in diesem Beispiel entfernt. 
 
-# Tag 2 Einbindung mit OpenHab
+# Tag 2 OpenHab Integration
    
-Am zweiten Tag
+Im nächsten Schritt wird der Laborversuch um die Software „OpenHab“ ergänzt, mit dessen Hilfe die Realisierung einer  Homeautomatisierung ermöglicht wird. Dies erfolgt beispielsweise dadurch, dass eine Vielzahl von Bibliotheken mitgelie-fert wird. Die Architektur von OpenHab weist einen skalierfähigen Charakter auf und lässt sich mit einem Baukasten vergleichen, da unterschiedliche Technologien und Systeme an die Architektur angebunden werden können. 
+
+## Installation
+
+Für die Installation bietet OpenHab eine [Installationsanleitung auf ihrer Website](https://www.openhab.org/download/) an. Im Rahmen der Installation wird zunächst der Repository Key hinzugefügt und auf dem Raspberry der folgende Befehl ausgeführt.
+
+    wget -qO - 'https://bintray.com/user/downloadSubjectPublicKey?username=openhab' | sudo apt-key add
+
+Im nächsten Schritt wurd für das Advanced Packacking Tool (APT) der HTTPS-transport aktiviert:
+
+    sudo apt-get install apt-transport-https
+
+Zudem wird auf dem Raspberry das OpenHab Repository hinzugefügt:
+
+    echo 'deb https://dl.bintray.com/openhab/apt-repo2 stable main' | sudo tee /etc/apt/sources.list.d/openhab2.list
+
+Anschließend erfolgt eine Aktualisierung des APT-Pakets auf dem aktuellsten Stand und das OpenHab Distribution Paket wird installiert:
+
+    sudo apt-get update && sudo apt-get install openhab2
+
+Zusätzlich sind die OpenHab-AddOns zu installieren:
+
+    sudo apt-get install openhab2-addons
+
+Nachdem diese Schritte durchgeführt wurden, hat sich unter Zunahme [einer weiteren Installationsanleitung](https://www.openhab.org/docs/installation/linux.html) ergeben, dass die Installation einen installierten Java JDK 8 voraussetzt. Dementsprechend erfolgte die Installation des Java JDK 8s über folgende Kommandozeile:
+
+    sudo apt-get update && sudo apt-get install open-java8-jdk
+
+Allerdings scheiterte die Installation des OpenHab-Pakets erneut, da das Paket als eine unsichere Paketinstallation angesehen wird. Dementsprechend war das Hin-zufügen des Repositories mit dem Zusatz [trusted=yes] zu versehen. Auf dieser Weise wird allen Quellen in diesem Repository vertraut. Der mit diesem Zusatz angereicherte Befehl lässt sich wie folgt aufschlüsseln:
+
+    echo 'deb [trusted=yes] https://dl.bintray.com/openhab/apt-repo2 stable main' | sudo tee /etc/apt/sources.list.d/openhab2.list
+
+Anschließend kann die OpenHab-Seite über die Ip und den Port 8080 aufgerufen werden. Da der Port 8080 bereits von einer anderen Anwendung belegt war, musste der Port umgeändert werden. Die Änderung des Ports kann durch eine Anpassung der Konfigurationsdatei, die auf dem Verzeichnis etc/default abgelegt ist, erfolgen.
+
+![Screenshot OpenHab Add-Ons Installation](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/AddHueBinding.PNG?raw=true "Installation eines Hue Bindings")
+
+## Anbindung einer Hue Bridge und Hue Lampen
+
+Im nächsten Abschnitt des Laborversuchs wurden den Studenten vom Dozenten mit OpenHab anzubindende Geräte vorgestellt. Für die Durchführung des hier dargestellten Laborversuchs, fiel die Wahl auf die Hue Bridge und die Hue Lam-pe. Die Hue Bridge verfügt über keine WLAN-Funktion, weshalb ein Ethernet Kabel an das Gerät angeschlossen wird. Anschließend kann die Anbindung der Hue Bridge mit OpenHab und der Steuerung der Hue Lampen erfolgen. Für die Anbindung der Hue Bridge muss im OpenHab die PaperUI aufgerufen werden und anschließend über den Reiter Add Ons das Binding „Hue Binding“ installiert werden.
 
 
 # Tag 3 Blockchain Integration
