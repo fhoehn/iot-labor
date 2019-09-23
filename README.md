@@ -569,9 +569,9 @@ Im nächsten Schritt wurde der Laborversuch dahingehend ergänzt, dass eine dimm
             }
     end
 
-Die folgende Abbildung zeigt die prozentuale Änderung der Lampenbeleuchtung an. Für diesen Versuch wurde der Wassersensor im Wechsel befeuchtet und ge-trocknet. Zusätzlich wird die Beleuchtungsänderung nur geändert, sofern die rich-tige NFC-Karte an den NFC-Lesegeräte gehalten wurde:
+Die folgende Abbildung zeigt die prozentuale Änderung der Lampenbeleuchtung an. Für diesen Versuch wurde der Wassersensor im Wechsel befeuchtet und getrocknet. Zusätzlich wird die Beleuchtungsänderung nur geändert, sofern die rich-tige NFC-Karte an den NFC-Lesegeräte gehalten wurde:
 
-![Screenshot OpenHab MQTT Broker-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Configuration_MQTT_Broker.png?raw=true "Konfiguration eines MQTT-Brokers")
+![Screenshot OpenHab Finale Control-Übersicht](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Overview_Controloptions.png?raw=true "Übersicht der Control-Items")
 
 # Tag 3 Blockchain Integration
 
