@@ -462,7 +462,7 @@ Für die Installation bietet OpenHab eine [Installationsanleitung auf ihrer Webs
 
     wget -qO - 'https://bintray.com/user/downloadSubjectPublicKey?username=openhab' | sudo apt-key add
 
-Im nächsten Schritt wurd für das Advanced Packacking Tool (APT) der HTTPS-transport aktiviert:
+Im nächsten Schritt wird für das Advanced Packacking Tool (APT) der HTTPS-transport aktiviert:
 
     sudo apt-get install apt-transport-https
 
