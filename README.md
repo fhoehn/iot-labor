@@ -694,7 +694,7 @@ Nach der Installation der benötigten Bibliotheken, kann mit der Integration der
 
 
     var fs = require('fs');
-    var json = JSON.parse(fs.readFileSync('C:/Users/fhoeh/git/ethereum/build/contracts/Light_New.json').toString());
+    var json = JSON.parse(fs.readFileSync('<PATH_TO_PROJECT>/ethereum/build/contracts/Light_New.json').toString());
     var abi = json['abi'];
 
     async function executedSmartContractAsync()
