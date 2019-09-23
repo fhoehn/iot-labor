@@ -607,12 +607,55 @@ Nach dem Speichern des Workspaces öffnet sich eine Liste der aktuellen Accounts
 ![Screenshot Accounts in Ganache](https://github.com/fhoehn/iot-labor/blob/master/images/ganache/ganacheListWithAccounts.PNG?raw=true "Liste der Accounts mit ihrem aktuellen Guthaben")
 
 
-## Smart-Contract implementieren
+## Implementation eines Smart Contracts
 
-Hier ein Beispiel wie wir einen Smart-Contract implementiert haben
+Für die Implementierung des Smart Contracts musste zunächst ein Projekt erstellt werden. Hierzu muss ein Verzeichnis erstellt und folgender Befehl innerhalb des Verzeichnisses ausgeführt werden:
+
+    truffle init
+
+Mit diesem Befehl wird anschließend die komplette Verzeichnisstruktur für die Implementierung des Smart Contracts initialisiert. Im nächsten Schritt soll ein neuer Smart Contract hinzugefügt werden. Dafür wird im contracts-Verzeichnis eine neue Datei mit der Endung .sol angelegt. Im vorliegenden Fall wird der Smart Contract mit dem Namen "Light_New" erstellt. Der Smart Contract wird basierend auf der Programmiersprache [Solidity](https://www.trufflesuite.com/docs/truffle/getting-started/compiling-contracts) implementiert. 
+Zu Beginn wurde testweise ein simpler Smart Contract definiert, der die Nachricht "Hello World" zurückgibt. Ein hierfür beispielhafter Programmcode lässt sich folgendermaßen zusammenfassen:
+
+    pragma solidity ^0.5.0;
+
+    contract Light_New {
+
+        constructor() public {
+            owner = msg.sender;
+
+        }
+
+        string private message = "Hello World";
+
+        function getMessage() public view returns(string memory) {
+            return message;
+        }
+
+        function setMessage(string memory newMessage) public {
+            message = newMessage;
+        }
+    }
+
+Um diesen Smart Contract auf die BlockChain zu übertragen, muss der Smart Contract kompiliert und migriert werden. Hierfür werden folgende Truffle Kommandobefehle verwendet:
+    truffle compile
+    truffle migrate
+
+Nach der Ausführung dieser Kommandobefehle, steht der Smart Contract auf der BlockChain zur Verfügung. 
+
 
 ## Blockchain in IOT-Netz einbinden
 
-Hier dann noch Code wie man aus dem Python Programm auf die Blockchain Zugreift
+Für die Anbindung des IOT-Netzes mit dem simulierten BlockChain Netzwerk, wird die [Web3.js-Library](https://web3js.readthedocs.io/en/v1.2.1/) verwendet. 
+
+### Installation Web
+Für deren Installation kann erneut auf das NPM zurückgegriffen werden. Über den folgenden Befehl wird die Nutzung von Web3.js bereitgestellt:
+    npm install web3
+Zu berücksichtigen ist, dass dafür Python mit der Version 2.7 benötigt wird. Die Installation mit einer neueren Python-Version hat im hier beschriebenen Laborversuch zu Problemen geführt. Als spezifischen Lösungsansatz wurde hierzu auf [Anaconda](https://www.anaconda.com/) zurückgegriffen, das die Nutzung der benötigten Version ermöglicht. Für die Installation von anaconda wurden zusätzlich aktuelle visual studio build tools benötigt, die über folgende Kommandozeile installiert wurden:
+    npm install –g windows-build-tools
+
+### Integration der Blockchain
+
+
+## Ausblick/Beschreibung des angestrebten Smart Contracts-Szenarios
 
 
