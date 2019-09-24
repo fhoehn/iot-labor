@@ -570,6 +570,7 @@ Im nächsten Schritt wurde der Laborversuch dahingehend ergänzt, dass eine dimm
     end
 
 Die folgende Abbildung zeigt die prozentuale Änderung der Lampenbeleuchtung an. Für diesen Versuch wurde der Wassersensor im Wechsel befeuchtet und getrocknet. Zusätzlich wird die Beleuchtungsänderung nur geändert, sofern die richtige NFC-Karte an das NFC-Lesegerät gehalten wurde:
+# ToChange
 
 ![Screenshot OpenHab Finale Control-Übersicht](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Overview_Controloptions.png?raw=true "Übersicht der Control-Items")
 
@@ -718,4 +719,4 @@ Wenn das Programm nun gestartet wird und neue Sensordaten über MQTT erhalten we
 
 ## Ausblick/Beschreibung des angestrebten Smart Contracts-Szenarios
 
-
+Aus zeitlichen Gründen konnte das ursprünglich angedachte Smart Contract-Szenario nicht fertiggestellt werden. Der angestrebte Smart Contract sollte das im Kapitel "OpenHab" beschriebene Szenario dahingehend erweitern, dass relativ zur prozentualen Beleuchtungserhöhung der entsprechende Betrag auf der Blockchain abgezogen wird. So wird beispielsweise bei einem Beleuchtungserhöhung von 100% 1 Ether abgerechnet, während eine Beleuchtungserhöhung von 10% Kosten in Höhe von 0,1 Ether zur Folge haben. Die Zuordnung für das abzurechnende Konto, erfolgt über die NFC-UID und die Beleuchtungsänderung über den aktuell gemessenen Wassersensor-Wert.
