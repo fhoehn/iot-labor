@@ -593,18 +593,16 @@ Im nächsten Schritt wurde der Laborversuch dahingehend ergänzt, dass eine dimm
     end
 
 Die folgende Abbildung zeigt die prozentuale Änderung der Lampenbeleuchtung an. Für diesen Versuch wurde der Wassersensor im Wechsel befeuchtet und getrocknet. Zusätzlich wird die Beleuchtungsänderung nur geändert, sofern die richtige NFC-Karte an das NFC-Lesegerät gehalten wurde:
-# ToChange
-
 ![Screenshot OpenHab Zustandänderung-Lampe](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/LampsLighting_Change.png?raw=true "Zustandsänderung der Lampenbeleuchtung")
 
 # Tag 3 Blockchain Integration
 
-Nachdem in den vorherigen Teilen verschiedene Sensoren mittels MQTT miteinander verbunden werden konnten, soll nun eine Blockchain Integration durchgeführt werden. Ziel dieses Teils ist die Einbindung von Smart-Contracts zur Schaltung von Sensoren. In unserem Beispiel soll ein Smart-Contract entwickelt werden, der dem Nutzer, welche die Lampe abhängig vom Wassersensor schalten möchte, ein bestimmter Geldbetrag in Rechnug gestellt werden. 
-Um diese Scenario umsetzen zu können sollen die Smart-Contracts von Etherium eingesetzt werden. Sobald ein Nutzer seine NFC-Karte auf den Sensor legt, soll geschaut werden, ob der Nutzer noch genung Guthaben hat. Wenn dies der Fall ist soll im das Geld abgebucht und auf ein anderes Konto (dem Betreiber) zugeschrieben werden. Danach soll die Lampe geschaltet werden. 
+Nachdem in den vorherigen Teilen Zustandsänderungen von Sensoren mittels MQTT verarbeitet werden konnten, soll nun eine Blockchain Integration durchgeführt werden. Ziel dieser Integration ist die erfolgreiche Etablierung eines Smart Contracts. Im vorliegenden Beispiel soll ein Smart-Contract entwickelt werden, der dem Nutzer, für jedes Schalten der Lampe einen gewissen Geldbetrag in Rechnug stellt. Die Geldbetragsmenge ergibt dabei entsprechend dem gemessten Wassersensor-Wert. 
+Um diese Szenario umsetzen zu können, sollen die Smart-Contracts von Ethereum eingesetzt werden. Dabei soll bei Übertragung der NFC-UID zunächst geprüft werden, ob dem entsprechenden Nutzer genügend Guthaben zur Verfügung steht. Im positiven Fall wird das für die Schaltung der Lampe notwendige Guthaben, vom Nutzerkonto auf das Betreiberkonto übertragen. Nach erfolgter Übertragung des Guthabens, erfolgt anschließend die Schaltung der Lampe. 
 
-## Installation
+## Truffle zur Simulation
 
-Um eine eigene Blockchain zum Testen bereitstellen zu können, soll Truffle eingesetzt werden. Truffle hilft den Entwicklern auf einfache Art und Weise Smart-Contracts for Etherium zu erstellen und zu testen. Die Installation von Truffle und Co. findet diesmal jedoch nicht auf dem Raspberry statt, sondern wird in unserem Fall auf einem seperaten Rechner bereitgestellt. 
+Zur Simulation einer Blockchain wird Truffle verwendet. Truffle hilft den Entwicklern auf einfache Art und Weise Smart-Contracts for Etherium zu erstellen und zu testen. Die Installation von Truffle und Co. findet diesmal jedoch nicht auf dem Raspberry statt, sondern wird in unserem Fall auf einem seperaten Rechner bereitgestellt. 
 
 ### Node.js installiern
 
