@@ -600,31 +600,27 @@ Die folgende Abbildung zeigt die prozentuale Änderung der Lampenbeleuchtung an.
 Nachdem in den vorherigen Teilen Zustandsänderungen von Sensoren mittels MQTT verarbeitet werden konnten, soll nun eine Blockchain Integration durchgeführt werden. Ziel dieser Integration ist die erfolgreiche Etablierung eines Smart Contracts. Im vorliegenden Beispiel soll ein Smart-Contract entwickelt werden, der dem Nutzer, für jedes Schalten der Lampe einen gewissen Geldbetrag in Rechnug stellt. Die Geldbetragsmenge ergibt dabei entsprechend dem gemessten Wassersensor-Wert. 
 Um diese Szenario umsetzen zu können, sollen die Smart-Contracts von Ethereum eingesetzt werden. Dabei soll bei Übertragung der NFC-UID zunächst geprüft werden, ob dem entsprechenden Nutzer genügend Guthaben zur Verfügung steht. Im positiven Fall wird das für die Schaltung der Lampe notwendige Guthaben, vom Nutzerkonto auf das Betreiberkonto übertragen. Nach erfolgter Übertragung des Guthabens, erfolgt anschließend die Schaltung der Lampe. 
 
-## Truffle zur Simulation
+## Installation der benötigten Komponente
 
-Zur Simulation einer Blockchain wird Truffle verwendet. Truffle hilft den Entwicklern auf einfache Art und Weise Smart-Contracts for Etherium zu erstellen und zu testen. Die Installation von Truffle und Co. findet diesmal jedoch nicht auf dem Raspberry statt, sondern wird in unserem Fall auf einem seperaten Rechner bereitgestellt. 
+Für die Abbildung des oben geschilderterten Szenarios wird Truffle zur Entwicklung und zum Test von Smart Contracts und Ganache zur Simulation einer Blockchain verwendet. Diese beiden Komponente werden auf einen separaten und somit außerhalb des Raspberrys installiert. Im Folgenden werden zunächst die für die Installationen notwendigen Schritte geschildert. Anschließend wird auf die Einrichtung von Ganache und Truffle eingegangen und eine Beispielimplementierung für ein Smart Contract aufgeführt.
 
-### Node.js installiern
+### Installation von Truffle 
 
-Bevor mit der Installation von Truffle begonnen werden kann, muss jedoch Node.js installiert werden. Dazu laden wir die neuste Version von [Node.js.](https://nodejs.org/download) herunter und installieren diese. 
-
-### Truffle installieren
-
-Als nächstes muss [Truffle](https://www.trufflesuite.com/) installiert werden. Dazu führen wir folgenden Befehl über NPM aus:
-
+Bevor mit der Installation von Truffle begonnen werden kann, muss zunächst Node.js installiert werden. Dazu wird die neuste Version von [Node.js.](https://nodejs.org/download) von der nodejs-Homepage heruntergeladen. 
+Als nächstes muss [Truffle](https://www.trufflesuite.com/) installiert werden. Dazu führen wird folgender Befehl über NPM ausgeführ:
     npm install truffle -g
 
-### Ganache installieren
+### Installation von Ganache
 
-Um eine einfache Oberfläche für die Blockchain zu erhalten nutzen wir ein weiters Tool mit dem Namen [Ganache](https://www.trufflesuite.com/ganache). Diese laden wir uns von der Webseite herunter und installieren es. 
+Die Installation von [Ganache](https://www.trufflesuite.com/ganache) erfolgt ebenfalls über die Ganache-Homepage.
 
-## Einrichten
+## Einrichtung von Ganache
 
-Als nächstes muss die Software eingerichtet werden. Als erstes öffnen wir dazu die zuvor installierte Applikation Ganache. Dort erstellen wir einen neuen Workspace und verbinden uns mit dem Server (in unserem Fall lokal, die Blockchain kann aber auch auf einem Seperaten Server installiert werden). 
+Als nächstes muss die Software eingerichtet werden. Hierzu wird die installierte Applikation "Ganache" geöffnet, ein neuer Workspace angelegt und eine Verbindung zu dem Server wird hergestellt (im vorliegenden Fall wird eine Verbindung über localhost augebaut, die Blockchain kann aber auch auf einem seperaten Server installiert werden). 
 
 ![Screenshot Ganache Serverkonfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/ganache/ganacheServerConfiguration.PNG?raw=true "Serverkonfiguration")
 
-Nach dem Speichern des Workspaces öffnet sich eine Liste der aktuellen Accounts, wie sie in der Blockchain momentan hinterlegt sind. 
+Nach dem Speichern des Workspaces öffnet sich eine Liste der aktuell verfügbaren Accounts, die standardmäßig auf der simulierten Blockchain hinterlegt sind: 
 
 ![Screenshot Accounts in Ganache](https://github.com/fhoehn/iot-labor/blob/master/images/ganache/ganacheListWithAccounts.PNG?raw=true "Liste der Accounts mit ihrem aktuellen Guthaben")
 
@@ -658,18 +654,18 @@ Zu Beginn wurde testweise ein simpler Smart Contract definiert, der die Nachrich
         }
     }
 
-Um diesen Smart Contract auf die BlockChain zu übertragen, muss der Smart Contract kompiliert und migriert werden. Hierfür werden folgende Truffle Kommandobefehle verwendet:
+Um diesen Smart Contract auf die BlockChain zu übertragen, muss der Smart Contract kompiliert und migriert werden. Hierfür werden folgende Truffle-Kommandobefehle verwendet:
     truffle compile
     truffle migrate
 
 Nach der Ausführung dieser Kommandobefehle, steht der Smart Contract auf der BlockChain zur Verfügung. 
 
 
-## Blockchain in IOT-Netz einbinden
+## Einbindung der Blockchain ins IOT-Netz
 
-Für die Anbindung des IOT-Netzes mit dem simulierten BlockChain Netzwerk, wird die [Web3.js-Library](https://web3js.readthedocs.io/en/v1.2.1/) verwendet. 
+Für die Anbindung des IOT-Netzes mit dem simulierten Blockchain-Netzwerk, wird die [Web3.js-Library](https://web3js.readthedocs.io/en/v1.2.1/) verwendet. 
 
-### Installation Web
+### Installation Web3
 Für deren Installation kann erneut auf das NPM zurückgegriffen werden. Über den folgenden Befehl wird die Nutzung von Web3.js bereitgestellt:
     npm install web3
 Zu berücksichtigen ist, dass dafür Python mit der Version 2.7 benötigt wird. Die Installation mit einer neueren Python-Version hat im hier beschriebenen Laborversuch zu Problemen geführt. Als spezifischen Lösungsansatz wurde hierzu auf [Anaconda](https://www.anaconda.com/) zurückgegriffen, das die Nutzung der benötigten Version ermöglicht. Für die Installation von anaconda wurden zusätzlich aktuelle visual studio build tools benötigt, die über folgende Kommandozeile installiert wurden:
@@ -677,7 +673,7 @@ Zu berücksichtigen ist, dass dafür Python mit der Version 2.7 benötigt wird. 
 
 ### Integration der Blockchain
 
-Nach der Installation der benötigten Bibliotheken, kann mit der Integration der Blockchain in das IOT-Scenario begonnen werden. Dazu erstellen wir auf dem PC eine neue Javascript-Datei. In dieser fügen wir nun das Programm hinzu, dass die Integration zwischen Blockchain und IOT-Netz durchführen soll. Das Programm soll sich mit der Blockchain und MQTT verbinden und bei neuen Nachrichten den Smart-Contract der Blockchain ausführen. Dazu nutzen wir folgenden Code:
+Nach der Installation der benötigten Bibliotheken, kann mit der Integration der Blockchain in das IOT-Scenario begonnen werden. Dazu wird auf dem zu entwicklelten Rechner eine neue Javascript-Datei erstellt. In dieser Datei wird ein Progamm implementiert, dass die Integration zwischen der simulierten Blockchain und der bestehenden IOT-Infrastruktur herstellen soll. Hierzu wird zunächst eine Verbindung zur Blockchain und dem MQTT-Broker hergestellt. Zudem soll bei eingehenden Nachrichten, die im vorliegenden Fall über das abonnierte Topic "water/out" eintreffen,  der Smart-Contract aus der Blockchain ausgeführt werden. Der nachfolgende Programmcodeausschnitt visualisiert die technische Umsetzung des soeben beschriebenen Szenarios:
 
     var mqtt    = require('mqtt');
     const Web3 = require('web3');
@@ -741,7 +737,7 @@ Wenn das Programm nun gestartet wird und neue Sensordaten über MQTT erhalten we
 ## Ausblick/Beschreibung des angestrebten Smart Contracts-Szenarios
 
 Aus zeitlichen Gründen konnte das ursprünglich angedachte Smart Contract-Szenario nicht fertiggestellt werden. Der angestrebte Smart Contract sollte das im Kapitel "OpenHab" beschriebene Szenario dahingehend erweitern, dass relativ zur prozentualen Beleuchtungserhöhung der entsprechende Betrag auf der Blockchain abgezogen wird. So wird beispielsweise bei einem Beleuchtungserhöhung von 100% 1 Ether abgerechnet, während eine Beleuchtungserhöhung von 10% Kosten in Höhe von 0,1 Ether zur Folge haben. Die Zuordnung für das abzurechnende Konto, erfolgt über die NFC-UID und die Beleuchtungsänderung über den aktuell gemessenen Wassersensor-Wert.
-Das fertige Scenraio sollte dann wie folgt aussehen:
+Das fertige Szenraio sollte dann wie folgt aussehen:
 
 ![Blockchain Integration](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/blockchain_Integration.png?raw=true "Blockchain Integration")
 
