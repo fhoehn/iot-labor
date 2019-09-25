@@ -218,7 +218,7 @@ Im Rahmen eines weiteren Anwendungsfalls sollte ein REST Service zur Verfügung 
 
 # Einbindung eines Arduinos
 
-Der nächste Abschnitt des Laborversuchs befasst sich mit dem Anschluss eines Arduinos (ESP8266MOD)an das System. Arduino ist eine aus Software und Hardware bestehende Physical-Computing-Plattform,dessen Hardware aus einem Microcontroller und analogen sowie digitalen Ein- und Ausgängen besteht. Ziel des Laborversuchs war es zunächst, mithilfe des Arduinos eine Lampe an- und ausschalten zu können. Im nächsten Schritt wird der Versuch um den Anschluss eines Wassersensors sowie eines Servomotors ergänzt. Im letzten Schritt soll mithilfe von MQTT der Nachrichtenaustausch vollzogen werden. 
+Der nächste Abschnitt des Laborversuchs befasst sich mit dem Anschluss eines Arduinos (ESP8266MOD) an die bisher erstellte IOT-Infrastruktur. Arduino ist eine aus Software und Hardware bestehende Physical-Computing-Plattform,dessen Hardware aus einem Microcontroller und analogen sowie digitalen Ein- und Ausgängen besteht. Ziel des Laborversuchs war es zunächst, mithilfe des Arduinos eine Lampe an- und ausschalten zu können. Im nächsten Schritt wird der Versuch um den Anschluss eines Wassersensors sowie eines Servomotors ergänzt. Im letzten Schritt soll mithilfe von MQTT der Nachrichtenaustausch vollzogen werden. 
 
 ## Aufsetzen einer Entwicklungsumgebung
 
@@ -271,10 +271,8 @@ Der nächste Abschnitt des Laborversuchs befasst sich mit dem Anschluss eines Ar
 - Handelt es sich beim gewünschten Netzwerk um ein gesichertes Netz, so ist das entsprechende Sicherheitspasswort auf der Weboberfäche zu übergeben
 - Das Gerät verbindet sich anschließend mit dem WLAN und speichert die credentials in einem Secure Storage, sodass das Gerät zukünftig automatisch eine Verbindung zu diesem WLAN-Netz aufbaut
 - Ein möglicher Wechsel zu einem anderen Netzwerk setzt das Löschen des internen Speichers voraus
-    
-Die konfigurierte WLAN-Verbindung ermöglicht nun, dass Nachrichten an den MQTT-Broker des Raspberries gesendet werden können. 
-
-# WAS IST DAS? HIER GIBT ES KEINERLEI BEZUG---------------
+# TODOOOOOOOOOOOOOOOOOOOOOOO   Passender Satz finden
+Der zugrundeliegende Programmcode 
 
     /*
      * WiFiManager
@@ -303,6 +301,8 @@ Die konfigurierte WLAN-Verbindung ermöglicht nun, dass Nachrichten an den MQTT-
       //Nothing to do here
       delay(1000); 
     }
+
+Die konfigurierte WLAN-Verbindung ermöglicht nun, dass Nachrichten an den MQTT-Broker des Raspberries gesendet werden können. 
 
 ## Anbindung des Wassersensors und Motors? Es fehlt Hier noch eine REferenz dazu, WIE DIE SENSOREN ANGESCHLOSSEN WERDEN SOLLEN. EVENTUELL KÖNNTE MAN DA EIN BILD dazu bringen
 
