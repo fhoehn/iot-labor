@@ -33,9 +33,9 @@ OpenHab, Nodered, Ganache, Truffle, Visual Studio Code
 # Teil 1 - NFC und MQTT
 
 Zu Beginn des Labors ist zunächst der Raspberry PI für die Entwicklung des Szenarios zu konfigurieren. 
-Hierzu muss für den Raspberry Pi eine WLAN-Verbindung aufgebaut und die SSH-Kommunikation aktiviert werden. Auf dieser Weise können zum Einen die für die Umsetzung des Szenarios notwendigen Pakete aus dem Internet installiert und zum Anderen wird eine Zugriff auf den Raspberry Pi über das Werkzeug PuTTy ermöglicht.
+Hierzu muss für den Raspberry Pi eine WLAN-Verbindung aufgebaut und die SSH-Kommunikation aktiviert werden. Auf dieser Weise können zum einen die für die Umsetzung des Szenarios notwendigen Pakete aus dem Internet installiert und zum anderen wird ein Zugriff auf den Raspberry Pi über das Werkzeug "PuTTY" ermöglicht.
 
-## Raspberry einrichten
+## Einrichtung des Raspberry Pis
 
 Die einzelnen Konfigurationsschritte werden im Folgenden aufgeführt:
 
@@ -51,11 +51,23 @@ Die einzelnen Konfigurationsschritte werden im Folgenden aufgeführt:
                 psk="p7-15Dex9.4A"
             }
         
-    3. Für die Aktivierung der Änderung muss im nächsten Schritt ein Neustart des Netwerkmoduls erfolgen. die entsprechende Kommandozeile wird in folgender Abbildung aufgeführt:
-            
+    3. Für die Aktivierung der Änderung muss im nächsten Schritt ein Neustart des Netzwerkmoduls erfolgen. Die entsprechende Kommandozeile wird nachfolgend aufgeführt:
             sudo ifdown wlan0 && duwo ifup wlan0
 2. Konfiguration der SSH-Verbindung
-    1. TODO SSH konfigurieren
+    1. Zunächst wird der Raspberry Pi Konfigurator geöffnet:
+
+        sudo raspi-config
+    2. Anschließend muss eine Navigation zum SSH-Eintrag erfolgen und die Eingabe über "Enable" bestätigt werden.
+    3. Im nächsten Schritt ist der SSH über das Advanced Packaging Tool (APT) zu installieren:
+            
+            sudo apt-get install ssh
+    4. Der Server kann nun über folgenden Kommandozeilenbefehl erfolgen:
+            
+            sudo /etc/init.d/ssh start
+    5. Zudem ist es hilfreich den automatischen Start der SSH-Funktion zu aktivieren:
+
+            sudo update-rc.d ssh defaults
+
 
 3. Aufbau einer externen Verbindung über das Werkzeug PuTTY
 
