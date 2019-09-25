@@ -740,7 +740,7 @@ Wenn das Programm nun gestartet wird und neue Sensordaten über MQTT erhalten we
     Contract answered: Hello World
 
 
-## Ausblick/Beschreibung des angestrebten Smart Contracts-Szenarios
+## Beschreibung des angestrebten Smart Contracts-Szenarios
 
 Aus zeitlichen Gründen konnte das ursprünglich angedachte Smart Contract-Szenario nicht fertiggestellt werden. Der angestrebte Smart Contract sollte das im Kapitel "OpenHab" beschriebene Szenario dahingehend erweitern, dass relativ zur prozentualen Beleuchtungserhöhung der entsprechende Betrag auf der Blockchain abgezogen wird. So wird beispielsweise bei einem Beleuchtungserhöhung von 100% 1 Ether abgerechnet, während eine Beleuchtungserhöhung von 10% Kosten in Höhe von 0,1 Ether zur Folge haben. Die Zuordnung für das abzurechnende Konto, erfolgt über die NFC-UID und die Beleuchtungsänderung über den aktuell gemessenen Wassersensor-Wert.
 Das fertige Szenraio sollte dann wie folgt aussehen:
@@ -757,3 +757,9 @@ Das fertige Szenraio sollte dann wie folgt aussehen:
 
 Diese Scenario konnte aus Zeitgründen leider nicht fertigestellt werden.
 
+# Zusammenfassung der Ergebnisse
+## Zusammenfassung der Tätigkeiten und aufkommende Problematiken --Roberto
+Zu Beginn des Laborberichts wurde die Konfiguration des Raspberrys vergenommen. Hierbei konnten nach anfänglichen Schwierigkeiten alle notwendigen Konfigurationsschritte vollzogen werden. Die anschließende Einrichtung der 
+## Ziel der Arbeit war es blabla --Roberto
+## Eventuell kritische Betrachtung --Roberto
+## 
