@@ -24,12 +24,30 @@ Tag 1 wollen wir die ID auslesen
 Aufbau der Kapitel
 
 ## Eingesetzte Hardware
-Beschreibender Text
-Alle Hardware Wassersensor, Phillips Hue, Hue Bridge
+Für die Durchführung des Laborversuchs wird folgende Hardware benötigt:
+-   Raspberry Pi 3
+-   Arduino (ESP8266MOD)
+-   NFC-Karte
+-   Wassersensor
+-   Servomotor
+-   Philipps Hue Bridge
+-   Phillips Hue Lampe
+-   Entwicklungsrechner
+
+Zusätzlich werden eine funktionierte WLAN-Verbindung und etwaige Verbindungskabel (Steckbrücken, USB-Kabel usw.) benötigt.
 
 ## Eingesetzte Software
-Beschreibender Text
-OpenHab, Nodered, Ganache, Truffle, Visual Studio Code
+Folgende Softwarekomponenten sind für das Laborversuch erforderlich.
+-   Raspbian (Betriebssystem)
+-   PuTTY
+-   Arduino-Treiber für Windows
+-   Visual Studio Code inclusive PlattformIO
+-   OpenHab
+-   Node-RED
+-   Truffle
+-   Ganache
+
+Neben diesen aufgenführten Softwarekomponenten werden noch weitere Libraries (Web3, WiFi-Manager usw.) benötigt.
 # Teil 1 - NFC und MQTT
 
 Zu Beginn des Labors ist zunächst der Raspberry PI für die Entwicklung des Szenarios zu konfigurieren. 
@@ -225,7 +243,7 @@ Der nächste Abschnitt des Laborversuchs befasst sich mit dem Anschluss eines Ar
 
  1. Installation von Visual Studio Code
     
-   Im ersten Schritt wird Visual Studio Code und anschließend im Pluginmanager das Plugin "Plattform IO" installiert.
+   Im ersten Schritt wird Visual Studio Code und anschließend im Pluginmanager das Plugin "PlattformIO" installiert.
 
 1. Treiberinstallation
 
