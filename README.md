@@ -733,29 +733,28 @@ Nach der Installation der benötigten Bibliotheken, kann mit der Integration der
 
     console.log("end of script");
 
-Zuerst werden die Module MQTT und Web3 geladen. Dann stellen wir eine Verbindung mit der lokalen Blockchain mit der Hilfe von Web3 her. Danach wird eine Verbindung über MQTT mit dem Rapsberry aufgebaut. Bei eingehenden Nachrichten sollen diese zuerst auf der Konsole ausgegeben und dann die executedSmartContractAsync()-Methode ausgefürht werden. Um auf eingehende Sensordaten reagieren zu können, subscribed sich das Programm auf das Topic "/water/out". Bevor der Smart-Contract ausgehführt werden kann, muss die ABI (Application binrary interface) des Smart-Contracts eingelesen werden. Diese wird benötigt, um auf die Schnittstelle zugreifen zu können. Die ABI wurde dabei während der Compilierung des Smart-Contracts erstellt und im Build-Verzeichniss abgelegt. Diese wird nun eingelesen, und genutzt. 
-Durch die ABI kann nun auf die getMessage()-Methode des Smart-Contracts zugegriffen werden. 
-Wenn das Programm nun gestartet wird und neue Sensordaten über MQTT erhalten werden, wird der Smart-Contract ausgeführt und auf der Console folgendes ausgegeben:
+Im vorliegenden Programmcode werden zunächst die Module "MQTT" und "Web3" geladen. Anschließend erfolgt mithilfe von Web3 ein Verbindungsaufbau mit der lokalen Blockchain. Zudem wird über MQTT eine Verbindung mit dem Raspberry aufgebaut. 
+Bei eingehenden Nachrichten wird eine Ausgabe auf deer Konstole ausgeführt und die executedSmartContractAsync()-Methode ausgeführt. Um auf eingehende Sensordaten reagieren zu können, subscribed sich das Programm auf das Topic "/water/out". Bevor der Smart-Contract ausgehführt werden kann, muss die ABI (Application binrary interface) des Smart-Contracts eingelesen werden. Diese wird benötigt, um auf die Schnittstelle zugreifen zu können. Die ABI des Smart Contracts beim Komplieren erzeugt und im Build-Verzeichnis abgelegt. Dementsprechend wird für die Ermittlung der ABI ein Pfad zu dem Build-Verzeichnis hinterlegt und die ABI ausgelesen.
+Mithilfe der ABI kann nun auf die getMessage()-Methode des Smart-Contracts zugegriffen werden. 
+Für die Ausführung des Smart Contracts muss das Programm zunächst gestartet werden. Sobald Sensordaten über MQTT eintreffen wird auf der Console folgendes ausgegeben:
 
     Contract answered: Hello World
 
 
 ## Beschreibung des angestrebten Smart Contracts-Szenarios
 
-Aus zeitlichen Gründen konnte das ursprünglich angedachte Smart Contract-Szenario nicht fertiggestellt werden. Der angestrebte Smart Contract sollte das im Kapitel "OpenHab" beschriebene Szenario dahingehend erweitern, dass relativ zur prozentualen Beleuchtungserhöhung der entsprechende Betrag auf der Blockchain abgezogen wird. So wird beispielsweise bei einem Beleuchtungserhöhung von 100% 1 Ether abgerechnet, während eine Beleuchtungserhöhung von 10% Kosten in Höhe von 0,1 Ether zur Folge haben. Die Zuordnung für das abzurechnende Konto, erfolgt über die NFC-UID und die Beleuchtungsänderung über den aktuell gemessenen Wassersensor-Wert.
-Das fertige Szenraio sollte dann wie folgt aussehen:
+Aus zeitlichen Gründen konnte das ursprünglich angedachte Smart Contract-Szenario nicht fertiggestellt werden. Der angestrebte Smart Contract sollte das im Kapitel "OpenHab" beschriebene Szenario dahingehend erweitern, dass relativ zur prozentualen Beleuchtungserhöhung der entsprechende Betrag auf der Blockchain abgezogen wird. So wird beispielsweise bei einem Beleuchtungserhöhung von 100%, 1 Ether abgerechnet, während eine Beleuchtungserhöhung von 10% Kosten in Höhe von 0,1 Ether zur Folge haben. Die Zuordnung für das abzurechnende Konto, erfolgt über die NFC-UID und die Beleuchtungsänderung über den aktuell gemessenen Wassersensor-Wert.
+Das angestrebte Szenraio lässt sich mit folgender Abbildung und schrittweiser Beschreibung verdeutlichen:
 
 ![Blockchain Integration](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/blockchain_Integration.png?raw=true "Blockchain Integration")
 
-1. Der Arduino frägt alle 5 Sekunden den aktuellen Wasserstand des Wassersensors ab.
-2. Der Arduino sendet den aktuellen Wasserstand via MQTT an den Raspberry. 
+1. Der Arduino frägt alle fünf Sekunden den aktuellen Wasserstand des Wassersensors ab.
+2. Der Arduino sendet über MQTT den aktuellen Wasserstand an den Raspberry. 
 3. Der Raspberry übergibt den aktuellen Wert an den Smart-Contract in der Blockchain. Dadurch wird der aktuelle Preis im Smart-Contract definiert. 
 4. Wenn nun ein Nutzer seine NFC-Karte auf das Lesegerät legt, wird die UID der Karte ausgelesen und der Prozess getriggert.
-5. Der Raspberry versucht den Smart-Contract auszuführen. Dazu wird die UID der Karte genutzt, um nachzuschauen, ob der Nutzer noch genug Guthaben hat. Wenn dies der Fall ist, wird dem Nutzer der Betrag abgebucht und der Prozess zum Einschalten der Lampe auf dem Raspberry getriggert.
-6. Der Raspberry sendet eine Nachricht zum Einschalten der Lampe via MQTT an den Arduino.
-7. Der Arduino schaltet die Lampe auf den aktuellen Wert. 
-
-Diese Scenario konnte aus Zeitgründen leider nicht fertigestellt werden.
+5. Der Raspberry versucht den Smart-Contract auszuführen. Dazu wird die UID der Karte genutzt, um nachzuschauen, ob der Nutzer noch genug Guthaben aufweist. Im positiven Fall wird das für die Schaltung der Lampe notwendige Guthaben vom Nutzerkonto abgezogen und der Prozess zum Einschalten der Lampe auf dem Raspberry initialisiert.
+6. Der Raspberry sendet über MQTT eine Nachricht, mit der Anweisung die Lampe einzuschalten, an den Arduino.
+7. Der Arduino schaltet die Lampe auf den aktuellen Wert.
 
 # Zusammenfassung der Ergebnisse
 ## Zusammenfassung der Tätigkeiten und aufkommende Problematiken --Roberto
