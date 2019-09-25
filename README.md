@@ -203,13 +203,12 @@ Basierend auf dem erstellten Python-Programm, für das Auslesen der UIDs, wird a
             time.sleep(0.3)
         
     Diese Programm stellt eine Erweiterung des zuvor vorgestellten Programms 'test1.py' dar. Im Vergleich zum vorherigen Programm werden die UIDs nicht mehr auf der Konsole ausgegeben, sondern an den MQTT-Broker gesendet. Diese Nachrichten können anschließend von Node-RED abgegriffen werden und der oben vorgestellte Flow wird abgearbeitet. Dieser Vorgang wird für jede, vom Lesegerät empfangene UID, durchgeführt. 
-
-# ToDOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    
 5. Einsicht auf DEBUG-Informationen 
    
    Zu erwähnen ist, dass die emfangenen Nachrichten auf der NODE-RED Oberfläche angezeigt werden.
 
-   #TODO[Add Image here]
+   ![Screenshot der Node-RED DEBUG-Informationen](https://github.com/fhoehn/iot-labor/blob/master/images/nodeRED/DEBUG_Node-RED.PNG?raw=true "DEBUG-Informationen")
 
 # Macht hier eine zusammenfassende Abbildung Sinn? 
 ## Bereitstellung eines REST Services
@@ -228,11 +227,11 @@ Der nächste Abschnitt des Laborversuchs befasst sich mit dem Anschluss eines Ar
     
    Im ersten Schritt wird Visual Studio Code und anschließend im Pluginmanager das Plugin "Plattform IO" installiert.
 
-2. Treiberinstallation
+1. Treiberinstallation
 
     Das Aufspielen des C-Codes auf den Arduino erfolgt basierend auf einer Verbindung zwischen dem Entwicklungsrechner und dem Arduino. Die Verbindung wird mithilfe eines USB-Kabels umgesetzt. Zusätzlich wird eine manuelle Installation des Arduinotreibers vorausgesetzt, da der Entwicklungsrechner die Treiber nicht selbstständig beziehen kann. 
 
-3. Erstellung eines Beispielprojekts
+2. Erstellung eines Beispielprojekts
    
     Nachdem der richtige Treiber installiert wurde, wird ein Beispielprojekt auf den Arduino aufgespielt. Dieses Beispielprojekt ist dem folgenden Codeauszug zu entnehmen: 
 
