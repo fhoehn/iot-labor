@@ -20,9 +20,11 @@ Tag 1 wollen wir die ID auslesen
 
 ..
 
-## Vorgehensweise
-Aufbau der Kapitel
-
+## Aufbau der Arbeit
+Im ersten Teil der Laborversuchs wird zunächst die Einrichtung des Raspberrys vorgenommen und die für den Aufbau notwendige Infrastruktur aufgesetzt. Anschließend wird mithilfe eines Python Programms UIDs von NFC-Karten ausgelesen. Diese werden mithilfe des Kommunikationsprotokolls "MQTT" an Node-RED übertragen. Im Node-RED wird anschließend ein sogenannter Flow implementiert, der den Nachrichtenfluss steuert.
+Anschließend wird der Laborversuch um weitere Sensoren (Servomotor und Wassersensor) erweitert. Zur Anbindung dieser Sensoren wird ein Microcontroller (Arduino) verwendet. Dieser sendet die von den Sensoren übertragenen Nachrichten an die Message Queue, die anschließend auf Node-RED ausgewertet werden.
+Für die Bereitstellung einer Benutzeroberfläche zur Homeautomatisierung, wird die Integrationsplattform "OpenHab" eingesetzt.
+Abschließend soll das Szenario um eine Blockchain erweitert werden, bei der mithilfe von Smart Contracts beispielhafte Geschäftsprozesse im IOT-Umfeld abgewickelt werden können. 
 ## Eingesetzte Hardware
 Für die Durchführung des Laborversuchs wird folgende Hardware benötigt:
 -   Raspberry Pi 3
