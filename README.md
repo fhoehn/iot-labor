@@ -595,7 +595,7 @@ Im nächsten Schritt wurde der Laborversuch dahingehend ergänzt, dass eine dimm
 Die folgende Abbildung zeigt die prozentuale Änderung der Lampenbeleuchtung an. Für diesen Versuch wurde der Wassersensor im Wechsel befeuchtet und getrocknet. Zusätzlich wird die Beleuchtungsänderung nur geändert, sofern die richtige NFC-Karte an das NFC-Lesegerät gehalten wurde:
 # ToChange
 
-![Screenshot OpenHab Finale Control-Übersicht](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Overview_Controloptions.png?raw=true "Übersicht der Control-Items")
+![Screenshot OpenHab Zustandänderung-Lampe](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/LampsLighting_Change.png?raw=true "Zustandsänderung der Lampenbeleuchtung")
 
 # Tag 3 Blockchain Integration
 
