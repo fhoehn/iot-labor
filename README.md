@@ -352,7 +352,7 @@ Nun sollen die Daten des Wassersensors verarbeitet werden. Im ersten Schritt sol
     }
 
 
-## MQTT anbinden
+## Anbindung von MQTT
 
  Neben der Schaltung des Motors, sollen die Daten des Wassersensors auch via MQTT an den Raspbery übertragen werden. Dazu muss der Arduino die gesammelten Daten verarbeiten und an den Broker senden. Dieser Anwendungsfall kann mithilfe des folgenden Programms umgesetzt werden:
 
@@ -465,7 +465,7 @@ Nun sollen die Daten des Wassersensors verarbeitet werden. Im ersten Schritt sol
         delay(5000); 
     }
 
-Die neuen Sensordaten werden alle 5 Sekunden an MQTT geschickt. Ebenso werden alle fünf Sekunden die neuen Nachrichten überprüft. Wenn neue Nachrichten vorhanden sind, werden diese ausgegeben. Wenn das erste Zeichen der empfangenen Nachricht eine "1" ist, wird die eingebaute LED des Arduinos eingeschaltet. Andererseits wird diese ausgeschaltet. Um eine dauerhafte Verbindung mit MQTT sicherzustellen, wird alle fünf Sekunden überprüft, ob eine Verbindung zum MQTT-Server vorhanden ist. Wenn dies nicht der Fall ist, wird versucht eine neue Verbindung aufzubauen. Um das Programm nutzen zu können, müssen die Nutzerdaten des WLANs in der Setup-Methode eingetragen werden. Diese wurden aus Sicherheitsgründen in diesem Beispiel entfernt. 
+Die neuen Sensordaten werden alle fünf Sekunden an MQTT geschickt. Ebenso werden alle fünf Sekunden die neuen Nachrichten überprüft. Wenn neue Nachrichten vorhanden sind, werden diese ausgegeben. Wenn das erste Zeichen der empfangenen Nachricht eine "1" ist, wird die eingebaute LED des Arduinos eingeschaltet. Andererseits wird diese ausgeschaltet. Um eine dauerhafte Verbindung mit MQTT sicherzustellen, wird alle fünf Sekunden überprüft, ob eine Verbindung zum MQTT-Server vorhanden ist. Wenn dies nicht der Fall ist, wird versucht eine neue Verbindung aufzubauen. Um das Programm nutzen zu können, müssen die Nutzerdaten des WLANs in der Setup-Methode eingetragen werden. Diese wurden aus Sicherheitsgründen in diesem Beispiel entfernt. 
 Nachfolgender Skizzierung ist der aktuelle Aufbau des Laborversuchs zu entnehmen: 
 
 ![Arrduino Anbindung an den Raspberry via MQTT](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/arduinoRaspberryConnection.png?raw=true "Arrduino Anbindung an den Raspberry via MQTT")
@@ -474,21 +474,21 @@ Nachfolgender Skizzierung ist der aktuelle Aufbau des Laborversuchs zu entnehmen
 
 # Integration von OpenHab
    
-Im nächsten Schritt wird der Laborversuch um die Software „OpenHab“ ergänzt, mit dessen Hilfe die Realisierung einer  Homeautomatisierung ermöglicht wird. Dies erfolgt beispielsweise dadurch, dass eine Vielzahl von Bibliotheken mitgeliefert wird. Die Architektur von OpenHab weist einen skalierfähigen Charakter auf und lässt sich mit einem Baukasten vergleichen, da unterschiedliche Technologien und Systeme an die Architektur angebunden werden können. 
+Im nächsten Schritt wird der Laborversuch um die Integrationsplattform „OpenHab“ ergänzt, mit dessen Hilfe die Realisierung einer Homeautomatisierung ermöglicht wird. Dies erfolgt beispielsweise dadurch, dass eine Vielzahl von Bibliotheken mitgeliefert wird. Die Architektur von OpenHab weist einen skalierfähigen Charakter auf und lässt sich mit einem Baukasten vergleichen, da unterschiedliche Technologien und Systeme an die Architektur angebunden werden können. 
 
 ![OpenHAB integration](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/nodeRED_OpenHAB_Integration.png?raw=true "OpenHAB Integration")
 
 ## Installation
 
-Für die Installation bietet OpenHab eine [Installationsanleitung auf ihrer Website](https://www.openhab.org/download/) an. Im Rahmen der Installation wird zunächst der Repository Key hinzugefügt und auf dem Raspberry der folgende Befehl ausgeführt.
+Für die Installation bietet OpenHab eine [Installationsanleitung auf ihrer Website](https://www.openhab.org/download/) an. Im Rahmen der Installation wird zunächst der Repository Key hinzugefügt und auf dem Raspberry der folgende Befehl ausgeführt:
 
     wget -qO - 'https://bintray.com/user/downloadSubjectPublicKey?username=openhab' | sudo apt-key add
 
-Im nächsten Schritt wird für das Advanced Packacking Tool (APT) der HTTPS-Transport aktiviert:
+Im nächsten Schritt wird für das APT der HTTPS-Transport aktiviert:
 
     sudo apt-get install apt-transport-https
 
-Zudem wird auf dem Raspberry das OpenHab Repository hinzugefügt:
+Zudem wird auf dem Raspberry das OpenHab-Repository hinzugefügt:
 
     echo 'deb https://dl.bintray.com/openhab/apt-repo2 stable main' | sudo tee /etc/apt/sources.list.d/openhab2.list
 
@@ -500,11 +500,11 @@ Zusätzlich sind die OpenHab-AddOns zu installieren:
 
     sudo apt-get install openhab2-addons
 
-Nachdem diese Schritte durchgeführt wurden, hat sich unter Zunahme [einer weiteren Installationsanleitung](https://www.openhab.org/docs/installation/linux.html) ergeben, dass die Installation einen installierten Java JDK 8 voraussetzt. Dementsprechend erfolgte die Installation des Java JDK 8s über folgende Kommandozeile:
+Nachdem diese Schritte durchgeführt wurden, hat sich unter Zunahme [einer weiteren Installationsanleitung](https://www.openhab.org/docs/installation/linux.html) ergeben, dass die OpenHab-Installation einen installierten Java JDK 8 voraussetzt. Dementsprechend erfolgte die Installation des Java JDK 8s über folgende Kommandozeile:
 
     sudo apt-get update && sudo apt-get install open-java8-jdk
 
-Allerdings scheiterte die Installation des OpenHab-Pakets erneut, da das Paket als eine unsichere Paketinstallation angesehen wird. Dementsprechend war das Hinzufügen des Repositories mit dem Zusatz [trusted=yes] zu versehen. Auf dieser Weise wird allen Quellen in diesem Repository vertraut. Der mit diesem Zusatz angereicherte Befehl lässt sich wie folgt aufschlüsseln:
+Allerdings scheiterte die Installation des OpenHab-Pakets erneut, da das Paket als eine unsichere Paketinstallation angesehen wird. Dementsprechend war der Kommandozeilenbefehl, für das Hinzufügen des Repositories, mit dem Zusatz [trusted=yes] zu versehen. Auf dieser Weise wird allen Quellen in diesem Repository vertraut. Der mit diesem Zusatz angereicherte Befehl lässt sich wie folgt aufschlüsseln:
 
     echo 'deb [trusted=yes] https://dl.bintray.com/openhab/apt-repo2 stable main' | sudo tee /etc/apt/sources.list.d/openhab2.list
 
@@ -520,11 +520,12 @@ Anschließend werden unter dem Reiter „inbox“ alle für die Kopplung verfüg
 
 ![Screenshot OpenHab Inbox-Übersicht](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Inbox.png?raw=true "Übersicht der anzukoppelnden Geräte")
 
-Alle verfügbaren Things stehen nach Betätigung der Häkchen über den Reiter „Configuration“ zur Konfiguration zur Verfügung:
+Alle verfügbaren [Things](https://www.openhab.org/docs/concepts/things.html) (steuerbare Geräte mit Sensoren, die beispielsweise über ZigBee angesprochen werden können) stehen nach Betätigung der Häkchen über den Reiter „Configuration“ zur Konfiguration zur Verfügung:
 
 ![Screenshot OpenHab Configuration_Things-Übersicht](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Configuration_Things2.png?raw=true "Übersicht der konfigurierbaren Things")
 
-Für die Anbindung und Steuerung des Things ist ein Channel und ein Item zu konfigurieren. Dies kann durch ein Doppelklick auf dem entsprechenden Thing erfolgen. In der aufgepoppten Channelkonfiguration ist anschließend ein Channelname, Label und der Typ des Channels zu definieren. Zur Verdeutlichung wird im Folgenden eine Beispiel Channelkonfiguration veranschaulicht:
+Für die Anbindung und Steuerung des Things ist ein [Channel](https://www.openhab.org/docs/concepts/things.html) und ein [Item](https://www.openhab.org/docs/configuration/items.html) zu konfigurieren. Während das Thing als eine physische Entität einer Information angesehen werden kann, stellt der Channel eine konkrete Funktion des Things dar. Zudem sind Channels mit Items verlinkt, die wiederum im OpenHab-Umfeld als Ausprägung der Funktion (Channel) zu verstehen sinn. So kann beispielsweise das Item "MyNFCThing_" definiert werden, mit dem Itemtyp "String". Dabei gibt der Itemtyp an, dass nur Werte im String-Format entgegengenommen und angezeigt werden können. Der Itemname dient hauptsächlich zur eindeutigen Identifikation des Items (dies ist beispielsweise bei der Implementierung einer Regel von Bedeutung).
+Die Channel-konfiguration kann über einen Doppelklick auf dem zu ergänzenten Thing erfolgen. In der aufgepoppten Channelkonfiguration ist anschließend ein Channelname, Label und der Typ des Channels zu definieren. Zur Verdeutlichung wird im Folgenden eine Beispiel Channelkonfiguration veranschaulicht:
 
 ![Screenshot OpenHab Channel-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Link_Channel.png?raw=true "Beispielhafte Channel-Konfiguration")
 
@@ -533,18 +534,18 @@ Nach Betätigung des im rechten unteren Rand befindlichen „Link“-Buttons, st
 ![Screenshot OpenHab Control-Übersicht](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Overview_Control.png?raw=true "Übersicht der steuerbaren Things")
 
 Als nächstes sollte die Steuerung der Lampe über das Kommunikationsprotokoll „MQTT“ umgesetzt werden. Ziel war es, die Lampe, abhängig vom ermittelten Feuchtigkeitswert durch den Wassersensor, zu dimmen.
-Für die Kommunikation über MQTT kann das auf OpenHab verfügbare MQTT-Binding genutzt werden. Die Installation wird erneut über den Reiter „Add-Ons“ umgesetzt. Als nächstes ist unter dem Reiter „Inbox“ ein neuer Eintrag zu erstellen, der zu folgenden Auswahlmöglichkeiten führt:
+Für die Kommunikation über MQTT kann das auf OpenHab verfügbare MQTT-Binding genutzt werden. Die Installation wird erneut über den Reiter „Add-Ons“ umgesetzt. Als nächstes ist unter dem Reiter „inbox“ ein neuer Eintrag zu erstellen, der zu folgenden Auswahlmöglichkeiten führt:
 
 ![Screenshot OpenHab MQTT Thing Binding-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Options_MQTT_ThingBinding.png?raw=true "Konfigurationsmöglichkeiten vom MQTT-Binding")
 
-Für den oben genannten Anwendungsfall werden lediglich ein MQTT Broker und ein Generic MQTT Thing benötigt. Dementsprechend wird als erstes ein MQTT Broker erstellt. Dem Broker ist ein Name und die IP-Adresse des Raspberry Pis zu übergeben. Als Port wird die 1883 gewählt. Die hier beschriebenen Brokereinstel-lungen sind der nächsten Abbildung zu entnehmen:
+Für den oben genannten Anwendungsfall werden lediglich ein MQTT Broker und ein Generic MQTT Thing benötigt. Dementsprechend wird als erstes ein MQTT Broker erstellt. Dem Broker ist ein Name und die IP-Adresse des Raspberry Pis zu übergeben. Als Port wird die 1883 gewählt. Die hier beschriebenen Brokereinstellungen sind der nächsten Abbildung zu entnehmen:
 
 ![Screenshot OpenHab MQTT Broker-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Configuration_MQTT_Broker.png?raw=true "Konfiguration eines MQTT-Brokers")
 
 Nachdem der MQTT Broker konfiguriert ist, ist anschließend noch ein Generic MQTT Thing zu erstellen. Diesem Thing ist anschließend ein Name zu übergeben und einem Broker zuzuweisen. Nach diesen beiden Schritten, können dem neu angelegten MQTT Thing mehrere Channels zugewiesen werden. Für diesen Channel werden folgende Angaben vergeben:
 
     •	Channel Typ: Erwartetes Rückgabeformat (beispielsweise text value)
-    •	Channel ID: Gibt an unter welchem Namen  
+    •	Channel ID: Eindeutiger Name oder ID  
     •	MQTT Topic: Als Topic wird der beim Auslesen des Wassersensors verwendete topic „/water/out“ gewählt
 
 Um nun die Lampenbeleuchtung über MQTT zu steuern, muss eine Regel unter etc/openhab2/rules/default.rules erstellt und beispielsweise mit dem folgenden Code versehen werden:
@@ -553,15 +554,15 @@ Um nun die Lampenbeleuchtung über MQTT zu steuern, muss eine Regel unter etc/op
     when
             Item GernericMQTTThing_ changed
     then
-            if(GenericMQTTThing_.state > 100){
+            if(GenericMQTTThing_.state > 200){
                     Lamp1.sendCommand(ON)
             }
-            if(GenericMQTTThing_.state <= 100){
+            if(GenericMQTTThing_.state <= 199){
                     Lamp1.sendCommand(OFF)
             }
     end
 
-Hierbei wird definiert, dass sobald der Wassersensor einen Wert über 100 an das MQTT Thing übergibt, die Lampe eingeschaltet wird. Bei einem darunter liegen-dem Wert wird die Lampe ausgeschaltet. Der Name des zu steuernden Things, kann beispielsweise über den Aufruf der Openhab-log ermittelt werden:
+Hierbei wird definiert, dass sobald der Wassersensor einen Wert über 200 an das MQTT Thing übergibt, die Lampe eingeschaltet wird. Bei einem darunter liegendem Wert wird die Lampe ausgeschaltet. Der Name des zu steuernden Things entspricht dem vergebenen Itemnamen. Dieser Name kann beispielsweise auch über den Aufruf der Openhab-log ermittelt werden:
 
     Openhab-cli showlogs
 #TO Change
