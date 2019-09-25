@@ -1,24 +1,11 @@
 # Laborbericht 
 Laborbericht für das Mastermodul 'Internet of Things'
 
-# Kurzzusammenfassung
-
 # Einführung
 
 ## Aufgabenstellung
 
-Beschreibe die Aufgabe. Untersuche das Problem, das du lösen oder testen willst. Dies ist das „Ziel“ des Experiments. Warum machst du dieses Experiment? Was kann man von diesem Experiment lernen?[3] Wenn du das Ziel des Experiments erklärst, beschreibe, worum es sich in diesem Experiment handelt und was du untersuchen willst.
-Dieser Schritt sollte das Experiment einleiten. Beschreibe Hintergrundinformationen, die für das Experiment relevant sind, wichtige Definitionen, theoretischen und historischen Hintergrund und allgemeine Methoden, die angewendet werden.[4]
-Das Ziel sollte in einem Satz dargelegt werden. Dies kann auch als eine Frage formuliert werden. Manchmal wird der Lehrer dir das Ziel des Experiments vorgeben.[5]
-Ein Beispiel einer Zielerklärung wäre: Das Ziel des Experiments ist es, anhand drei verschiedener Proben den Siedepunkt von drei verschiedenen Substanzen zu ermitteln.
-Ein Beispiel einer Zielfrage wäre: Wird rote und blaue Farbe vermischt zu grüner Farbe?
-Tag 1 wollen wir die ID auslesen
-
-....
-
-..
-
-..
+Ziel dieser Arbeit ist es eine IOT-Infrastruktur bereitzustellen, welche auf den drei Schichten (Perception, Network, und Application Layer) einer IOT-Architektur basiert. Dazu sollen verschiedene Sensoren über ein Gateway mit einer Integrationsplattform verbunden werden. Über diese Integrationsplattform sollen anschließend noch weitere Geräte an das IOT-Netz angebunden und vernetzt werden. Darüber hinaus soll eine Zahlungs- und Abwicklungsmöglichkeit für unterschiedlichste Business Cases eingeführt werden. Üm dies vertauenswürdig und sicher zu gewährleisten, wird eine Blockchain in Kombination mit Smart Contracts eingesetzt.   
 
 ## Aufbau der Arbeit
 Im ersten Teil der Laborversuchs wird zunächst die Einrichtung des Raspberrys vorgenommen und die für den Aufbau notwendige Infrastruktur aufgesetzt. Anschließend wird mithilfe eines Python Programms UIDs von NFC-Karten ausgelesen. Diese werden mithilfe des Kommunikationsprotokolls "MQTT" an Node-RED übertragen. Im Node-RED wird anschließend ein sogenannter Flow implementiert, der den Nachrichtenfluss steuert.
