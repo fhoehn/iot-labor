@@ -451,10 +451,17 @@ Nun sollen die Daten des Wasserseonsor verarbeitet werden. Im ersten Schritt sol
     }
 
 Die neuen Sensordaten werden alle 5 Sekunden an MQTT geschickt. Ebenso werden alle 5 Sekunden die neuen Nachrichten überprüft. Wenn neue Nachrichten vorhanden sind, werden diese ausgegeben. Wenn das erste Zeichen der empfangenen Nachricht eine 1 ist, wird die eingebaute LED des Arduinos eingeschaltet. Andererseits wird diese ausgeschaltet. Um eine dauerhafte Verbindung mit MQTT zu haben, wird allle 5 Sekunden überprüft ob eine Verbindung zum MQTT-Server vorhanden ist. Wenn dies nicht der Fall ist, wird versucht eine neue Verbindung aufzubauen. Um das Programm nutzen zu können, müssen die Nutzerdaten des WLANs in der Setup-Method eingetragen werden. Diese wurden aus Sicherheitsgründen in diesem Beispiel entfernt. 
+Folgend ist der aktuelle Aufbau skiziert: 
+
+![Arrduino Anbindung an den Raspberry via MQTT](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/arduinoRaspberryConnection.png?raw=true "Arrduino Anbindung an den Raspberry via MQTT")
+
+
 
 # Tag 2 OpenHab Integration
    
 Im nächsten Schritt wird der Laborversuch um die Software „OpenHab“ ergänzt, mit dessen Hilfe die Realisierung einer  Homeautomatisierung ermöglicht wird. Dies erfolgt beispielsweise dadurch, dass eine Vielzahl von Bibliotheken mitgeliefert wird. Die Architektur von OpenHab weist einen skalierfähigen Charakter auf und lässt sich mit einem Baukasten vergleichen, da unterschiedliche Technologien und Systeme an die Architektur angebunden werden können. 
+
+![OpenHAB integration](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/nodeRED_OpenHAB_Integration.png?raw=true "OpenHAB Integration")
 
 ## Installation
 
@@ -720,3 +727,17 @@ Wenn das Programm nun gestartet wird und neue Sensordaten über MQTT erhalten we
 ## Ausblick/Beschreibung des angestrebten Smart Contracts-Szenarios
 
 Aus zeitlichen Gründen konnte das ursprünglich angedachte Smart Contract-Szenario nicht fertiggestellt werden. Der angestrebte Smart Contract sollte das im Kapitel "OpenHab" beschriebene Szenario dahingehend erweitern, dass relativ zur prozentualen Beleuchtungserhöhung der entsprechende Betrag auf der Blockchain abgezogen wird. So wird beispielsweise bei einem Beleuchtungserhöhung von 100% 1 Ether abgerechnet, während eine Beleuchtungserhöhung von 10% Kosten in Höhe von 0,1 Ether zur Folge haben. Die Zuordnung für das abzurechnende Konto, erfolgt über die NFC-UID und die Beleuchtungsänderung über den aktuell gemessenen Wassersensor-Wert.
+Das fertige Scenraio sollte dann wie folgt aussehen:
+
+![Blockchain Integration](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/blockchain_Integration.png?raw=true "Blockchain Integration")
+
+1. Der Arduino frägt alle 5 Sekunden den aktuellen Wasserstand des Wassersensors ab.
+2. Der Arduino sendet den aktuellen Wasserstand via MQTT an den Raspberry. 
+3. Der Raspberry übergibt den aktuellen Wert an den Smart-Contract in der Blockchain. Dadurch wird der aktuelle Preis im Smart-Contract definiert. 
+4. Wenn nun ein Nutzer seine NFC-Karte auf das Lesegerät legt, wird die UID der Karte ausgelesen und der Prozess getriggert.
+5. Der Raspberry versucht den Smart-Contract auszuführen. Dazu wird die UID der Karte genutzt, um nachzuschauen, ob der Nutzer noch genug Guthaben hat. Wenn dies der Fall ist, wird dem Nutzer der Betrag abgebucht und der Prozess zum Einschalten der Lampe auf dem Raspberry getriggert.
+6. Der Raspberry sendet eine Nachricht zum Einschalten der Lampe via MQTT an den Arduino.
+7. Der Arduino schaltet die Lampe auf den aktuellen Wert. 
+
+Diese Scenario konnte aus Zeitgründen leider nicht fertigestellt werden.
+
