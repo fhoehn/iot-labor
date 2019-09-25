@@ -71,7 +71,7 @@ Die einzelnen Konfigurationsschritte werden im Folgenden aufgeführt:
 
 3. Aufbau einer externen Verbindung über das Werkzeug PuTTY
 
-    Nach dem auf dem Raspberry die Kommunikation über SSH aktiviert wurde, kann über das Werkzeug PuTTY eine Verbindung zum Raspberry aufgebaut werden. Für den Aufbau der verbindung wird die Hostadresse, der Nutzername und das Passwort benötigt. 
+    Nach dem auf dem Raspberry die Kommunikation über SSH aktiviert wurde, kann über das Werkzeug PuTTY eine Verbindung zum Raspberry aufgebaut werden. Für den Aufbau der Verbindung wird die Hostadresse, der Nutzername und das Passwort benötigt. 
 
 4. Installation von Python
     
@@ -81,11 +81,11 @@ Die einzelnen Konfigurationsschritte werden im Folgenden aufgeführt:
 
 5. Installation von NFC-Paketen
    
-   Um auf die NFC-Schnittstelle zugreifen zu können, sind spezifische NFC-Pakete zu installieren. Hierzu wird zunächst eine vom Dozenten bereitgestellte ZIP, welches die entsprechenden Pakete enthält, auf das temporäre Verzeichnis des raspberry abgelegt. Dies kann über folgenden Kommandozeilenbefehl umgesetzt werden:
+   Um auf die NFC-Schnittstelle zugreifen zu können, sind spezifische NFC-Pakete zu installieren. Hierzu wird zunächst eine vom Dozenten bereitgestellte ZIP, welches die entsprechenden Pakete enthält, auf das temporäre Verzeichnis des Raspberrys abgelegt. Dies kann über den folgenden Kommandozeilenbefehl erfolgen:
 
         cd /tmp ; wget https://farberg.de/talks/iot/downloads/nfc_debian_packages.zip
     
-   Anschließend wir dideses Paket entpackt und die darin enthaltenen Pakete installiert:
+   Anschließend wird dieses Paket entpackt und die darin enthaltenen Pakete werden installiert:
 
         cd /tmp
         unzip nfc_debian_packages.zip
@@ -93,29 +93,29 @@ Die einzelnen Konfigurationsschritte werden im Folgenden aufgeführt:
         sudo dpkg --install *.deb 
         sudo apt-get --fix-broken install
 
-6. MQTT Client installieren
+6. Installation eines MQTT-Clients
 
-    Um später mit dem Raspberry MQTT-Nachrichten verschicken und empfangen zu können, wird ein MQTT-Client benötigt. Hierzu wird über die folgende Kommandozeile der 'pika-Client' installiert:
+    Um mit dem Raspberry MQTT-Nachrichten verschicken und empfangen zu können, wird ein MQTT-Client benötigt. Hierzu wird über die folgende Kommandozeile der 'pika-Client' installiert:
 
         sudo pip3 install nxppy paho-mqtt pika
     
 7. Konfiguration eines Serial Peripheral Interface (SPI)
 
-    Der SPI ist ein interface bus über den Daten zwischen den Microcontroller und Peripheriegeräten, wie beispielsweise Sensoren oder NFC-Karten, ausgetauscht werden können.
+    Der SPI ist ein Interface Bus über den Daten zwischen dem Microcontroller und den Peripheriegeräten, wie beispielsweise Sensoren oder NFC-Karten, ausgetauscht werden können.
 
-## NFC einlesen
+## Erfassung von NFC-UIDs
 
-Nach erfolgreiche Konfiguration des Raspberrys, soll im nächsten Schritt ein Programm für das Auslesen von NFC-IDs geschrieben werden. Die hierfür notwendigen Arbeitsschritte werden im Folgenden chronologisch aufgeführt.
+Nach erfolgreiche Konfiguration des Raspberrys, soll im nächsten Schritt ein Programm für das Auslesen von NFC-UIDs geschrieben werden. Die hierfür notwendigen Arbeitsschritte werden nachfolgend aufgeführt.
 
 1. Installation der nxppy-Library
     
-    Die nxppy-Library wird zum einfachen Einlesen und Schreiben von NFC-Chips benötigt. Die installation wird über die folgende Kommandozeile umgesetzt: 
+    Die nxppy-Library wird zum Einlesen und Schreiben von NFC-Karten benötigt. Die Installation wird über die folgende Kommandozeile umgesetzt: 
 
         pip install nxppy
 
-2. Ausgabe der UID von NFC-Chips
+2. Ausgabe der NFC-UIDs
    
-   Das Auslesen der UID eines NFC-Chips wird über die Programmiersprache Python umgesetzt. Hierzu wurde das folgende Python-Programm 'test1.py', das UID eines NFC-Chips einliest und auf der Konsole ausgibt:
+   Das Auslesen der UIDs von NFC-Karten wird über die Programmiersprache "Python" umgesetzt. Hierzu wurde das folgende Python-Programm 'test1.py', das UIDs von NFC-Karten einliest und auf der Konsole ausgibt, geschrieben:
 
         test1.py
 
@@ -135,30 +135,30 @@ Nach erfolgreiche Konfiguration des Raspberrys, soll im nächsten Schritt ein Pr
 
             time.sleep(1)
         
-    Nach dem Start des Programms wird jede Millisekunde der aktuellen Wert des NFC-Lesegerätes eingelesen und auf der Konsole ausgegeben. Für die Zustandsänderung kann abwechselnd eine anderer NFC-Chip über das NFC-Lesegerät gehalten werden.  
+    Nach dem Start des Programms wird jede Millisekunde der aktuelle Wert des NFC-Lesegerätes eingelesen und auf der Konsole ausgegeben. Für die Zustandsänderung kann abwechselnd eine anderer NFC-Karte über das NFC-Lesegerät gehalten werden.  
 
 
 ## Übertragung der UIDs an den MQTT-Broker
 
-Basierend auf dem erstellten Python-Programm für das Auslesen der UIDs, wird als nächstes die Anbindung eines MQTT-Brokers angestrebt. Ziel ist es, dass die eingelesenen UIDs an den MQTT-Broker übertragen werden. Dazu wird ein Node-RED Server verwendet. [Mehr Details über Node-RED.](https://nodered.org/)
+Basierend auf dem erstellten Python-Programm, für das Auslesen der UIDs, wird als nächstes die Anbindung eines MQTT-Brokers angestrebt. Ziel ist es, dass die eingelesenen UIDs an den MQTT-Broker übertragen werden. Dazu wird ein Node-RED Server verwendet. [Mehr Details über Node-RED.](https://nodered.org/)
 
-1. Installation von NODE-RED
+1. Installation von Node-RED
    
-   Im ersten Schritt ist ein Node-RED MQTT-Broker zu installieren. Hierzu wird der Node Package Manager(npm) verwendet. Dieser stellt ein Paketmanager für die JavaScript-Laufzeitumgebung 'Node.js' dar. Für die Installation ist folgende Kommandozeile auszuführen:
+   Im ersten Schritt ist ein Node-RED MQTT-Broker zu installieren. Hierzu wird der Node Package Manager (NPM) verwendet. Dieser stellt ein Paketmanager für die JavaScript-Laufzeitumgebung 'Node.js' dar. Für die Installation ist folgende Kommandozeile auszuführen:
 
         npm install node-red-contrib-mqtt-broker
 
-2. Start von NODE-RED
+2. Start von Node-RED
    
    Nach der erfolgreichen Installation von Node-RED, wird es im nächen Schritt gestartet: 
 
         node-red-start
 
-    Anschließend ist die Node-RED Weboberfläche über die URL `https://<ip>:1880` erreichbar. Da NODE-RED auf dem Raspberry installiert ist, ist in diesem Fall die Ip des Raspberrys zu nutzen. 
+    Anschließend ist die Node-RED Weboberfläche über die URL `https://<ip>:1880` erreichbar. Da Node-RED auf dem Raspberry installiert ist, ist in diesem Fall die Ip des Raspberrys zu nutzen. 
 
 3. Flow-Erstellung
 
-    Als nächstes ist ein Flow zu erstellen, welcher Nachrichten vom MQTT-Broker entgegennimmt und im Node-RED als DEBUG-Information ausgibt. Die hierfür notwendigen Schritt sind den nachfolgenden Ausführeungen zu entnehmen.
+    Als nächstes ist ein Flow zu erstellen, welcher Nachrichten vom MQTT-Broker entgegennimmt und im Node-RED als DEBUG-Information ausgibt. Die hierfür notwendigen Schritt sind den nachfolgenden Ausführungen zu entnehmen.
     
     1. Der zu erstellende Flow weist eine MQTT-Eingabe mit einer Verbindungen zu einer Debug-Ausgabe auf. Diese beiden Bauteile können per Drag and Drop von der Toolbox eingefügt und miteinander vernunden werden. 
     
@@ -172,13 +172,13 @@ Basierend auf dem erstellten Python-Programm für das Auslesen der UIDs, wird al
    
         ![Screenshot des Topics](https://github.com/fhoehn/iot-labor/blob/master/images/nodeRED/configMqttInput.PNG?raw=true "Topic Eingabe")
 
-    4. Anschließend muss der erstellte Flow auf den Raspberry eingespielt werden. Hierbei ist zu beachten, dass jede Änderung ein erneutes deployen voraussetzt.
+    4. Anschließend muss der erstellte Flow auf den Raspberry eingespielt werden. Hierbei ist zu beachten, dass jede Änderung ein erneutes Einspielen (engl. Deployen) voraussetzt.
 
         ![Screenshot des Deploy-Buttons](https://github.com/fhoehn/iot-labor/blob/master/images/nodeRED/deployFlow.PNG?raw=true "Deploy Flow")
 
 4. Übertragung von Daten an den MQTT Broker
 
-    Nach dem erfolgreichen Erstellen des Flows, für die Verarbeitung der MQTT-Nachrichten, sollen nun die Daten vom NFC-Lesegerät an die Queue übertragen werden. Dieser Anwendungsfall wird in einem, weiteren, Python-Programm umgesetzt. Hierzu wird die Datei 'broker.py' erstellt und darin der entsprechende Programmcode implementiert:
+    Nach dem für die Verarbeitung der MQTT-Nachrichten ein Flow erstellt wurde, sollen nun die Daten vom NFC-Lesegerät an die MQTT-Queue, über das Topic "nfc/1/", übertragen werden. Dieser Anwendungsfall wird in einem, weiteren, Python-Programm umgesetzt. Hierzu wird die Datei 'broker.py' erstellt und darin der entsprechende Programmcode implementiert:
 
         broker.py
 
@@ -204,35 +204,37 @@ Basierend auf dem erstellten Python-Programm für das Auslesen der UIDs, wird al
         
     Diese Programm stellt eine Erweiterung des zuvor vorgestellten Programms 'test1.py' dar. Im Vergleich zum vorherigen Programm werden die UIDs nicht mehr auf der Konsole ausgegeben, sondern an den MQTT-Broker gesendet. Diese Nachrichten können anschließend von Node-RED abgegriffen werden und der oben vorgestellte Flow wird abgearbeitet. Dieser Vorgang wird für jede, vom Lesegerät empfangene UID, durchgeführt. 
 
-5. Einsicht auf DEBUG-Informationen
+# ToDOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+5. Einsicht auf DEBUG-Informationen 
    
    Zu erwähnen ist, dass die emfangenen Nachrichten auf der NODE-RED Oberfläche angezeigt werden.
 
    #TODO[Add Image here]
 
+# Macht hier eine zusammenfassende Abbildung Sinn? 
 ## Bereitstellung eines REST Services
 
 Im Rahmen eines weiteren Anwendungsfalls sollte ein REST Service zur Verfügung gestellt werden. Über diesen REST Service sollen die letzten 10 UIDs abgefragt werden können. Aus zeitlichen Gründen wurde dieser Anwendungsfall nicht durchgeführt. Dies hatte allerdings keinen negativen Einfluss auf den weiteren Verlauf des Laborversuchs. 
 
-# Teil 2 - Arduino
+# Einbindung eines Arduinos
 
-Der nächste Abschnitt des Laborversuchs befasst sich mit dem Anschluss eines Arduinos (ESP8266MOD)an das System. Arduino ist eine aus Software und hardware bestehende Physical-Computing-Plattform, dessen hardware aus einem Microcontrolle und analogen sowie digitalen Ein- und Ausgängen besteht. Ziel des Laborversuchs war es zunächst, mithilfe des Arduinos eine Lampe an- und ausschalten zu können. Im nächsten Schritt wird der Versuch um den Anschluss eines Wassersensors sowie eines Servomotors ergänzt. Im letzten Schritt soll mithilfe von MQTT der Nachrichtenaustausch vollzogen werden. 
+Der nächste Abschnitt des Laborversuchs befasst sich mit dem Anschluss eines Arduinos (ESP8266MOD)an das System. Arduino ist eine aus Software und Hardware bestehende Physical-Computing-Plattform,dessen Hardware aus einem Microcontroller und analogen sowie digitalen Ein- und Ausgängen besteht. Ziel des Laborversuchs war es zunächst, mithilfe des Arduinos eine Lampe an- und ausschalten zu können. Im nächsten Schritt wird der Versuch um den Anschluss eines Wassersensors sowie eines Servomotors ergänzt. Im letzten Schritt soll mithilfe von MQTT der Nachrichtenaustausch vollzogen werden. 
 
 ## Aufsetzen einer Entwicklungsumgebung
 
- Der Beginn mit der eigentlichen Entwicklung setzte das Aufsetzen einer Entwicklungsumgebung voraus. Mithilfe dieser Entwicklungsumgebung können C-Code Programme geschrieben und auf den Arduino ausgeführt werden. Die hierfür notwendigen Schritte sind den nächsten Ausführungen zu entnehmen:
+ Der Beginn der eigentlichen Entwicklung, setzte das Aufsetzen einer Entwicklungsumgebung voraus. Mithilfe dieser Entwicklungsumgebung können C-Code Programme geschrieben und auf den Arduino ausgeführt werden. Die hierfür notwendigen Schritte sind den nächsten Ausführungen zu entnehmen:
 
  1. Installation von Visual Studio Code
     
-   Im ersten Schritt wird Visual Studio Code und anschließend im Pluginmanager das plugin "Plattform IO" installiert.
+   Im ersten Schritt wird Visual Studio Code und anschließend im Pluginmanager das Plugin "Plattform IO" installiert.
 
-1. Treiberinstallation
+2. Treiberinstallation
 
-    Das Aufspielen des C-Codes auf den Arduino erfolgt basierend auf einer Verbindung zwischen dem Entwicklungsrechner und dem Arduino. Die Verbindung wird mithilfe eines USB-Kabels umgesetzt. Zusätzlich wird eine manuelle Installation des Arduinotreibers vorausgesetzt, da der Entwicklungsrechner bei einer automatischen Installation des Treibers scheitert. 
+    Das Aufspielen des C-Codes auf den Arduino erfolgt basierend auf einer Verbindung zwischen dem Entwicklungsrechner und dem Arduino. Die Verbindung wird mithilfe eines USB-Kabels umgesetzt. Zusätzlich wird eine manuelle Installation des Arduinotreibers vorausgesetzt, da der Entwicklungsrechner die Treiber nicht selbstständig beziehen kann. 
 
-2. Erstellung eines Beispielprojekts
+3. Erstellung eines Beispielprojekts
    
-    Nachdem der richtige Treiber installiert wurde, wird ein Beispielprojekt auf den Arduino aufgespielt. 
+    Nachdem der richtige Treiber installiert wurde, wird ein Beispielprojekt auf den Arduino aufgespielt. Dieses Beispielprojekt ist dem folgenden Codeauszug zu entnehmen: 
 
         /*
         * Blink
@@ -256,22 +258,23 @@ Der nächste Abschnitt des Laborversuchs befasst sich mit dem Anschluss eines Ar
             delay(1000);
         }
 
-    Das Beispielprojekt bringt die eingebaute LED des Arduino zum Blinken. Jede Sekunde wechselt es zwischen an und aus.
+    Die Ausführung des oben stehenden Programmcodes führt dazu, dass die eingebaute LED des Arduinos im sekündlichen Abstand ein- und ausgeschaltet wird.
     
 ## Aufbau einer WLAN-Verbindung für den Arduino
    
- Um vom Arduino Nachrichten an den Raspbery schicken zu können, muss für den Arduino eine WLAN-Verbindung aufgebaut werden. Hierfür kann beispielsweise ein WiFi-Manager verwendet werden. Der Wifi-Manager agiert dabei folgendermaßen:
+ Weitergehende Szenarien können auch mithilfe von weiteren, am Arduino angeschlossenen, Sensoren umgesetzt werden. Es bietet sich an, die von den Sensoren ermittelten Werte weiterzuverarbeiten. Beispielsweise können gemessene Temperaturunterschiede an den Raspberry gesendet werden und von da aus Aktionen über Node-RED oder weitere Anwendungen angetriggert werden. Um vom Arduino Nachrichten an den Raspberry schicken zu können, muss allerdings für den Arduino eine Verbindung zu einem WLAN-Netz aufgebaut werden. Hierfür kann beispielsweise ein WiFi-Manager verwendet werden. Der Wifi-Manager agiert dabei folgendermaßen:
     
 - Das Gerät erstellt ein Access Point (neues WLAN-Netz)
 - Nach dem Verbinden mit dem WLAN wird man automatisch zu einer Website zum Einloggen weitergeleitet
 - Das Gerät listet dort alle WLAN-Netze in der erreichbaren Umgebung auf
 - Nun kann eine Verbindung mit dem gewünschten Netzwerk aufgebaut werden
 - Handelt es sich beim gewünschten Netzwerk um ein gesichertes Netz, so ist das entsprechende Sicherheitspasswort auf der Weboberfäche zu übergeben
-- Das Gerät verbindet sich anschließend mit dem WLAN und speichert die credentials in einem secure storage
-- Das Gerät verbindet sich nun immer automatisch mit diesem WLAN
+- Das Gerät verbindet sich anschließend mit dem WLAN und speichert die credentials in einem Secure Storage, sodass das Gerät zukünftig automatisch eine Verbindung zu diesem WLAN-Netz aufbaut
 - Ein möglicher Wechsel zu einem anderen Netzwerk setzt das Löschen des internen Speichers voraus
     
-Die konfigurierte WLAN-Verbindung ermöglicht nun, dass Nachrichten an den MQTT-Broker des Raspberies gesendet werden können.  
+Die konfigurierte WLAN-Verbindung ermöglicht nun, dass Nachrichten an den MQTT-Broker des Raspberries gesendet werden können. 
+
+# WAS IST DAS? HIER GIBT ES KEINERLEI BEZUG---------------
 
     /*
      * WiFiManager
@@ -301,9 +304,9 @@ Die konfigurierte WLAN-Verbindung ermöglicht nun, dass Nachrichten an den MQTT-
       delay(1000); 
     }
 
-## Anbindung des Wassersensors und Motors?
+## Anbindung des Wassersensors und Motors? Es fehlt Hier noch eine REferenz dazu, WIE DIE SENSOREN ANGESCHLOSSEN WERDEN SOLLEN. EVENTUELL KÖNNTE MAN DA EIN BILD dazu bringen
 
-Nun sollen die Daten des Wasserseonsor verarbeitet werden. Im ersten Schritt soll ein Motor angesteuert werden, der sich um 90 Grad dreht, sobald der Wassersensor sich im Wasser befindet. Ansonten soll der Motor zurück auf die Ausgangssituation gehen. 
+Nun sollen die Daten des Wassersensors verarbeitet werden. Im ersten Schritt soll ein Motor angesteuert werden, der sich um 90 Grad dreht, sobald der Wassersensor sich im Wasser befindet. Ansonten soll der Motor zurück auf die Ausgangssituation gehen. 
 
     /*
     * Watersensor and servo
@@ -351,7 +354,7 @@ Nun sollen die Daten des Wasserseonsor verarbeitet werden. Im ersten Schritt sol
 
 ## MQTT anbinden
 
- Anstatt nur den Motor zu schalten, sollen die Daten des Wassersensors nun via MQTT an den Raspbery übertragen werden. Dazu muss der Arduino die gesammelten Daten verarbeiten und an den Broker senden. Dieser Anwendungsfall kann mithilfe des folgenden Programms umgesetzt werden:
+ Neben der Schaltung des Motors, sollen die Daten des Wassersensors auch via MQTT an den Raspbery übertragen werden. Dazu muss der Arduino die gesammelten Daten verarbeiten und an den Broker senden. Dieser Anwendungsfall kann mithilfe des folgenden Programms umgesetzt werden:
 
     /*
     * MQTT
@@ -462,14 +465,14 @@ Nun sollen die Daten des Wasserseonsor verarbeitet werden. Im ersten Schritt sol
         delay(5000); 
     }
 
-Die neuen Sensordaten werden alle 5 Sekunden an MQTT geschickt. Ebenso werden alle 5 Sekunden die neuen Nachrichten überprüft. Wenn neue Nachrichten vorhanden sind, werden diese ausgegeben. Wenn das erste Zeichen der empfangenen Nachricht eine 1 ist, wird die eingebaute LED des Arduinos eingeschaltet. Andererseits wird diese ausgeschaltet. Um eine dauerhafte Verbindung mit MQTT zu haben, wird allle 5 Sekunden überprüft ob eine Verbindung zum MQTT-Server vorhanden ist. Wenn dies nicht der Fall ist, wird versucht eine neue Verbindung aufzubauen. Um das Programm nutzen zu können, müssen die Nutzerdaten des WLANs in der Setup-Method eingetragen werden. Diese wurden aus Sicherheitsgründen in diesem Beispiel entfernt. 
-Folgend ist der aktuelle Aufbau skiziert: 
+Die neuen Sensordaten werden alle 5 Sekunden an MQTT geschickt. Ebenso werden alle fünf Sekunden die neuen Nachrichten überprüft. Wenn neue Nachrichten vorhanden sind, werden diese ausgegeben. Wenn das erste Zeichen der empfangenen Nachricht eine "1" ist, wird die eingebaute LED des Arduinos eingeschaltet. Andererseits wird diese ausgeschaltet. Um eine dauerhafte Verbindung mit MQTT sicherzustellen, wird alle fünf Sekunden überprüft, ob eine Verbindung zum MQTT-Server vorhanden ist. Wenn dies nicht der Fall ist, wird versucht eine neue Verbindung aufzubauen. Um das Programm nutzen zu können, müssen die Nutzerdaten des WLANs in der Setup-Methode eingetragen werden. Diese wurden aus Sicherheitsgründen in diesem Beispiel entfernt. 
+Nachfolgender Skizzierung ist der aktuelle Aufbau des Laborversuchs zu entnehmen: 
 
 ![Arrduino Anbindung an den Raspberry via MQTT](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/arduinoRaspberryConnection.png?raw=true "Arrduino Anbindung an den Raspberry via MQTT")
 
 
 
-# Tag 2 OpenHab Integration
+# Integration von OpenHab
    
 Im nächsten Schritt wird der Laborversuch um die Software „OpenHab“ ergänzt, mit dessen Hilfe die Realisierung einer  Homeautomatisierung ermöglicht wird. Dies erfolgt beispielsweise dadurch, dass eine Vielzahl von Bibliotheken mitgeliefert wird. Die Architektur von OpenHab weist einen skalierfähigen Charakter auf und lässt sich mit einem Baukasten vergleichen, da unterschiedliche Technologien und Systeme an die Architektur angebunden werden können. 
 
