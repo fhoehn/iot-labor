@@ -5,7 +5,7 @@
 # Inhaltsverzeichnis
 
 - [Inhaltsverzeichnis](#inhaltsverzeichnis)
-- [Einführung](#einf%c3%bchrung)
+- [Einführung](#einf%C3%BChrung)
   - [Aufgabenstellung](#aufgabenstellung)
   - [Aufbau der Arbeit](#aufbau-der-arbeit)
   - [Eingesetzte Hardware](#eingesetzte-hardware)
@@ -13,20 +13,18 @@
 - [Teil 1 - NFC und MQTT](#teil-1---nfc-und-mqtt)
   - [Einrichtung des Raspberrys](#einrichtung-des-raspberrys)
   - [Erfassung von NFC-UIDs](#erfassung-von-nfc-uids)
-  - [Übertragung der UIDs an den MQTT-Broker](#%c3%9cbertragung-der-uids-an-den-mqtt-broker)
-- [Macht hier eine zusammenfassende Abbildung Sinn?](#macht-hier-eine-zusammenfassende-abbildung-sinn)
+  - [Übertragung der UIDs an den MQTT-Broker](#%C3%BCbertragung-der-uids-an-den-mqtt-broker)
   - [Bereitstellung eines REST Services](#bereitstellung-eines-rest-services)
 - [Einbindung eines Arduinos](#einbindung-eines-arduinos)
   - [Aufsetzen einer Entwicklungsumgebung](#aufsetzen-einer-entwicklungsumgebung)
-  - [Aufbau einer WLAN-Verbindung für den Arduino](#aufbau-einer-wlan-verbindung-f%c3%bcr-den-arduino)
-- [TODOOOOOOOOOOOOOOOOOOOOOOO Passender Satz finden](#todooooooooooooooooooooooo-passender-satz-finden)
-  - [Anbindung des Wassersensors und Motors? Es fehlt Hier noch eine REferenz dazu, WIE DIE SENSOREN ANGESCHLOSSEN WERDEN SOLLEN. EVENTUELL KÖNNTE MAN DA EIN BILD dazu bringen](#anbindung-des-wassersensors-und-motors-es-fehlt-hier-noch-eine-referenz-dazu-wie-die-sensoren-angeschlossen-werden-sollen-eventuell-k%c3%96nnte-man-da-ein-bild-dazu-bringen)
+  - [Aufbau einer WLAN-Verbindung für den Arduino](#aufbau-einer-wlan-verbindung-f%C3%BCr-den-arduino)
+  - [Anbindung des Wassersensors und Motors](#anbindung-des-wassersensors-und-motors)
   - [Anbindung von MQTT](#anbindung-von-mqtt)
 - [Integration von OpenHab](#integration-von-openhab)
   - [Installation](#installation)
   - [Anbindung einer Hue Bridge und Hue Lampe](#anbindung-einer-hue-bridge-und-hue-lampe)
 - [Tag 3 Blockchain Integration](#tag-3-blockchain-integration)
-  - [Installation der benötigten Komponente](#installation-der-ben%c3%b6tigten-komponente)
+  - [Installation der benötigten Komponente](#installation-der-ben%C3%B6tigten-komponente)
     - [Installation von Truffle](#installation-von-truffle)
     - [Installation von Ganache](#installation-von-ganache)
   - [Einrichtung von Ganache](#einrichtung-von-ganache)
@@ -257,7 +255,6 @@ Basierend auf dem erstellten Python-Programm, für das Auslesen der UIDs, wird a
 
    ![Screenshot der Node-RED DEBUG-Informationen](https://github.com/fhoehn/iot-labor/blob/master/images/nodeRED/DEBUG_Node-RED.PNG?raw=true "DEBUG-Informationen")
 
-# Macht hier eine zusammenfassende Abbildung Sinn? 
 ## Bereitstellung eines REST Services
 
 Im Rahmen eines weiteren Anwendungsfalls sollte ein REST Service zur Verfügung gestellt werden. Über diesen REST Service sollen die letzten zehn UIDs abgefragt werden können. Aus zeitlichen Gründen wurde dieser Anwendungsfall nicht durchgeführt. Dies hatte allerdings keinen negativen Einfluss auf den weiteren Verlauf des Laborversuchs. 
@@ -312,8 +309,8 @@ Der nächste Abschnitt des Laborversuchs befasst sich mit dem Anschluss eines Ar
 - Handelt es sich beim gewünschten Netzwerk um ein gesichertes Netz, so ist das entsprechende Sicherheitspasswort auf der Weboberfläche zu übergeben
 - Das Gerät verbindet sich anschließend mit dem WLAN und speichert die Credentials in einem Secure Storage, sodass das Gerät zukünftig automatisch eine Verbindung zu diesem WLAN-Netz aufbaut
 - Ein möglicher Wechsel zu einem anderen Netzwerk setzt das Löschen des internen Speichers voraus
-# TODOOOOOOOOOOOOOOOOOOOOOOO   Passender Satz finden
-Der zugrundeliegende Programmcode 
+
+Der WifiManager kann mit folgendem Programmcode auf einfache Art und Weise eingebunden werden. In der autoConnect-Methode des WifiManagers kann der Name und ein Passwort für das Wifi festgelegt werden. Somit wird das neue Wifi vor unberechtigtem Zugriff geschützt. 
 
     /*
      * WiFiManager
@@ -343,11 +340,11 @@ Der zugrundeliegende Programmcode
       delay(1000); 
     }
 
-Die konfigurierte WLAN-Verbindung ermöglicht nun, dass Nachrichten an den MQTT-Broker des Raspberrys gesendet werden können. 
+Die konfigurierte WLAN-Verbindung ermöglicht nun die Sendung der Nachrichten an den MQTT-Broker des Raspberrys. 
 
-## Anbindung des Wassersensors und Motors? Es fehlt Hier noch eine REferenz dazu, WIE DIE SENSOREN ANGESCHLOSSEN WERDEN SOLLEN. EVENTUELL KÖNNTE MAN DA EIN BILD dazu bringen
+## Anbindung des Wassersensors und Motors
 
-Nun sollen die Daten des Wassersensors verarbeitet werden. Im ersten Schritt soll ein Motor angesteuert werden, der sich um 90 Grad dreht, sobald der Wassersensor sich im Wasser befindet. Ansonsten soll der Motor auf die Ausgangangslage zurück gesteuert werden. 
+Nun sollen die Daten des Wassersensors verarbeitet werden. Im ersten Schritt soll ein Motor angesteuert werden, der sich um 90 Grad dreht, sobald der Wassersensor sich im Wasser befindet. Ansonsten soll der Motor auf die Ausgangangslage zurück gesteuert werden. Dazu müssen die einzelnen Sensoren zuerst mit dem Arduino verbunden werden. Dazu können Steckbrücken genutzt werden, um die Sensoren mit den GPIOs des Arduinos zu verbinden. Nachdem die Sensoren an den Arduino angeschlossen wurden, kann ein Programm zur weiteren Verarbeitung programmiert werden. 
 
     /*
     * Watersensor and servo
@@ -362,34 +359,34 @@ Nun sollen die Daten des Wassersensors verarbeitet werden. Im ersten Schritt sol
 
     void setup()
     {
-    // initialize LED digital pin as an output.
-    pinMode(LED_BUILTIN, OUTPUT);
+        // initialize LED digital pin as an output.
+        pinMode(LED_BUILTIN, OUTPUT);
 
-    servo.attach(14);
+        servo.attach(14);
 
-    Serial.begin(115200);
-    Serial.println("Starting program");
-    }
+        Serial.begin(115200);
+        Serial.println("Starting program");
+        }
 
-    void loop()
-    {
-    int waterSensor = analogRead(A0);
-    Serial.println(waterSensor);
+        void loop()
+        {
+        int waterSensor = analogRead(A0);
+        Serial.println(waterSensor);
 
-    if(waterSensor < 100)
-    {
-        servo.write(0);
-    }
-    else if(waterSensor < 200)
-    {
-        servo.write(90);
-    }
-    else
-    {
-        servo.write(180);
-    }
+        if(waterSensor < 100)
+        {
+            servo.write(0);
+        }
+        else if(waterSensor < 200)
+        {
+            servo.write(90);
+        }
+        else
+        {
+            servo.write(180);
+        }
 
-    delay(1000); 
+        delay(1000); 
     }
 
 
@@ -605,6 +602,7 @@ Um nun die Lampenbeleuchtung über MQTT zu steuern, muss eine Regel unter etc/op
 Hierbei wird definiert, dass sobald der Wassersensor einen Wert über 200 an das MQTT Thing übergibt, die Lampe eingeschaltet wird. Bei einem darunter liegendem Wert wird die Lampe ausgeschaltet. Der Name des zu steuernden Things entspricht dem vergebenen Itemnamen. Dieser Name kann beispielsweise auch über den Aufruf der Openhab-log ermittelt werden:
 
     Openhab-cli showlogs
+
 Im nächsten Schritt wurde der Aufbau des Anwendungsfalls angepasst. So wurde nun abhängig von dem ausgegebenen Wassersensor-Wert die Lampenbeleuchtungsstärke um einen entsprechenden prozentualen Wert verringert oder erhöht. Zudem wird die simulierte IOT-Architektur um eine Sicherungsschicht ergänzt, indem die Schaltung nur von einer autorisierten Person, identifizierbar über die NFC-UID (im vorliegenden Beispiel "043E436A643481"), ausgeführt werden kann:
 
     rule "Water_Lamp_on"
@@ -706,6 +704,7 @@ Nach der Ausführung dieser Kommandobefehle, steht der Smart Contract auf der Bl
 Für die Anbindung des IOT-Netzes mit dem simulierten Blockchain-Netzwerk, wird die [Web3.js-Library](https://web3js.readthedocs.io/en/v1.2.1/) verwendet. 
 
 ### Installation Web3
+
 Für deren Installation kann erneut auf das NPM zurückgegriffen werden. Über den folgenden Befehl wird die Nutzung von Web3.js bereitgestellt:
     npm install web3
 Zu berücksichtigen ist, dass dafür Python mit der Version 2.7 benötigt wird. Die Installation mit einer neueren Python-Version hat im hier beschriebenen Laborversuch zu Problemen geführt. Als spezifischen Lösungsansatz wurde hierzu auf [Anaconda](https://www.anaconda.com/) zurückgegriffen, das die Nutzung der benötigten Version ermöglicht. Für die Installation von Anaconda wurden zusätzlich aktuelle visual studio build tools benötigt, die über folgende Kommandozeile installiert wurden:
