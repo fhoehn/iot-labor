@@ -17,8 +17,8 @@
   - [Bereitstellung eines REST Services](#bereitstellung-eines-rest-services)
 - [Einbindung eines Arduinos](#einbindung-eines-arduinos)
   - [Aufsetzen einer Entwicklungsumgebung](#aufsetzen-einer-entwicklungsumgebung)
-  - [Aufbau einer WLAN-Verbindung für den Arduino](#aufbau-einer-wlan-verbindung-f%c3%bcr-den-arduino)
-  - [Anbindung des Wassersensors und Motors](#anbindung-des-wassersensors-und-motors)
+  - [Aufbau einer WLAN-Verbindung](#aufbau-einer-wlan-verbindung)
+  - [Anbindung des Wassersensors und Servomotors](#anbindung-des-wassersensors-und-servomotors)
   - [Anbindung von MQTT](#anbindung-von-mqtt)
 - [Teil 2 - Integration von OpenHab](#teil-2---integration-von-openhab)
   - [Installation](#installation)
@@ -41,11 +41,11 @@
 
 ## Aufgabenstellung
 
-Ziel dieser Arbeit ist es eine IOT-Infrastruktur bereitzustellen, welche auf den drei Schichten (Perception, Network, und Application Layer) einer IOT-Architektur basiert. Dazu sollen verschiedene Sensoren über ein Gateway mit einer Integrationsplattform verbunden werden. Über diese Integrationsplattform sollen anschließend noch weitere Geräte an das IOT-Netz angebunden und vernetzt werden. Darüber hinaus soll eine Zahlungs- und Abwicklungsmöglichkeit für unterschiedlichste Business Cases eingeführt werden. Um dies vertrauenswürdig und sicher zu gewährleisten, wird eine Blockchain in Kombination mit Smart Contracts eingesetzt.   
+Ziel dieser Arbeit ist es eine IOT-Infrastruktur bereitzustellen, welche auf den drei Schichten (Perception, Network, und Application Layer) einer IOT-Architektur basiert. Dazu sollen verschiedene Sensoren über ein Gateway mit einer Integrationsplattform verbunden werden. Über diese Integrationsplattform soll die Abindung von weiteren Geräten, an das IOT-Netz, erfolgen. Darüber hinaus soll eine Zahlungs- und Abwicklungsmöglichkeit für unterschiedlichste Business Cases eingeführt werden. Um dies vertrauenswürdig und sicher zu gewährleisten, wird eine Blockchain in Kombination mit Smart Contracts eingesetzt.   
 
 ## Aufbau der Arbeit
-Im ersten Teil des Laborversuchs wird zunächst die Einrichtung des Raspberrys vorgenommen und die für den Aufbau notwendige Infrastruktur aufgesetzt. Anschließend wird mithilfe eines Python Programms UIDs von NFC-Karten ausgelesen. Diese werden mithilfe des Kommunikationsprotokolls "MQTT" an Node-RED übertragen. Im Node-RED wird anschließend ein sogenannter Flow implementiert, der den Nachrichtenfluss steuert.
-Anschließend wird der Laborversuch um weitere Sensoren (Servomotor und Wassersensor) erweitert. Zur Anbindung dieser Sensoren wird ein Microcontroller (Arduino) verwendet. Dieser sendet die von den Sensoren übertragenen Nachrichten an die Message Queue, die anschließend auf Node-RED ausgewertet werden.
+Im ersten Teil des Laborversuchs wird zunächst die Einrichtung des Raspberrys vorgenommen und die für den Aufbau notwendige Infrastruktur aufgesetzt. Anschließend werden mithilfe eines Python-Programms UIDs von NFC-Karten ausgelesen. Diese werden mithilfe des Kommunikationsprotokolls "MQTT" an Node-RED übertragen. Im Node-RED wird anschließend ein sogenannter Flow implementiert, der den Nachrichtenfluss zwischen zwei Instanzen beschreibt.
+Anschließend wird der Laborversuch um weitere Sensoren (Servomotor und Wassersensor) erweitert. Zur Anbindung dieser Sensoren wird ein Microcontroller (Arduino) verwendet. Dieser sendet die von den Sensoren übertragenen Nachrichten an die Message Queue, die auf Node-RED ausgewertet werden.
 Für die Bereitstellung einer Benutzeroberfläche zur Homeautomatisierung, wird die Integrationsplattform "OpenHab" eingesetzt.
 Abschließend soll das Szenario um eine Blockchain erweitert werden, bei der mithilfe von Smart Contracts beispielhafte Geschäftsprozesse im IOT-Umfeld abgewickelt werden können. 
 ## Eingesetzte Hardware
@@ -78,28 +78,28 @@ Neben diesen aufgeführten Softwarekomponenten werden noch weitere Libraries (We
 # Teil 1 - Raspberry, Arduino, NFC und Node-RED
 
 Zu Beginn des Labors ist zunächst der Raspberry PI für die Entwicklung des Szenarios zu konfigurieren. 
-Hierzu muss für den Raspberry Pi eine WLAN-Verbindung aufgebaut und die SSH-Kommunikation aktiviert werden. Auf dieser Weise können zum einen die für die Umsetzung des Szenarios notwendigen Pakete aus dem Internet installiert und zum anderen wird ein Zugriff auf den Raspberry Pi über das Werkzeug "PuTTY" ermöglicht.
+Hierzu muss für den Raspberry eine WLAN-Verbindung aufgebaut und die SSH-Kommunikation aktiviert werden. Auf dieser Weise können zum einen die für die Umsetzung des Szenarios notwendigen Pakete aus dem Internet installiert und zum anderen wird ein Zugriff auf den Raspberry über das Werkzeug "PuTTY" ermöglicht.
 
 ## Einrichtung des Raspberrys
 
 Die einzelnen Konfigurationsschritte werden im Folgenden aufgeführt:
 
 1. Aufbau einer WLAN-Verbindung
-    1. Da der Raspberry Pi keine Benutzeroberfläche und Eingabemöglichkeit aufweist, wird für die Konfiguration ein Monitor und eine Tastatur an den Raspberry angeschlossen.
-    2. Der Raspberry muss via Ethernet an das Netzwerk angeschlossen werden. Dazu muss die Konfigurationsdatei geöffnet werden. 
+    1. Da der Raspberry keine Benutzeroberfläche und Eingabemöglichkeit aufweist, wird für die Konfiguration ein Monitor und eine Tastatur an den Raspberry angeschlossen.
+    2. Der Raspberry muss via Ethernet an das Netzwerk angeschlossen werden. Dazu muss die Konfigurationsdatei geöffnet werden: 
    
             sudo nano /etc/wpa_supplicant/wpa_supplicant.conf 
-        Diese Konfigurationsdatei muss um die Netzwerkverbindungsdaten ergänzt werden. Die für diesen Laborversuch notwendigen Netzwerkdaten werden in folgender Abbildung zusammengefasst:
+        In dieser Konfigurationsdatei muss eine Ergänzung der Netzwerkverbindungsdaten erfolgen. Die für diesen Laborversuch notwendigen Netzwerkdaten werden in folgender Abbildung zusammengefasst:
         
             network={
                 ssid="WiLaWiFi063C"
                 psk="p7-15Dex9.4A"
             }
         
-    3. Für die Aktivierung der Änderung muss im nächsten Schritt ein Neustart des Netzwerkmoduls erfolgen. Die entsprechende Kommandozeile wird nachfolgend aufgeführt:
+    3. Für die Aktivierung der Änderung muss im nächsten Schritt ein Neustart des Netzwerkmoduls erfolgen. Die für die Ausführung notwendige Kommandozeile wird nachfolgend aufgeführt:
             sudo ifdown wlan0 && duwo ifup wlan0
 2. Konfiguration der SSH-Verbindung
-    1. Zunächst wird der Raspberry Pi Konfigurator geöffnet:
+    1. Zunächst wird der Raspberry-Konfigurator geöffnet:
 
         sudo raspi-config
     2. Anschließend muss eine Navigation zum SSH-Eintrag erfolgen und die Eingabe über "Enable" bestätigt werden.
@@ -116,11 +116,11 @@ Die einzelnen Konfigurationsschritte werden im Folgenden aufgeführt:
 
 3. Aufbau einer externen Verbindung über das Werkzeug PuTTY
 
-    Nach dem auf dem Raspberry die Kommunikation über SSH aktiviert wurde, kann über das Werkzeug PuTTY eine Verbindung zum Raspberry aufgebaut werden. Für den Aufbau der Verbindung werden die Hostadresse, der Nutzername und das Passwort benötigt. 
+    Nach dem auf dem Raspberry die Kommunikation über SSH aktiviert wurde, kann über das Werkzeug "PuTTY" eine Verbindung zum Raspberry aufgebaut werden. Für den Aufbau der Verbindung werden die Hostadresse, der Nutzername und das Passwort benötigt. 
 
 4. Installation von Python
     
-    Für die weitere Entwicklung werden nun sowohl Python als auch Node-RED installiert. Für die Installation dieser Softwareanwendungen wird vom Advanced Packaging Tool (APT) Gebrauch gemacht. Wichtig ist, dass die APT zunächst über ein Update auf den aktuellen Stand gebracht wird. Anschließend kann die Installation von Python und Node-RED über folgende Kommandozeile erfolgen: 
+    Für die weitere Entwicklung sind nun sowohl Python als auch Node-RED zu installieren. Für die Installation dieser Softwarekomponenten wird vom APT Gebrauch gemacht. Wichtig ist, dass die APT zunächst über ein Update auf den aktuellen Stand gebracht wird. Anschließend kann die Installation von Python und Node-RED über folgende Kommandozeile erfolgen: 
 
         sudo apt-get update && sudo apt-get install python3 python3-pip cmake nodered
 
@@ -185,7 +185,7 @@ Nach erfolgreiche Konfiguration des Raspberrys, soll im nächsten Schritt ein Pr
 
 ## Übertragung der UIDs an den MQTT-Broker
 
-Basierend auf dem erstellten Python-Programm, für das Auslesen der UIDs, wird als nächstes die Anbindung eines MQTT-Brokers angestrebt. Ziel ist es die eingelesenen UIDs an den MQTT-Broker zu übertragen. Dazu wird ein Node-RED Server verwendet. [Mehr Details über Node-RED.](https://nodered.org/)
+Basierend auf dem erstellten Python-Programm, das zuständig für das Auslesen der UIDs ist, wird als nächstes die Anbindung eines MQTT-Brokers angestrebt. Ziel ist es die eingelesenen UIDs an den MQTT-Broker zu übertragen. Dazu wird ein [Node-RED](https://nodered.org/) Server verwendet.
 
 1. Installation von Node-RED
    
@@ -203,7 +203,7 @@ Basierend auf dem erstellten Python-Programm, für das Auslesen der UIDs, wird a
 
 3. Erstellung eines Flows
 
-    Als nächstes ist ein Flow zu erstellen, welcher Nachrichten vom MQTT-Broker entgegennimmt und im Node-RED als DEBUG-Information ausgibt. Die hierfür notwendigen Schritte sind den nachfolgenden Ausführungen zu entnehmen.
+    Als nächstes ist ein Flow zu erstellen, welcher Nachrichten vom MQTT-Broker entgegennimmt und im Node-RED als DEBUG-Information ausgibt. Die hierfür notwendigen Schritte sind den nachfolgenden Ausführungen zu entnehmen:
     
     1. Der zu erstellende Flow weist eine MQTT-Eingabe mit einer Verbindung zu einer DEBUG-Ausgabe auf. Diese beiden Bauteile können per Drag and Drop von der Toolbox eingefügt und miteinander verbunden werden. 
     
@@ -213,11 +213,11 @@ Basierend auf dem erstellten Python-Programm, für das Auslesen der UIDs, wird a
    
         ![Screenshot Server Einstellen](https://github.com/fhoehn/iot-labor/blob/master/images/nodeRED/configMqttNode.PNG?raw=true "Einstellen des MQTT-Servers")
 
-    3. Das Topic der Eingabe muss ebenfalls festgelegt werden. Dazu wird in den Eigenschaften der der MQTT-Eingabe das Topic "/nfc/1" angelegt.
+    3. Das Topic der Eingabe muss ebenfalls festgelegt werden. Dazu wird in den Eigenschaften, der MQTT-Eingabe, das Topic "/nfc/1" angelegt:
    
         ![Screenshot des Topics](https://github.com/fhoehn/iot-labor/blob/master/images/nodeRED/configMqttInput.PNG?raw=true "Topic Eingabe")
 
-    4. Anschließend muss der erstellte Flow auf den Raspberry eingespielt werden. Hierbei ist zu beachten, dass jede Änderung ein erneutes Einspielen (engl. Deployen) voraussetzt.
+    4. Anschließend muss der erstellte Flow auf den Raspberry eingespielt werden. Hierbei ist zu beachten, dass jede Änderung ein erneutes Einspielen (engl. Deployen) voraussetzt:
 
         ![Screenshot des Deploy-Buttons](https://github.com/fhoehn/iot-labor/blob/master/images/nodeRED/deployFlow.PNG?raw=true "Deploy Flow")
 
@@ -251,7 +251,7 @@ Basierend auf dem erstellten Python-Programm, für das Auslesen der UIDs, wird a
     
 5. Einsicht auf DEBUG-Informationen 
    
-   Zu erwähnen ist, dass die empfangenen Nachrichten auf der Node-RED Oberfläche angezeigt werden.
+   Die empfangenen Nachrichten sind auf der Node-RED Oberfläche ersichtlich:
 
    ![Screenshot der Node-RED DEBUG-Informationen](https://github.com/fhoehn/iot-labor/blob/master/images/nodeRED/DEBUG_Node-RED.PNG?raw=true "DEBUG-Informationen")
 
@@ -262,7 +262,7 @@ Im Rahmen eines weiteren Anwendungsfalls sollte ein REST Service zur Verfügung 
 
 # Einbindung eines Arduinos
 
-Der nächste Abschnitt des Laborversuchs befasst sich mit dem Anschluss eines Arduinos (ESP8266MOD) an die bisher erstellte IOT-Infrastruktur. Arduino ist eine aus Software und Hardware bestehende Physical-Computing-Plattform, dessen Hardware aus einem Microcontroller und analogen sowie digitalen Ein- und Ausgängen besteht. Ziel des Laborversuchs war es zunächst, mithilfe des Arduinos eine Lampe an- und ausschalten zu können. Im nächsten Schritt wird der Versuch um den Anschluss eines Wassersensors sowie eines Servomotors ergänzt. Im letzten Schritt soll mithilfe von MQTT der Nachrichtenaustausch vollzogen werden. 
+Der nächste Abschnitt des Laborversuchs befasst sich mit dem Anschluss eines Arduinos (ESP8266MOD) an die bisher erstellte IOT-Infrastruktur. Arduino ist eine aus Software und Hardware bestehende Physical-Computing-Plattform, deren Hardware aus einem Microcontroller und analogen sowie digitalen Ein- und Ausgängen besteht. Ziel des Laborversuchs war es,zunächst, mithilfe des Arduinos eine Lampe an- und ausschalten zu können. Im nächsten Schritt wird der Versuch um den Anschluss eines Wassersensors sowie eines Servomotors ergänzt. Im letzten Schritt soll mithilfe von MQTT der Nachrichtenaustausch vollzogen werden. 
 
 ## Aufsetzen einer Entwicklungsumgebung
 
@@ -298,9 +298,9 @@ Der nächste Abschnitt des Laborversuchs befasst sich mit dem Anschluss eines Ar
 
     Die Ausführung des oben stehenden Programmcodes führt dazu, dass die eingebaute LED des Arduinos im sekündlichen Abstand ein- und ausgeschaltet wird.
     
-## Aufbau einer WLAN-Verbindung für den Arduino
+## Aufbau einer WLAN-Verbindung
    
- Weitergehende Szenarien können auch mithilfe von weiteren, am Arduino angeschlossenen, Sensoren umgesetzt werden. Es bietet sich an, die von den Sensoren ermittelten Werte weiterzuverarbeiten. Beispielsweise können gemessene Temperaturunterschiede an den Raspberry gesendet werden und von da aus Aktionen über Node-RED oder weitere Anwendungen initialisiert werden. Um vom Arduino Nachrichten an den Raspberry schicken zu können, muss allerdings für den Arduino eine Verbindung zu einem WLAN-Netz aufgebaut werden. Hierfür kann beispielsweise ein WiFi-Manager verwendet werden. Der Wifi-Manager agiert dabei folgendermaßen:
+ Weitergehende Szenarien können auch mithilfe von weiteren, am Arduino angeschlossenen, Sensoren umgesetzt werden. Es bietet sich an, die von den Sensoren ermittelten Werte weiterzuverarbeiten. Beispielsweise können gemessene Temperaturunterschiede an den Raspberry gesendet und von da aus Aktionen über Node-RED oder weitere Anwendungen initialisiert werden. Um vom Arduino Nachrichten an den Raspberry schicken zu können, muss allerdings für den Arduino eine Verbindung zu einem WLAN-Netz aufgebaut werden. Hierfür kann beispielsweise ein WiFi-Manager Verwendung finden. Der Wifi-Manager agiert dabei folgendermaßen:
     
 - Das Gerät erstellt ein Access Point (neues WLAN-Netz)
 - Nach dem Verbinden mit dem WLAN wird man automatisch zu einer Website zum Einloggen weitergeleitet
@@ -342,9 +342,9 @@ Der WifiManager kann mit folgendem Programmcode auf einfache Art und Weise einge
 
 Die konfigurierte WLAN-Verbindung ermöglicht nun die Sendung der Nachrichten an den MQTT-Broker des Raspberrys. 
 
-## Anbindung des Wassersensors und Motors
+## Anbindung des Wassersensors und Servomotors
 
-Nun sollen die Daten des Wassersensors verarbeitet werden. Im ersten Schritt soll ein Motor angesteuert werden, der sich um 90 Grad dreht, sobald der Wassersensor sich im Wasser befindet. Ansonsten soll der Motor auf die Ausgangangslage zurück gesteuert werden. Dazu müssen die einzelnen Sensoren zuerst mit dem Arduino verbunden werden. Dazu können Steckbrücken genutzt werden, um die Sensoren mit den GPIOs des Arduinos zu verbinden. Nachdem die Sensoren an den Arduino angeschlossen wurden, kann ein Programm zur weiteren Verarbeitung programmiert werden. 
+Nun sollen die Daten des Wassersensors verarbeitet werden. Im ersten Schritt soll ein Servomotor angesteuert werden, der sich um 90 Grad dreht, sobald der Wassersensor sich im Wasser befindet. Ansonsten soll der Motor auf die Ausgangangslage zurück gesteuert werden. Dazu muss zunächst der Aufbau einer Verbindung zwischen den einzelnen Sensoren und dem Arduino erfolgen. Um die Sensoren mit den GPIOs des Arduinos zu verbinden, können Steckbrücken Verwendung finden. Nachdem die Sensoren an den Arduino angeschlossen wurden, kann ein Programm zur weiteren Verarbeitung, wie beispielsweise dem nachfolgend aufgeführten Programmcodeausschnitt, erstellt werden: 
 
     /*
     * Watersensor and servo
@@ -392,7 +392,7 @@ Nun sollen die Daten des Wassersensors verarbeitet werden. Im ersten Schritt sol
 
 ## Anbindung von MQTT
 
- Neben der Schaltung des Motors, sollen die Daten des Wassersensors auch via MQTT an den Raspberry übertragen werden. Dazu muss der Arduino die gesammelten Daten verarbeiten und an den Broker senden. Dieser Anwendungsfall kann mithilfe des folgenden Programms umgesetzt werden:
+ Neben der Schaltung des Servomotors, sollen die Daten des Wassersensors auch über MQTT an den Raspberry übertragen werden. Dazu muss der Arduino die gesammelten Daten verarbeiten und an den Broker senden. Die Umsetzung dieses Anwendungsfalls kann über folgenden Programmcode erfolgen:
 
     /*
     * MQTT
@@ -566,28 +566,28 @@ Alle verfügbaren [Things](https://www.openhab.org/docs/concepts/things.html) (s
 ![Screenshot OpenHab Configuration_Things-Übersicht](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Configuration_Things2.png?raw=true "Übersicht der konfigurierbaren Things")
 
 Für die Anbindung und Steuerung des Things ist ein [Channel](https://www.openhab.org/docs/concepts/things.html) und ein [Item](https://www.openhab.org/docs/configuration/items.html) zu konfigurieren. Während das Thing als eine physische Entität einer Information angesehen werden kann, stellt der Channel eine konkrete Funktion des Things dar. Zudem sind Channels mit Items verlinkt, die wiederum im OpenHab-Umfeld als Ausprägung der Funktion (Channel) zu verstehen sind. So kann beispielsweise das Item "MyNFCThing_" definiert werden, mit dem Item-Typ "String". Dabei gibt der Item-Typ an, dass nur Werte im String-Format entgegengenommen und angezeigt werden können. Der Itemname dient hauptsächlich zur eindeutigen Identifikation des Items (dies ist beispielsweise bei der Implementierung einer Regel von Bedeutung).
-Die Channel-konfiguration kann über einen Doppelklick auf dem zu ergänzenden Thing erfolgen. In der aufgepoppten Channel-Konfiguration ist anschließend ein Channelname, Label und der Typ des Channels zu definieren. Zur Verdeutlichung wird im Folgenden eine Beispiel Channel-Konfiguration veranschaulicht:
+Die Channel-konfiguration kann über einen Doppelklick auf dem zu ergänzenden Thing erfolgen. In der aufgepoppten Channel-Konfiguration ist anschließend ein Channelname, Label und der Typ des Channels zu definieren. Zur Verdeutlichung wird im Folgenden eine beispielhafte Channel-Konfiguration aufgeführt:
 
 ![Screenshot OpenHab Channel-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Link_Channel.png?raw=true "Beispielhafte Channel-Konfiguration")
 
-Nach Betätigung des im rechten unteren Rand befindlichen „Link“-Buttons, steht das zu steuernde Thing im Reiter Control zur Steuerung zur Verfügung:
+Nach Betätigung des im rechten unteren Rand befindlichen „Link“-Buttons, steht das zu steuernde Thing im Reiter "Control" zur Steuerung zur Verfügung:
 
 ![Screenshot OpenHab Control-Übersicht](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Overview_Control.png?raw=true "Übersicht der steuerbaren Things")
 
-Als nächstes sollte die Steuerung der Lampe über das Kommunikationsprotokoll „MQTT“ umgesetzt werden. Ziel war es, die Lampe, abhängig vom ermittelten Feuchtigkeitswert durch den Wassersensor, zu dimmen.
-Für die Kommunikation über MQTT kann das auf OpenHab verfügbare MQTT-Binding genutzt werden. Die Installation wird erneut über den Reiter „Add-Ons“ umgesetzt. Als nächstes ist unter dem Reiter „Inbox“ ein neuer Eintrag zu erstellen, der zu folgenden Auswahlmöglichkeiten führt:
+Als nächstes sollte die Steuerung der Lampe über das Kommunikationsprotokoll „MQTT“ umgesetzt werden. Ziel war es,zunächst, die Hue-Lampe, abhängig vom gemessenen Feuchtigkeitswert (Wassersensor), ein- oder auszuschalten.
+Für die Kommunikation über MQTT kann das auf OpenHab verfügbare MQTT-Binding genutzt werden, dessen Installation erneut über den Reiter „Add-Ons“ umgesetzt wird. Als nächstes ist unter dem Reiter „Inbox“ ein neuer Eintrag zu erstellen, der zu folgenden Auswahlmöglichkeiten führt:
 
 ![Screenshot OpenHab MQTT Thing Binding-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Options_MQTT_ThingBinding.png?raw=true "Konfigurationsmöglichkeiten vom MQTT-Binding")
 
-Für den oben genannten Anwendungsfall werden lediglich ein MQTT Broker und ein Generic MQTT Thing benötigt. Dementsprechend wird als erstes ein MQTT Broker erstellt. Dem Broker sind ein Name und die IP-Adresse des Raspberrys zu übergeben. Als Port wird die 1883 gewählt. Die hier beschriebenen Brokereinstellungen sind der nächsten Abbildung zu entnehmen:
+Für den oben genannten Anwendungsfall werden lediglich ein MQTT Broker und ein Generic MQTT Thing benötigt. Dementsprechend wird als erstes ein MQTT Broker erstellt. Dem Broker sind anschließend ein Name und die IP-Adresse des Raspberrys zu übergeben. Als Port wird die 1883 gewählt. Die hier beschriebenen Brokereinstellungen sind der nächsten Abbildung zu entnehmen:
 
 ![Screenshot OpenHab MQTT Broker-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Configuration_MQTT_Broker.png?raw=true "Konfiguration eines MQTT-Brokers")
 
-Nachdem der MQTT Broker konfiguriert ist, ist anschließend noch ein Generic MQTT Thing zu erstellen. Diesem Thing ist anschließend ein Name zu übergeben und einem Broker zuzuweisen. Nach diesen beiden Schritten, können dem neu angelegten MQTT Thing mehrere Channels zugewiesen werden. Für diesen Channel werden folgende Angaben vergeben:
+Nachdem der MQTT Broker konfiguriert ist, ist im Anschluss ein Generic MQTT Thing zu erstellen. Diesem Thing ist ein Name zu übergeben und einem Broker zuzuweisen. Nach diesen beiden Schritten, können dem neu angelegten MQTT Thing mehrere Channels zugewiesen werden. Für diesen Channel werden folgende Angaben vergeben:
 
-    •	Channel Typ: Erwartetes Rückgabeformat (beispielsweise text value)
-    •	Channel ID: Eindeutiger Name oder ID  
-    •	MQTT Topic: Als Topic wird der beim Auslesen des Wassersensors verwendete topic „/water/out“ gewählt
+    •	Channel-Typ: Erwartetes Rückgabeformat (beispielsweise text value)
+    •	Channel-ID: Eindeutiger Name oder ID (zur eindeutigen Identifierung des Channels) 
+    •	MQTT Topic: Als Topic wird das beim Auslesen des Wassersensors verwendete Topic „/water/out“ gewählt
 
 Um nun die Lampenbeleuchtung über MQTT zu steuern, muss eine Regel unter etc/openhab2/rules/default.rules erstellt und beispielsweise mit dem folgenden Code versehen werden:
 
@@ -633,28 +633,28 @@ Im nächsten Schritt wurde der Aufbau des Anwendungsfalls angepasst. So wurde nu
             }
     end
 
-Die folgende Abbildung zeigt die prozentuale Änderung der Lampenbeleuchtung an. Für diesen Versuch wurde der Wassersensor im Wechsel befeuchtet und getrocknet. Zusätzlich wird die Beleuchtungsänderung nur geändert, sofern die richtige NFC-Karte an das NFC-Lesegerät gehalten wurde:
+Die folgende Abbildung gibt visualisiert die Zustandsänderungen Lampenbeleuchtung an. Für diesen Versuch wurde der Wassersensor im Wechsel befeuchtet und getrocknet. Zu beachten ist, dass die Beleuchtungsänderung nur über die autorisierte NFC-Karte erfolgen kann:
 ![Screenshot OpenHab Zustandänderung-Lampe](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/LampsLighting_Change.png?raw=true "Zustandsänderung der Lampenbeleuchtung")
 <div class="page"/>
 
 # Tag 3 Blockchain Integration
 
-Nachdem in den vorherigen Teilen Zustandsänderungen von Sensoren mittels MQTT verarbeitet werden konnten, soll nun eine Blockchain Integration durchgeführt werden. Ziel dieser Integration ist die erfolgreiche Etablierung eines Smart Contracts. Im vorliegenden Beispiel soll ein Smart-Contract entwickelt werden, der dem Nutzer, für jedes Schalten der Lampe einen gewissen Geldbetrag in Rechnung stellt. Die Geldbetragsmenge ergibt dabei entsprechend dem gemessenem Wassersensor-Wert. 
+Nachdem in den vorherigen Teilen Zustandsänderungen von Sensoren mittels MQTT verarbeitet werden konnten, soll nun eine Blockchain Integration durchgeführt werden. Ziel dieser Integration ist die erfolgreiche Etablierung eines Smart Contracts. Im vorliegenden Beispiel soll ein Smart-Contract entwickelt werden, der dem Nutzer, für jedes Schalten der Lampe einen gewissen Geldbetrag in Rechnung stellt. Die Geldbetragsmenge ergibt sich aus dem gemessenem Wassersensor-Wert. 
 Um diese Szenario umsetzen zu können, sollen die Smart-Contracts von Ethereum eingesetzt werden. Dabei soll bei Übertragung der NFC-UID zunächst geprüft werden, ob dem entsprechenden Nutzer genügend Guthaben zur Verfügung steht. Im positiven Fall wird das für die Schaltung der Lampe notwendige Guthaben, vom Nutzerkonto auf das Betreiberkonto übertragen. Nach erfolgter Übertragung des Guthabens, erfolgt anschließend die Schaltung der Lampe. 
 
 ## Installation der benötigten Komponente
 
-Für die Abbildung des oben geschilderten Szenarios wird Truffle zur Entwicklung und zum Test von Smart Contracts und Ganache zur Simulation einer Blockchain verwendet. Diese beiden Komponenten werden auf einen separaten und somit außerhalb des Raspberrys installiert. Im Folgenden werden zunächst die für die Installationen notwendigen Schritte geschildert. Anschließend wird auf die Einrichtung von Ganache und Truffle eingegangen und eine Beispielimplementierung für ein Smart Contract aufgeführt.
+Für die Abbildung des oben geschilderten Szenarios wird Truffle zur Entwicklung und zum Test von Smart Contracts und Ganache zur Simulation einer Blockchain verwendet. Diese beiden Komponenten werden auf einen separaten, und somit außerhalb des Raspberrys, installiert. Im Folgenden werden zunächst die für die Installationen notwendigen Schritte geschildert. Anschließend wird auf die Einrichtung von Ganache und Truffle eingegangen und eine Beispielimplementierung für ein Smart Contract aufgeführt.
 
 ### Installation von Truffle 
 
-Bevor mit der Installation von Truffle begonnen werden kann, muss zunächst Node.js installiert werden. Dazu wird die neuste Version von [Node.js.](https://nodejs.org/download) von der Node.js-Homepage heruntergeladen. 
+Bevor mit der Installation von Truffle begonnen werden kann, muss zunächst Node.js installiert werden. Dazu wird die neuste Version von der [Node.js-Homepage]((https://nodejs.org/download)) heruntergeladen. 
 Als nächstes muss [Truffle](https://www.trufflesuite.com/) installiert werden. Dazu führen wird folgender Befehl über NPM ausgeführt:
     npm install truffle -g
 
 ### Installation von Ganache
 
-Die Installation von [Ganache](https://www.trufflesuite.com/ganache) erfolgt ebenfalls über die Ganache-Homepage.
+Die Installation von [Ganache](https://www.trufflesuite.com/ganache) erfolgt ebenfalls über die Homepage.
 
 ## Einrichtung von Ganache
 
@@ -711,12 +711,12 @@ Für die Anbindung des IOT-Netzes mit dem simulierten Blockchain-Netzwerk, wird 
 
 Für deren Installation kann erneut auf das NPM zurückgegriffen werden. Über den folgenden Befehl wird die Nutzung von Web3.js bereitgestellt:
     npm install web3
-Zu berücksichtigen ist, dass dafür Python mit der Version 2.7 benötigt wird. Die Installation mit einer neueren Python-Version hat im hier beschriebenen Laborversuch zu Problemen geführt. Als spezifischen Lösungsansatz wurde hierzu auf [Anaconda](https://www.anaconda.com/) zurückgegriffen, das die Nutzung der benötigten Version ermöglicht. Für die Installation von Anaconda wurden zusätzlich aktuelle visual studio build tools benötigt, die über folgende Kommandozeile installiert wurden:
+Zu berücksichtigen ist, dass hierfür Python mit der Version 2.7 benötigt wird. Die Installation mit einer neueren Python-Version hat im hier beschriebenen Laborversuch zu Problemen geführt. Als spezifischen Lösungsansatz wurde hierzu auf [Anaconda](https://www.anaconda.com/) zurückgegriffen, das die Nutzung der benötigten Version ermöglicht. Für die Installation von Anaconda wurden zusätzlich aktuelle visual studio build tools benötigt, die über folgende Kommandozeile installiert wurden:
     npm install –g windows-build-tools
 
 ### Integration der Blockchain
 
-Nach der Installation der benötigten Bibliotheken, kann mit der Integration der Blockchain in das IOT-Scenario begonnen werden. Dazu wird auf dem zu entwickelten Rechner eine neue Javascript-Datei erstellt. In dieser Datei wird ein Programm implementiert, das die Integration zwischen der simulierten Blockchain und der bestehenden IOT-Infrastruktur herstellen soll. Hierzu wird zunächst eine Verbindung zur Blockchain und dem MQTT-Broker hergestellt. Zudem soll bei eingehenden Nachrichten, die im vorliegenden Fall über das abonnierte Topic "water/out" eintreffen,  der Smart-Contract aus der Blockchain ausgeführt werden. Der nachfolgende Programmcodeausschnitt visualisiert die technische Umsetzung des soeben beschriebenen Szenarios:
+Nach der Installation der benötigten Bibliotheken, kann mit der Integration der Blockchain in das IOT-Scenario begonnen werden. Dazu wird auf dem zu entwickelten Rechner eine neue Javascript-Datei erstellt. In dieser Datei wird ein Programm implementiert, das die Integration zwischen der simulierten Blockchain und der bestehenden IOT-Infrastruktur herstellen soll. Hierzu wird zunächst eine Verbindung zur Blockchain und dem MQTT-Broker hergestellt. Zudem soll bei eingehenden Nachrichten, die im vorliegenden Fall über das abonnierte Topic "water/out" eintreffen, der Smart-Contract aus der Blockchain ausgeführt werden. Der nachfolgende Programmcodeausschnitt visualisiert die technische Umsetzung des soeben beschriebenen Szenarios:
 
     var mqtt    = require('mqtt');
     const Web3 = require('web3');
@@ -771,7 +771,7 @@ Nach der Installation der benötigten Bibliotheken, kann mit der Integration der
     console.log("end of script");
 
 Im vorliegenden Programmcode werden zunächst die Module "MQTT" und "Web3" geladen. Anschließend erfolgt mithilfe von Web3 ein Verbindungsaufbau mit der lokalen Blockchain. Zudem wird über MQTT eine Verbindung mit dem Raspberry aufgebaut. 
-Bei eingehenden Nachrichten wird eine Ausgabe auf der Konsole ausgeführt und die executedSmartContractAsync()-Methode ausgeführt. Um auf eingehende Sensordaten reagieren zu können, Subscribed sich das Programm auf das Topic "/water/out". Bevor der Smart Contract ausgehführt werden kann, muss die ABI (Application binary interface) des Smart Contracts eingelesen werden. Diese wird benötigt, um auf die Schnittstelle zugreifen zu können. Die ABI des Smart Contracts wird beim Kompilieren erzeugt und im Build-Verzeichnis abgelegt. Dementsprechend wird für die Ermittlung der ABI ein Pfad zu dem Build-Verzeichnis hinterlegt und die ABI ausgelesen.
+Bei eingehenden Nachrichten wird eine Ausgabe auf der Konsole erzeugt und die executedSmartContractAsync()-Methode ausgeführt. Um auf eingehende Sensordaten reagieren zu können, Subscribed sich das Programm auf das Topic "/water/out". Bevor der Smart Contract ausgehführt werden kann, muss die ABI (Application binary interface) des Smart Contracts eingelesen werden. Diese wird benötigt, um auf die Schnittstelle zugreifen zu können. Die ABI des Smart Contracts wird beim Kompilieren erzeugt und im Build-Verzeichnis abgelegt. Dementsprechend wird für die Ermittlung der ABI ein Pfad zu dem Build-Verzeichnis hinterlegt und die ABI ausgelesen.
 Mithilfe der ABI kann nun auf die getMessage()-Methode des Smart-Contracts zugegriffen werden. 
 Für die Ausführung des Smart Contracts muss das Programm zunächst gestartet werden. Sobald Sensordaten über MQTT eintreffen wird auf der Konsole folgendes ausgegeben:
 
@@ -785,12 +785,12 @@ Das angestrebte Szenario lässt sich mit folgender Abbildung und schrittweiser B
 
 ![Blockchain Integration](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/blockchain_Integration.png?raw=true "Blockchain Integration")
 
-1. Der Arduino frägt alle fünf Sekunden den aktuellen Wasserstand des Wassersensors ab.
-2. Der Arduino sendet über MQTT den aktuellen Wasserstand an den Raspberry. 
+1. Der Arduino frägt alle fünf Sekunden den aktuellen Wasserstand des Wassersensors ab
+2. Der Arduino sendet über MQTT den aktuellen Wasserstand an den Raspberry
 3. Der Raspberry übergibt den aktuellen Wert an den Smart Contract in der Blockchain. Dadurch wird der aktuelle Preis im Smart Contract definiert. 
-4. Wenn nun ein Nutzer seine NFC-Karte auf das Lesegerät legt, wird die UID der Karte ausgelesen und der Prozess getriggert.
-5. Der Raspberry versucht den Smart Contract auszuführen. Dazu wird die UID der Karte genutzt, um nachzuschauen, ob der Nutzer noch genug Guthaben aufweist. Im positiven Fall wird das für die Schaltung der Lampe notwendige Guthaben vom Nutzerkonto abgezogen und der Prozess zum Einschalten der Lampe auf dem Raspberry initialisiert.
-6. Der Raspberry sendet über MQTT eine Nachricht, mit der Anweisung die Lampe einzuschalten, an den Arduino.
+4. Wenn nun ein Nutzer seine NFC-Karte auf das Lesegerät legt, wird die UID der Karte ausgelesen und der Prozess initialisiert.
+5. Der Raspberry versucht den Smart Contract auszuführen. Dazu wird die UID der Karte genutzt, um nachzuschauen, ob der Nutzer über genügend Guthaben verfügt. Im positiven Fall wird das für die Schaltung der Lampe notwendige Guthaben vom Nutzerkonto abgezogen und der Prozess zum Einschalten der Lampe auf dem Raspberry initialisiert.
+6. Der Raspberry sendet über MQTT eine Nachricht, bezüglich der der Schaltung der Lampe, an den Arduino.
 7. Der Arduino schaltet die Lampe auf den aktuellen Wert.
 <div class="page"/>
 
@@ -798,8 +798,8 @@ Das angestrebte Szenario lässt sich mit folgender Abbildung und schrittweiser B
 Zu Beginn des Laborberichts wurde die Konfiguration des Raspberrys vorgenommen. Hierbei konnten nach anfänglichen Schwierigkeiten alle notwendigen Konfigurationsschritte vollzogen werden. Als weniger problematisch stellte sich das anschließende Schreiben eines Python-Programms für das Auslesen von NFC-UIDs dar. Basierend auf diesem Programm sollte im nächsten Schritt eine Übertragung der UIDs an einen MQTT-Broker erfolgen. Hierzu wurde zunächst Node-RED installiert. Auf der Weboberfläche von Node-RED erfolgte daraufhin die Erstellung eines Flows, welches Nachrichten vom MQTT-Broker durch ein Abonnement auf eine Message-Queue entgegennimmt. Mithilfe eines weiteren Python-Programms konnte anschließend realisiert werden, dass die UIDs an den MQTT Broker übergeben und auf der Node-RED Oberfläche als DEBUG-Information angezeigt werden. Die zusätzliche Bereitstellung eines REST-Services, das die letzten zehn übertragenen UIDs bereitstellt, konnte aus zeitlichen Gründen nicht umgesetzt werden.
 Im nächsten Schritt wurde der Laborversuch um die Anbindung eines Microcontrollers (Arduino) ergänzt. Dies setzt den Aufbau einer Entwicklungsumgebung (Visual Studio Code) und für den Nachrichtenaustausch mit einem definierten Netzwerk, eine WLAN-Verbindung voraus. Um den Nachrichtenaustausch zwischen dem Arduino und den beiden Sensoren herzustellen, wurde eine Verbindung mithilfe von Steckbrücken hergestellt. Mithilfe eines C-Programmes wurde der Servomotor so programmiert, dass er abhängig vom empfangenen Wassersensor-Wert gedreht wird. Darüber hinaus erfolgte eine erfolgreiche Anbindung des Arduinos mit dem MQTT-Broker.
 
-Im nächsten Abschnitt des Laborversuchs wurde die Integrationsplattform "OpenHab" für die Homeautomatisierung eingeführt. In diesem Kontext wurden eine Hue Bridge und eine Hue-Lampe an die simulierte IOT-Infrastruktur angebunden. Durch die von OpenHab mitgelieferten Add-Ons gestaltete sich eine Steuerung dieser Geräte als simpel. So wurde beispielsweise mithilfe einer Regel umgesetzt, dass abhängig vom empfangenen Wassersensor-Wert die Beleuchtungsstärke der Hue Lampe verringert oder erhöht wird. Erweitert wurde dieser Anwendungsfall zusätzlich dahingehend, dass die Steuerung lediglich von einer autorisierten NFC-UID ausgeführt werden kann.
+Im nächsten Abschnitt des Laborversuchs wurde die Integrationsplattform "OpenHab" für die Homeautomatisierung eingeführt. In diesem Kontext wurden eine Hue Bridge und eine Hue Lampe an die simulierte IOT-Infrastruktur angebunden. Durch die von OpenHab mitgelieferten Add-Ons gestaltete sich eine Steuerung dieser Geräte als simpel. So wurde beispielsweise mithilfe einer Regel umgesetzt, dass abhängig vom empfangenen Wassersensor-Wert die Beleuchtungsstärke der Hue Lampe verringert oder erhöht wird. Erweitert wurde dieser Anwendungsfall zusätzlich dahingehend, dass die Steuerung lediglich von einer autorisierten Person (NFC-UID) ausgeführt werden kann.
 
-Im letzten Abschnitt des Laborversuchs sollte die simulierte IOT-Infrastruktur um eine Blockchain-Anbindung angereichert werden. Hierfür erfolgte zunächst die Installation von Truffle, als eine Entwicklungsumgebung für Smart Contracts, und Ganache, das zur Simulation einer Blockchain eingesetzt werden kann. Im Anschluss sollte ein Smart Contract implementiert werden, der bei Schaltung der Lampe zunächst prüft ob der schaltende Nutzer genügend Guthaben für diese Aktion aufweist und im positiven Fall den entsprechenden Betrag vom Nutzerguthaben abzieht. Aufgrund dessen, dass während der Installationen unterschiedlichste Probleme auftraten (beispielsweise inkompatible Python-Version), konnte das angestrebte Smart Contract-Szenario nicht umgesetzt werden. Dementsprechend wurde im letzten Schritt eine Abbildung vorgestellt, das die geplante technische Umsetzung des Smart Contracts visualisiert. Darüber hinaus erfolgte die Vorstellung des bis zum Ende des Laborversuchs erstellten Smart Contracts.
+Im letzten Abschnitt des Laborversuchs sollte die simulierte IOT-Infrastruktur um eine Blockchain-Anbindung angereichert werden. Hierfür erfolgte zunächst die Installation von Truffle, als eine Entwicklungsumgebung für Smart Contracts, und Ganache, das zur Simulation einer Blockchain eingesetzt werden kann. Im Anschluss sollte ein Smart Contract implementiert werden, der bei Schaltung der Lampe zunächst prüft ob der schaltende Nutzer über genügend Guthaben für diese Aktion verfügt und im positiven Fall den entsprechenden Betrag vom Nutzerguthaben abzieht. Aufgrund dessen, dass während der Installationen unterschiedlichste Probleme auftraten (beispielsweise inkompatible Python-Version), konnte das angestrebte Smart Contract-Szenario nicht umgesetzt werden. Dementsprechend wurde im letzten Schritt eine Abbildung vorgestellt, das die geplante technische Umsetzung des Smart Contracts visualisiert. Darüber hinaus erfolgte die Vorstellung des bis zum Ende des Laborversuchs erstellten Smart Contracts.
 
 Unabhängig von der gescheiterten Implementierung des Smart Contracts kann insgesamt von einem erfolgreichen und lehrreichen Laborversuch gesprochen werden. Der Laborversuch macht deutlich, dass mithilfe von geeigneter Hardware und Software sowie durch intensiver Auseinandersetzung mit der Thematik, bereits in kurzer Zeit eine IOT-Infrastruktur aufgesetzt werden kann. Der Laborversuch zeigt auch, dass die verschiedenen Softwarekomponente den größten Entwicklungsaufwand übernehmen, dass deren Installation aber unter Umständen mühselig und zeitraubend seien kann (beispielsweise bei inkompatibler Python-Version). Zudem ist zu berücksichtigen, dass zumindest Grundkenntnisse in allen relevanten Programmiersprachen erforderlich sind. Andernfalls sind bei einem eingeschränkten Zeitrahmen, zeitliche Engpässe zu erwarten, wie es beispielweise bei der Programmierung des Smart Contracts der Fall war.
