@@ -34,7 +34,7 @@
   - [Einbindung der Blockchain ins IOT-Netz](#einbindung-der-blockchain-ins-iot-netz)
     - [Installation Web3](#installation-web3)
     - [Integration der Blockchain](#integration-der-blockchain)
-  - [Beschreibung des angestrebten Smart Contracts-Szenarios](#beschreibung-des-angestrebten-smart-contracts-szenarios)
+  - [Beschreibung des angestrebten Smart Contract-Szenarios](#beschreibung-des-angestrebten-smart-contract-szenarios)
 - [Zusammenfassung und Bewertung der Ergebnisse](#zusammenfassung-und-bewertung-der-ergebnisse)
 
 <div class="page"/>
@@ -671,7 +671,7 @@ Für die Implementierung des Smart Contracts musste zunächst ein Projekt erstel
 
     truffle init
 
-Mit diesem Befehl wird anschließend die komplette Verzeichnisstruktur für die Implementierung des Smart Contracts initialisiert. Im nächsten Schritt soll ein neuer Smart Contract hinzugefügt werden. Dafür wird im contracts-Verzeichnis eine neue Datei mit der Endung .sol angelegt. Im vorliegenden Fall wird der Smart Contract mit dem Namen "Light_New" erstellt. Der Smart Contract wird basierend auf der Programmiersprache [Solidity](https://www.trufflesuite.com/docs/truffle/getting-started/compiling-contracts) implementiert. 
+Mit diesem Befehl wird anschließend die komplette Verzeichnisstruktur für die Implementierung des Smart Contracts initialisiert. Im nächsten Schritt soll ein neuer Smart Contract hinzugefügt werden. Dafür wird im Contracts-Verzeichnis eine neue Datei mit der Endung ".sol" angelegt. Im vorliegenden Fall wird der Smart Contract mit dem Namen "Light_New" erstellt. Der Smart Contract wird basierend auf der Programmiersprache [Solidity](https://www.trufflesuite.com/docs/truffle/getting-started/compiling-contracts) implementiert. 
 Zu Beginn wurde testweise ein simpler Smart Contract definiert, der die Nachricht "Hello World" zurückgibt. Ein hierfür beispielhafter Programmcode lässt sich folgendermaßen zusammenfassen:
 
     pragma solidity ^0.5.0;
@@ -708,12 +708,12 @@ Für die Anbindung des IOT-Netzes mit dem simulierten Blockchain-Netzwerk, wird 
 ### Installation Web3
 Für deren Installation kann erneut auf das NPM zurückgegriffen werden. Über den folgenden Befehl wird die Nutzung von Web3.js bereitgestellt:
     npm install web3
-Zu berücksichtigen ist, dass dafür Python mit der Version 2.7 benötigt wird. Die Installation mit einer neueren Python-Version hat im hier beschriebenen Laborversuch zu Problemen geführt. Als spezifischen Lösungsansatz wurde hierzu auf [Anaconda](https://www.anaconda.com/) zurückgegriffen, das die Nutzung der benötigten Version ermöglicht. Für die Installation von anaconda wurden zusätzlich aktuelle visual studio build tools benötigt, die über folgende Kommandozeile installiert wurden:
+Zu berücksichtigen ist, dass dafür Python mit der Version 2.7 benötigt wird. Die Installation mit einer neueren Python-Version hat im hier beschriebenen Laborversuch zu Problemen geführt. Als spezifischen Lösungsansatz wurde hierzu auf [Anaconda](https://www.anaconda.com/) zurückgegriffen, das die Nutzung der benötigten Version ermöglicht. Für die Installation von Anaconda wurden zusätzlich aktuelle visual studio build tools benötigt, die über folgende Kommandozeile installiert wurden:
     npm install –g windows-build-tools
 
 ### Integration der Blockchain
 
-Nach der Installation der benötigten Bibliotheken, kann mit der Integration der Blockchain in das IOT-Scenario begonnen werden. Dazu wird auf dem zu entwicklelten Rechner eine neue Javascript-Datei erstellt. In dieser Datei wird ein Progamm implementiert, dass die Integration zwischen der simulierten Blockchain und der bestehenden IOT-Infrastruktur herstellen soll. Hierzu wird zunächst eine Verbindung zur Blockchain und dem MQTT-Broker hergestellt. Zudem soll bei eingehenden Nachrichten, die im vorliegenden Fall über das abonnierte Topic "water/out" eintreffen,  der Smart-Contract aus der Blockchain ausgeführt werden. Der nachfolgende Programmcodeausschnitt visualisiert die technische Umsetzung des soeben beschriebenen Szenarios:
+Nach der Installation der benötigten Bibliotheken, kann mit der Integration der Blockchain in das IOT-Scenario begonnen werden. Dazu wird auf dem zu entwickelten Rechner eine neue Javascript-Datei erstellt. In dieser Datei wird ein Programm implementiert, das die Integration zwischen der simulierten Blockchain und der bestehenden IOT-Infrastruktur herstellen soll. Hierzu wird zunächst eine Verbindung zur Blockchain und dem MQTT-Broker hergestellt. Zudem soll bei eingehenden Nachrichten, die im vorliegenden Fall über das abonnierte Topic "water/out" eintreffen,  der Smart-Contract aus der Blockchain ausgeführt werden. Der nachfolgende Programmcodeausschnitt visualisiert die technische Umsetzung des soeben beschriebenen Szenarios:
 
     var mqtt    = require('mqtt');
     const Web3 = require('web3');
@@ -768,32 +768,32 @@ Nach der Installation der benötigten Bibliotheken, kann mit der Integration der
     console.log("end of script");
 
 Im vorliegenden Programmcode werden zunächst die Module "MQTT" und "Web3" geladen. Anschließend erfolgt mithilfe von Web3 ein Verbindungsaufbau mit der lokalen Blockchain. Zudem wird über MQTT eine Verbindung mit dem Raspberry aufgebaut. 
-Bei eingehenden Nachrichten wird eine Ausgabe auf deer Konstole ausgeführt und die executedSmartContractAsync()-Methode ausgeführt. Um auf eingehende Sensordaten reagieren zu können, subscribed sich das Programm auf das Topic "/water/out". Bevor der Smart-Contract ausgehführt werden kann, muss die ABI (Application binrary interface) des Smart-Contracts eingelesen werden. Diese wird benötigt, um auf die Schnittstelle zugreifen zu können. Die ABI des Smart Contracts beim Komplieren erzeugt und im Build-Verzeichnis abgelegt. Dementsprechend wird für die Ermittlung der ABI ein Pfad zu dem Build-Verzeichnis hinterlegt und die ABI ausgelesen.
+Bei eingehenden Nachrichten wird eine Ausgabe auf der Konsole ausgeführt und die executedSmartContractAsync()-Methode ausgeführt. Um auf eingehende Sensordaten reagieren zu können, Subscribed sich das Programm auf das Topic "/water/out". Bevor der Smart Contract ausgehführt werden kann, muss die ABI (Application binrary interface) des Smart Contracts eingelesen werden. Diese wird benötigt, um auf die Schnittstelle zugreifen zu können. Die ABI des Smart Contracts wird beim Komiplieren erzeugt und im Build-Verzeichnis abgelegt. Dementsprechend wird für die Ermittlung der ABI ein Pfad zu dem Build-Verzeichnis hinterlegt und die ABI ausgelesen.
 Mithilfe der ABI kann nun auf die getMessage()-Methode des Smart-Contracts zugegriffen werden. 
-Für die Ausführung des Smart Contracts muss das Programm zunächst gestartet werden. Sobald Sensordaten über MQTT eintreffen wird auf der Console folgendes ausgegeben:
+Für die Ausführung des Smart Contracts muss das Programm zunächst gestartet werden. Sobald Sensordaten über MQTT eintreffen wird auf der Konsole folgendes ausgegeben:
 
     Contract answered: Hello World
 
 
-## Beschreibung des angestrebten Smart Contracts-Szenarios
+## Beschreibung des angestrebten Smart Contract-Szenarios
 
 Aus zeitlichen Gründen konnte das ursprünglich angedachte Smart Contract-Szenario nicht fertiggestellt werden. Der angestrebte Smart Contract sollte das im Kapitel "OpenHab" beschriebene Szenario dahingehend erweitern, dass relativ zur prozentualen Beleuchtungserhöhung der entsprechende Betrag auf der Blockchain abgezogen wird. So wird beispielsweise bei einem Beleuchtungserhöhung von 100%, 1 Ether abgerechnet, während eine Beleuchtungserhöhung von 10% Kosten in Höhe von 0,1 Ether zur Folge haben. Die Zuordnung für das abzurechnende Konto, erfolgt über die NFC-UID und die Beleuchtungsänderung über den aktuell gemessenen Wassersensor-Wert.
-Das angestrebte Szenraio lässt sich mit folgender Abbildung und schrittweiser Beschreibung verdeutlichen:
+Das angestrebte Szenario lässt sich mit folgender Abbildung und schrittweiser Beschreibung verdeutlichen:
 
 ![Blockchain Integration](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/blockchain_Integration.png?raw=true "Blockchain Integration")
 
 1. Der Arduino frägt alle fünf Sekunden den aktuellen Wasserstand des Wassersensors ab.
 2. Der Arduino sendet über MQTT den aktuellen Wasserstand an den Raspberry. 
-3. Der Raspberry übergibt den aktuellen Wert an den Smart-Contract in der Blockchain. Dadurch wird der aktuelle Preis im Smart-Contract definiert. 
+3. Der Raspberry übergibt den aktuellen Wert an den Smart Contract in der Blockchain. Dadurch wird der aktuelle Preis im Smart Contract definiert. 
 4. Wenn nun ein Nutzer seine NFC-Karte auf das Lesegerät legt, wird die UID der Karte ausgelesen und der Prozess getriggert.
-5. Der Raspberry versucht den Smart-Contract auszuführen. Dazu wird die UID der Karte genutzt, um nachzuschauen, ob der Nutzer noch genug Guthaben aufweist. Im positiven Fall wird das für die Schaltung der Lampe notwendige Guthaben vom Nutzerkonto abgezogen und der Prozess zum Einschalten der Lampe auf dem Raspberry initialisiert.
+5. Der Raspberry versucht den Smart Contract auszuführen. Dazu wird die UID der Karte genutzt, um nachzuschauen, ob der Nutzer noch genug Guthaben aufweist. Im positiven Fall wird das für die Schaltung der Lampe notwendige Guthaben vom Nutzerkonto abgezogen und der Prozess zum Einschalten der Lampe auf dem Raspberry initialisiert.
 6. Der Raspberry sendet über MQTT eine Nachricht, mit der Anweisung die Lampe einzuschalten, an den Arduino.
 7. Der Arduino schaltet die Lampe auf den aktuellen Wert.
 <div class="page"/>
 
 # Zusammenfassung und Bewertung der Ergebnisse
 Zu Beginn des Laborberichts wurde die Konfiguration des Raspberrys vorgenommen. Hierbei konnten nach anfänglichen Schwierigkeiten alle notwendigen Konfigurationsschritte vollzogen werden. Als weniger problematisch stellte sich das anschließende Schreiben eines Python-Programms für das Auslesen von NFC-UIDs dar. Basierend auf diesem Programm sollte im nächsten Schritt eine Übertragung der UIDs an einen MQTT-Broker erfolgen. Hierzu wurde zunächst Node-RED installiert. Auf der Weboberfläche von Node-RED erfolgte daraufhin die Erstellung eines Flows, welches Nachrichten vom MQTT-Broker durch ein Abonnement auf eine Message-Queue entgegennimmt. Mithilfe eines weiteren Python-Programms konnte anschließend realisiert werden, dass die UIDs an den MQTT Broker übergeben und auf der Node-RED Oberfläche als DEBUG-Information angezeigt werden. Die zusätzliche Bereitstellung eines REST-Services, das die letzten zehn übertragenen UIDs bereitstellt, konnte aus zeitlichen Gründen nicht umgesetzt werden.
-Im nächsten Schritt wurde der Laborversuch um die Anbindung eines Microcontrollers (Arduino) ergänzt. Dies setzt den Aufbau einer Entwicklungsumgebung (Visual Studio Code) und für den Nachrichtenaustausch mit einem definierten Netzwerk, eine WLAN-Verbindung voraus. Um den Nachrichtenaustausch zwischen dem Arduino und den beiden Sensoren herzustellen, wurde eine Verbindung mithilfe von Steckbrücken hergestellt. Mithilfe eines C-Programmes wurde der Servomotor so programmiert, dass er abhängig vom empfangegenen Wassersensor-Wert gedereht wird. Darüber hinaus erfolgte eine erfolgreiche Anbindung des Arduinos mit dem MQTT-Broker.
+Im nächsten Schritt wurde der Laborversuch um die Anbindung eines Microcontrollers (Arduino) ergänzt. Dies setzt den Aufbau einer Entwicklungsumgebung (Visual Studio Code) und für den Nachrichtenaustausch mit einem definierten Netzwerk, eine WLAN-Verbindung voraus. Um den Nachrichtenaustausch zwischen dem Arduino und den beiden Sensoren herzustellen, wurde eine Verbindung mithilfe von Steckbrücken hergestellt. Mithilfe eines C-Programmes wurde der Servomotor so programmiert, dass er abhängig vom empfangegenen Wassersensor-Wert gedreht wird. Darüber hinaus erfolgte eine erfolgreiche Anbindung des Arduinos mit dem MQTT-Broker.
 
 Im nächsten Abschnitt des Laborversuchs wurde die Integrationsplattform "OpenHab" für die Homeautomatisierung eingeführt. In diesem Kontext wurden eine Hue Bridge und eine Hue-Lampe an die simulierte IOT-Infrastruktur angebunden. Durch die von OpenHab mitgelieferten Add-Ons gestaltete sich eine Steuerung dieser Geräte als simpel. So wurde beispielsweise mithilfe einer Regel umgesetzt, dass abhängig vom empfangenen Wassersensor-Wert die Beleuchtungsstärke der Hue Lampe verringert oder erhöht wird. Erweitert wurde dieser Anwendungsfall zusätzlich dahingehend, dass die Steuerung lediglich von einer autorisierten NFC-UID ausgeführt werden kann.
 
