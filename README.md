@@ -347,7 +347,7 @@ Die konfigurierte WLAN-Verbindung ermöglicht nun, dass Nachrichten an den MQTT-
 
 ## Anbindung des Wassersensors und Motors? Es fehlt Hier noch eine REferenz dazu, WIE DIE SENSOREN ANGESCHLOSSEN WERDEN SOLLEN. EVENTUELL KÖNNTE MAN DA EIN BILD dazu bringen
 
-Nun sollen die Daten des Wassersensors verarbeitet werden. Im ersten Schritt soll ein Motor angesteuert werden, der sich um 90 Grad dreht, sobald der Wassersensor sich im Wasser befindet. Ansonsten soll der Motor zurück auf die Ausgangssituation gehen. 
+Nun sollen die Daten des Wassersensors verarbeitet werden. Im ersten Schritt soll ein Motor angesteuert werden, der sich um 90 Grad dreht, sobald der Wassersensor sich im Wasser befindet. Ansonsten soll der Motor auf die Ausgangangslage zurück gesteuert werden. 
 
     /*
     * Watersensor and servo
