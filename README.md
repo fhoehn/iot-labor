@@ -512,6 +512,7 @@ Nachfolgender Skizzierung ist der aktuelle Aufbau des Laborversuchs zu entnehmen
 # Integration von OpenHab
    
 Im nächsten Schritt wird der Laborversuch um die Integrationsplattform „OpenHab“ ergänzt, mit dessen Hilfe die Realisierung einer Homeautomatisierung ermöglicht wird. Dies erfolgt beispielsweise dadurch, dass eine Vielzahl von Bibliotheken mitgeliefert wird. Die Architektur von OpenHab weist einen skalierfähigen Charakter auf und lässt sich mit einem Baukasten vergleichen, da unterschiedliche Technologien und Systeme an die Architektur angebunden werden können. 
+In folgender Graphik ist der aktuelle Aufbaue des Labors sichtbar. Dort is sowohl der MQTT-Broker als auch NodeRED und OpenHAB auf dem Rapsberry installiert. Dieser Aufbau ist für einen produktiven Einsatz nicht zu empfehlen. Normalerweise sollten MQTT, NodeRED und OpenHAB jeweils auf einem eigenen Gerät installiert und mittels MQTT miteinander verbunden werden. Wegen mangelnden Resourcen wurden diese Softwarekomponenten im Laborversuch alle auf einem Gerät installiert und werden nur logisch betrachtet voneinander getrennt. 
 
 ![OpenHAB integration](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/nodeRED_OpenHAB_Integration.png?raw=true "OpenHAB Integration")
 
