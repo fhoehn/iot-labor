@@ -612,7 +612,7 @@ Hierbei wird definiert, dass sobald der Wassersensor einen Wert über 200 an das
 
     Openhab-cli showlogs
 #TO Change
-Im nächsten Schritt wurde der Laborversuch dahingehend ergänzt, dass eine dimmbare Lampe angebunden wurde. Abhängig von dem ausgegebenen Wassersensor-Wert sollte die Lampenhelligkeit um einen entsprechenden prozentualen Wert verringert oder gesteigert werden. Eine zusätzliche Bedingung ist, dass ein autorisierter Benutzer diesen Vorgang auslöst. Dieser Anwendungsfall lässt sich mit einer spezifischen ID einer NFC-Karte umsetzen. Für die Implementierung diesen Anwendungsfall musste die Regel folgendermaßen erweitert werden:
+Im nächsten Schritt wurde der Aufbau des Anwendungsfalls angepasst. So wurde nun abhängig von dem ausgegebenen Wassersensor-Wert die Lampenbeleuchtungsstärke um einen entsprechenden prozentualen Wert verringert oder erhöht. Zudem wird die simulierte IOT-Architektur um eine Sicherungsschicht ergänzt, indem die Schaltung nur von einer autorisierten Person, identifizierbar über die NFC-UID (im vorliegenden Beispiel "043E436A643481"), ausgeführt werden kann:
 
     rule "Water_Lamp_on"
     when
