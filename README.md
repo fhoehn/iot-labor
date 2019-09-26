@@ -5,7 +5,7 @@
 # Inhaltsverzeichnis
 
 - [Inhaltsverzeichnis](#inhaltsverzeichnis)
-- [Einführung](#einf%C3%BChrung)
+- [Einführung](#einf%c3%bchrung)
   - [Aufgabenstellung](#aufgabenstellung)
   - [Aufbau der Arbeit](#aufbau-der-arbeit)
   - [Eingesetzte Hardware](#eingesetzte-hardware)
@@ -13,18 +13,18 @@
 - [Teil 1 - NFC und MQTT](#teil-1---nfc-und-mqtt)
   - [Einrichtung des Raspberrys](#einrichtung-des-raspberrys)
   - [Erfassung von NFC-UIDs](#erfassung-von-nfc-uids)
-  - [Übertragung der UIDs an den MQTT-Broker](#%C3%BCbertragung-der-uids-an-den-mqtt-broker)
+  - [Übertragung der UIDs an den MQTT-Broker](#%c3%9cbertragung-der-uids-an-den-mqtt-broker)
   - [Bereitstellung eines REST Services](#bereitstellung-eines-rest-services)
 - [Einbindung eines Arduinos](#einbindung-eines-arduinos)
   - [Aufsetzen einer Entwicklungsumgebung](#aufsetzen-einer-entwicklungsumgebung)
-  - [Aufbau einer WLAN-Verbindung für den Arduino](#aufbau-einer-wlan-verbindung-f%C3%BCr-den-arduino)
+  - [Aufbau einer WLAN-Verbindung für den Arduino](#aufbau-einer-wlan-verbindung-f%c3%bcr-den-arduino)
   - [Anbindung des Wassersensors und Motors](#anbindung-des-wassersensors-und-motors)
   - [Anbindung von MQTT](#anbindung-von-mqtt)
 - [Integration von OpenHab](#integration-von-openhab)
   - [Installation](#installation)
   - [Anbindung einer Hue Bridge und Hue Lampe](#anbindung-einer-hue-bridge-und-hue-lampe)
 - [Tag 3 Blockchain Integration](#tag-3-blockchain-integration)
-  - [Installation der benötigten Komponente](#installation-der-ben%C3%B6tigten-komponente)
+  - [Installation der benötigten Komponente](#installation-der-ben%c3%b6tigten-komponente)
     - [Installation von Truffle](#installation-von-truffle)
     - [Installation von Ganache](#installation-von-ganache)
   - [Einrichtung von Ganache](#einrichtung-von-ganache)
@@ -513,11 +513,11 @@ Nachfolgender Skizzierung ist der aktuelle Aufbau des Laborversuchs zu entnehmen
    
 Im nächsten Schritt wird der Laborversuch um die Integrationsplattform „OpenHab“ ergänzt, mit dessen Hilfe die Realisierung einer Homeautomatisierung ermöglicht wird. Dies erfolgt beispielsweise dadurch, dass eine Vielzahl von Bibliotheken mitgeliefert wird. Die Architektur von OpenHab weist einen skalierfähigen Charakter auf und lässt sich mit einem Baukasten vergleichen, da unterschiedliche Technologien und Systeme an die Architektur angebunden werden können. 
 
-In folgender Graphik ist der aktuelle Aufbau des Labors sichtbar. 
+Zur Übersicht wird in folgender Abbildung die bisher im Laborversuch aufgebaute IOT-Infrastruktur visualisiert: 
 
 ![OpenHAB integration](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/nodeRED_OpenHAB_Integration.png?raw=true "OpenHAB Integration")
 
-Es ist ersichtlich, dass sowohl der MQTT-Broker als auch NodeRED und OpenHAB auf dem Rapsberry installiert sind. Dieser ist für einen produktiven Einsatz nicht zu empfehlen. Normalerweise sollten die einzelnen Softwarekomponenten jeweils auf einem eigenen Gerät installiert und mittels MQTT miteinander verbunden werden. Wegen mangelnden Resourcen wurden diese im Laborversuch jedoch alle auf einem Gerät installiert und werden nur logisch betrachtet voneinander getrennt. Dies stellt für die weitere Versuchsdurchführung jedoch kein Problem dar. 
+Die aufgeführte Abbildung macht deutlich, dass neben dem MQTT-Broker auch Node-RED und OpenHAB auf dem Rapsberry installiert wurden. Allerdings ist für den produktiven Einsatz die Installation aller Komponenten auf einer einzelnen Instanz nicht zu empfehlen. Vielmehr empfiehlt es sich, die einzelnen Softwarekomponenten auf jeweils einem eigenen Gerät zu installieren und die Kommunikation untereinander mittels MQTT zu realisieren. Aufgrund der mangelnden Ressourcen werden die Softwarekomponenten für den Laborversuch jedoch auf einem einzelnen Gerät installiert und nur logisch betrachtet voneinander getrennt. Dieser Umstand stellt für die weitere Versuchsdurchführung jedoch kein Problem dar. 
 
 ## Installation
 
