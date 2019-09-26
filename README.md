@@ -1,5 +1,47 @@
-# Laborbericht 
-Laborbericht für das Mastermodul 'Internet of Things'
+
+
+
+
+# Inhaltsverzeichnis
+
+- [Inhaltsverzeichnis](#inhaltsverzeichnis)
+- [Einführung](#einf%C3%BChrung)
+  - [Aufgabenstellung](#aufgabenstellung)
+  - [Aufbau der Arbeit](#aufbau-der-arbeit)
+  - [Eingesetzte Hardware](#eingesetzte-hardware)
+  - [Eingesetzte Software](#eingesetzte-software)
+- [Teil 1 - NFC und MQTT](#teil-1---nfc-und-mqtt)
+  - [Einrichtung des Raspberry Pis](#einrichtung-des-raspberry-pis)
+  - [Erfassung von NFC-UIDs](#erfassung-von-nfc-uids)
+  - [Übertragung der UIDs an den MQTT-Broker](#%C3%BCbertragung-der-uids-an-den-mqtt-broker)
+- [Macht hier eine zusammenfassende Abbildung Sinn?](#macht-hier-eine-zusammenfassende-abbildung-sinn)
+  - [Bereitstellung eines REST Services](#bereitstellung-eines-rest-services)
+- [Einbindung eines Arduinos](#einbindung-eines-arduinos)
+  - [Aufsetzen einer Entwicklungsumgebung](#aufsetzen-einer-entwicklungsumgebung)
+  - [Aufbau einer WLAN-Verbindung für den Arduino](#aufbau-einer-wlan-verbindung-f%C3%BCr-den-arduino)
+- [TODOOOOOOOOOOOOOOOOOOOOOOO Passender Satz finden](#todooooooooooooooooooooooo-passender-satz-finden)
+  - [Anbindung des Wassersensors und Motors? Es fehlt Hier noch eine REferenz dazu, WIE DIE SENSOREN ANGESCHLOSSEN WERDEN SOLLEN. EVENTUELL KÖNNTE MAN DA EIN BILD dazu bringen](#anbindung-des-wassersensors-und-motors-es-fehlt-hier-noch-eine-referenz-dazu-wie-die-sensoren-angeschlossen-werden-sollen-eventuell-k%C3%B6nnte-man-da-ein-bild-dazu-bringen)
+  - [Anbindung von MQTT](#anbindung-von-mqtt)
+- [Integration von OpenHab](#integration-von-openhab)
+  - [Installation](#installation)
+  - [Anbindung einer Hue Bridge und Hue Lampe](#anbindung-einer-hue-bridge-und-hue-lampe)
+- [Tag 3 Blockchain Integration](#tag-3-blockchain-integration)
+  - [Installation der benötigten Komponente](#installation-der-ben%C3%B6tigten-komponente)
+    - [Installation von Truffle](#installation-von-truffle)
+    - [Installation von Ganache](#installation-von-ganache)
+  - [Einrichtung von Ganache](#einrichtung-von-ganache)
+  - [Implementation eines Smart Contracts](#implementation-eines-smart-contracts)
+  - [Einbindung der Blockchain ins IOT-Netz](#einbindung-der-blockchain-ins-iot-netz)
+    - [Installation Web3](#installation-web3)
+    - [Integration der Blockchain](#integration-der-blockchain)
+  - [Beschreibung des angestrebten Smart Contracts-Szenarios](#beschreibung-des-angestrebten-smart-contracts-szenarios)
+- [Zusammenfassung der Ergebnisse](#zusammenfassung-der-ergebnisse)
+  - [Zusammenfassung der Tätigkeiten und aufkommende Problematiken --Roberto](#zusammenfassung-der-t%C3%A4tigkeiten-und-aufkommende-problematiken---roberto)
+  - [Ziel der Arbeit war es blabla --Roberto](#ziel-der-arbeit-war-es-blabla---roberto)
+  - [Eventuell kritische Betrachtung --Roberto](#eventuell-kritische-betrachtung---roberto)
+  - [](#)
+
+<div class="page"/>
 
 # Einführung
 
@@ -37,6 +79,8 @@ Folgende Softwarekomponenten sind für das Laborversuch erforderlich.
 -   Ganache
 
 Neben diesen aufgenführten Softwarekomponenten werden noch weitere Libraries (Web3, WiFi-Manager usw.) benötigt.
+<div class="page"/>
+
 # Teil 1 - NFC und MQTT
 
 Zu Beginn des Labors ist zunächst der Raspberry PI für die Entwicklung des Szenarios zu konfigurieren. 
@@ -221,6 +265,7 @@ Basierend auf dem erstellten Python-Programm, für das Auslesen der UIDs, wird a
 ## Bereitstellung eines REST Services
 
 Im Rahmen eines weiteren Anwendungsfalls sollte ein REST Service zur Verfügung gestellt werden. Über diesen REST Service sollen die letzten 10 UIDs abgefragt werden können. Aus zeitlichen Gründen wurde dieser Anwendungsfall nicht durchgeführt. Dies hatte allerdings keinen negativen Einfluss auf den weiteren Verlauf des Laborversuchs. 
+<div class="page"/>
 
 # Einbindung eines Arduinos
 
@@ -475,8 +520,7 @@ Die neuen Sensordaten werden alle fünf Sekunden an MQTT geschickt. Ebenso werde
 Nachfolgender Skizzierung ist der aktuelle Aufbau des Laborversuchs zu entnehmen: 
 
 ![Arrduino Anbindung an den Raspberry via MQTT](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/arduinoRaspberryConnection.png?raw=true "Arrduino Anbindung an den Raspberry via MQTT")
-
-
+<div class="page"/>
 
 # Integration von OpenHab
    
@@ -600,6 +644,7 @@ Im nächsten Schritt wurde der Laborversuch dahingehend ergänzt, dass eine dimm
 
 Die folgende Abbildung zeigt die prozentuale Änderung der Lampenbeleuchtung an. Für diesen Versuch wurde der Wassersensor im Wechsel befeuchtet und getrocknet. Zusätzlich wird die Beleuchtungsänderung nur geändert, sofern die richtige NFC-Karte an das NFC-Lesegerät gehalten wurde:
 ![Screenshot OpenHab Zustandänderung-Lampe](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/LampsLighting_Change.png?raw=true "Zustandsänderung der Lampenbeleuchtung")
+<div class="page"/>
 
 # Tag 3 Blockchain Integration
 
@@ -755,6 +800,7 @@ Das angestrebte Szenraio lässt sich mit folgender Abbildung und schrittweiser B
 5. Der Raspberry versucht den Smart-Contract auszuführen. Dazu wird die UID der Karte genutzt, um nachzuschauen, ob der Nutzer noch genug Guthaben aufweist. Im positiven Fall wird das für die Schaltung der Lampe notwendige Guthaben vom Nutzerkonto abgezogen und der Prozess zum Einschalten der Lampe auf dem Raspberry initialisiert.
 6. Der Raspberry sendet über MQTT eine Nachricht, mit der Anweisung die Lampe einzuschalten, an den Arduino.
 7. Der Arduino schaltet die Lampe auf den aktuellen Wert.
+<div class="page"/>
 
 # Zusammenfassung der Ergebnisse
 ## Zusammenfassung der Tätigkeiten und aufkommende Problematiken --Roberto
