@@ -5,7 +5,7 @@
 # Inhaltsverzeichnis
 
 - [Inhaltsverzeichnis](#inhaltsverzeichnis)
-- [Einführung](#einf%C3%BChrung)
+- [Einführung](#einf%c3%bchrung)
   - [Aufgabenstellung](#aufgabenstellung)
   - [Aufbau der Arbeit](#aufbau-der-arbeit)
   - [Eingesetzte Hardware](#eingesetzte-hardware)
@@ -13,20 +13,20 @@
 - [Teil 1 - NFC und MQTT](#teil-1---nfc-und-mqtt)
   - [Einrichtung des Raspberry Pis](#einrichtung-des-raspberry-pis)
   - [Erfassung von NFC-UIDs](#erfassung-von-nfc-uids)
-  - [Übertragung der UIDs an den MQTT-Broker](#%C3%BCbertragung-der-uids-an-den-mqtt-broker)
+  - [Übertragung der UIDs an den MQTT-Broker](#%c3%9cbertragung-der-uids-an-den-mqtt-broker)
 - [Macht hier eine zusammenfassende Abbildung Sinn?](#macht-hier-eine-zusammenfassende-abbildung-sinn)
   - [Bereitstellung eines REST Services](#bereitstellung-eines-rest-services)
 - [Einbindung eines Arduinos](#einbindung-eines-arduinos)
   - [Aufsetzen einer Entwicklungsumgebung](#aufsetzen-einer-entwicklungsumgebung)
-  - [Aufbau einer WLAN-Verbindung für den Arduino](#aufbau-einer-wlan-verbindung-f%C3%BCr-den-arduino)
+  - [Aufbau einer WLAN-Verbindung für den Arduino](#aufbau-einer-wlan-verbindung-f%c3%bcr-den-arduino)
 - [TODOOOOOOOOOOOOOOOOOOOOOOO Passender Satz finden](#todooooooooooooooooooooooo-passender-satz-finden)
-  - [Anbindung des Wassersensors und Motors? Es fehlt Hier noch eine REferenz dazu, WIE DIE SENSOREN ANGESCHLOSSEN WERDEN SOLLEN. EVENTUELL KÖNNTE MAN DA EIN BILD dazu bringen](#anbindung-des-wassersensors-und-motors-es-fehlt-hier-noch-eine-referenz-dazu-wie-die-sensoren-angeschlossen-werden-sollen-eventuell-k%C3%B6nnte-man-da-ein-bild-dazu-bringen)
+  - [Anbindung des Wassersensors und Motors? Es fehlt Hier noch eine REferenz dazu, WIE DIE SENSOREN ANGESCHLOSSEN WERDEN SOLLEN. EVENTUELL KÖNNTE MAN DA EIN BILD dazu bringen](#anbindung-des-wassersensors-und-motors-es-fehlt-hier-noch-eine-referenz-dazu-wie-die-sensoren-angeschlossen-werden-sollen-eventuell-k%c3%96nnte-man-da-ein-bild-dazu-bringen)
   - [Anbindung von MQTT](#anbindung-von-mqtt)
 - [Integration von OpenHab](#integration-von-openhab)
   - [Installation](#installation)
   - [Anbindung einer Hue Bridge und Hue Lampe](#anbindung-einer-hue-bridge-und-hue-lampe)
 - [Tag 3 Blockchain Integration](#tag-3-blockchain-integration)
-  - [Installation der benötigten Komponente](#installation-der-ben%C3%B6tigten-komponente)
+  - [Installation der benötigten Komponente](#installation-der-ben%c3%b6tigten-komponente)
     - [Installation von Truffle](#installation-von-truffle)
     - [Installation von Ganache](#installation-von-ganache)
   - [Einrichtung von Ganache](#einrichtung-von-ganache)
@@ -36,7 +36,7 @@
     - [Integration der Blockchain](#integration-der-blockchain)
   - [Beschreibung des angestrebten Smart Contracts-Szenarios](#beschreibung-des-angestrebten-smart-contracts-szenarios)
 - [Zusammenfassung der Ergebnisse](#zusammenfassung-der-ergebnisse)
-  - [Zusammenfassung der Tätigkeiten und aufkommende Problematiken --Roberto](#zusammenfassung-der-t%C3%A4tigkeiten-und-aufkommende-problematiken---roberto)
+  - [Zusammenfassung der Tätigkeiten und aufkommende Problematiken --Roberto](#zusammenfassung-der-t%c3%a4tigkeiten-und-aufkommende-problematiken---roberto)
   - [Ziel der Arbeit war es blabla --Roberto](#ziel-der-arbeit-war-es-blabla---roberto)
   - [Eventuell kritische Betrachtung --Roberto](#eventuell-kritische-betrachtung---roberto)
   - [](#)
@@ -804,7 +804,8 @@ Das angestrebte Szenraio lässt sich mit folgender Abbildung und schrittweiser B
 
 # Zusammenfassung der Ergebnisse
 ## Zusammenfassung der Tätigkeiten und aufkommende Problematiken --Roberto
-Zu Beginn des Laborberichts wurde die Konfiguration des Raspberrys vergenommen. Hierbei konnten nach anfänglichen Schwierigkeiten alle notwendigen Konfigurationsschritte vollzogen werden. Die anschließende Einrichtung der 
+Zu Beginn des Laborberichts wurde die Konfiguration des Raspberrys vergenommen. Hierbei konnten nach anfänglichen Schwierigkeiten alle notwendigen Konfigurationsschritte vollzogen werden. Als weniger Problematik stellte sich das anschließende Schreiben eines Python-Programms für das Auslesen von NFC-UIDs dar. Basierend auf diesen Programm sollte im nächsten Schritt eine Übertragung der UIDs an einen MQTT-Broker erfolgen. Hierzu wurde zunächst Node-RED installiert. Auf der Weboberfläche von Node-RED erfolgte im nächsten Schritt die Erstellung eines Flows, welches Nachrichten vom MQTT-Broker durch ein Abonnement auf eine Message-Queue entgegennimmt. Mithilfe eines weiteren Python-Programms konnte anschließend realisiert werden, dass die UIDs an den MQTT Broker übergeben und auf der Node-RED Oberfläche als DEBUG-Information angezeigt werden. Die zusätzliche Bereitstellung eines REST-Services, das die letzten zehn übertragenen UIDs bereitstellt, konnte aus zeitlichen Gründen nicht umgesetzt werden.
+Im nächsten Schritt wurde der Laborversuch um die Anbindung eines Microcontrollers (Arduino) ergänzt. Dies setzt den Aufbau einer Entwicklungsumgebung (Visual Studio Code) und für den Nachrichtenaustausch mit einem definierten Netzwerk, eine WLAN-Verbindung voraus. Für den Nachrichtenaustausch zwischen dem Arduino und den beiden Sensoren herzustellen, wurde anschließend eine Verbindung mithilfe von Steckbrücken hergestellt. Im Anschluss wurde mithilfe eines Programms umgesetzt, dass der Servomotor sich abhängig vom empfangenen Wassersensor-Wert dreht. 
 ## Ziel der Arbeit war es blabla --Roberto
 ## Eventuell kritische Betrachtung --Roberto
 ## 
