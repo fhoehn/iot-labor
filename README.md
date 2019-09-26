@@ -10,7 +10,7 @@
   - [Aufbau der Arbeit](#aufbau-der-arbeit)
   - [Eingesetzte Hardware](#eingesetzte-hardware)
   - [Eingesetzte Software](#eingesetzte-software)
-- [Teil 1 - NFC und MQTT](#teil-1---nfc-und-mqtt)
+- [Teil 1 - Raspberry, Arduino, NFC und Node-RED](#teil-1---raspberry-arduino-nfc-und-node-red)
   - [Einrichtung des Raspberrys](#einrichtung-des-raspberrys)
   - [Erfassung von NFC-UIDs](#erfassung-von-nfc-uids)
   - [Übertragung der UIDs an den MQTT-Broker](#%c3%9cbertragung-der-uids-an-den-mqtt-broker)
@@ -20,7 +20,7 @@
   - [Aufbau einer WLAN-Verbindung für den Arduino](#aufbau-einer-wlan-verbindung-f%c3%bcr-den-arduino)
   - [Anbindung des Wassersensors und Motors](#anbindung-des-wassersensors-und-motors)
   - [Anbindung von MQTT](#anbindung-von-mqtt)
-- [Integration von OpenHab](#integration-von-openhab)
+- [Teil 2 - Integration von OpenHab](#teil-2---integration-von-openhab)
   - [Installation](#installation)
   - [Anbindung einer Hue Bridge und Hue Lampe](#anbindung-einer-hue-bridge-und-hue-lampe)
 - [Tag 3 Blockchain Integration](#tag-3-blockchain-integration)
@@ -75,7 +75,7 @@ Folgende Softwarekomponenten sind für den Laborversuch erforderlich:
 Neben diesen aufgeführten Softwarekomponenten werden noch weitere Libraries (Web3, WiFi-Manager usw.) benötigt.
 <div class="page"/>
 
-# Teil 1 - NFC und MQTT
+# Teil 1 - Raspberry, Arduino, NFC und Node-RED
 
 Zu Beginn des Labors ist zunächst der Raspberry PI für die Entwicklung des Szenarios zu konfigurieren. 
 Hierzu muss für den Raspberry Pi eine WLAN-Verbindung aufgebaut und die SSH-Kommunikation aktiviert werden. Auf dieser Weise können zum einen die für die Umsetzung des Szenarios notwendigen Pakete aus dem Internet installiert und zum anderen wird ein Zugriff auf den Raspberry Pi über das Werkzeug "PuTTY" ermöglicht.
@@ -509,7 +509,7 @@ Nachfolgender Skizzierung ist der aktuelle Aufbau des Laborversuchs zu entnehmen
 ![Arrduino Anbindung an den Raspberry via MQTT](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/arduinoRaspberryConnection.png?raw=true "Arrduino Anbindung an den Raspberry via MQTT")
 <div class="page"/>
 
-# Integration von OpenHab
+# Teil 2 - Integration von OpenHab
    
 Im nächsten Schritt wird der Laborversuch um die Integrationsplattform „OpenHab“ ergänzt, mit dessen Hilfe die Realisierung einer Homeautomatisierung ermöglicht wird. Dies erfolgt beispielsweise dadurch, dass eine Vielzahl von Bibliotheken mitgeliefert wird. Die Architektur von OpenHab weist einen skalierfähigen Charakter auf und lässt sich mit einem Baukasten vergleichen, da unterschiedliche Technologien und Systeme an die Architektur angebunden werden können. 
 
