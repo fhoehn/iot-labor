@@ -5,7 +5,7 @@
 # Inhaltsverzeichnis
 
 - [Inhaltsverzeichnis](#inhaltsverzeichnis)
-- [Einführung](#einf%c3%bchrung)
+- [Einführung](#einf%C3%BChrung)
   - [Aufgabenstellung](#aufgabenstellung)
   - [Aufbau der Arbeit](#aufbau-der-arbeit)
   - [Eingesetzte Hardware](#eingesetzte-hardware)
@@ -13,7 +13,7 @@
 - [Teil 1 - Raspberry, Arduino, NFC und Node-RED](#teil-1---raspberry-arduino-nfc-und-node-red)
   - [Einrichtung des Raspberrys](#einrichtung-des-raspberrys)
   - [Erfassung von NFC-UIDs](#erfassung-von-nfc-uids)
-  - [Übertragung der UIDs an den MQTT-Broker](#%c3%9cbertragung-der-uids-an-den-mqtt-broker)
+  - [Übertragung der UIDs an den MQTT-Broker](#%C3%BCbertragung-der-uids-an-den-mqtt-broker)
   - [Bereitstellung eines REST Services](#bereitstellung-eines-rest-services)
 - [Einbindung eines Arduinos](#einbindung-eines-arduinos)
   - [Aufsetzen einer Entwicklungsumgebung](#aufsetzen-einer-entwicklungsumgebung)
@@ -24,7 +24,7 @@
   - [Installation](#installation)
   - [Anbindung einer Hue Bridge und Hue Lampe](#anbindung-einer-hue-bridge-und-hue-lampe)
 - [Tag 3 Blockchain Integration](#tag-3-blockchain-integration)
-  - [Installation der benötigten Softwarekomponente](#installation-der-ben%c3%b6tigten-softwarekomponente)
+  - [Installation der benötigten Softwarekomponente](#installation-der-ben%C3%B6tigten-softwarekomponente)
     - [Installation von Truffle](#installation-von-truffle)
     - [Installation von Ganache](#installation-von-ganache)
   - [Einrichtung von Ganache](#einrichtung-von-ganache)
@@ -506,7 +506,7 @@ Als nächstes wird die Verarbeitung der Wassersensor-Daten angestrebt. So soll d
 Durch den Start des oben aufgeführten Programmcodes werden alle fünf Sekunden neue Sensordaten an den MQTT-Endpunkt übertragen. Ebenso erfolgt im gleichen Intervall eine Überprüfung auf neue Nachrichten in der Message-Queue. Wenn neue Nachrichten vorhanden sind, werden diese Nachrichten auf der Konsole ausgegeben. Falls die Nachricht mit einer "1" beginnt, erfolgt das Einschalten der eingebauten LED (Arduino). Andererseits wird diese ausgeschaltet. Um eine dauerhafte Verbindung mit MQTT sicherzustellen, wird alle fünf Sekunden überprüft, ob eine Verbindung zum MQTT-Server vorhanden ist. Wenn dies nicht der Fall ist, wird versucht eine neue Verbindung aufzubauen. Um das Programm nutzen zu können, müssen die Nutzerdaten des WLANs in der Setup-Methode eingetragen werden. Diese wurden aus Sicherheitsgründen in diesem Beispiel entfernt. 
 Zusammenfassend kann der aktuelle Aufbau des Laborversuchs folgender Skizzierung entnommen werden: 
 
-![Arrduino Anbindung an den Raspberry via MQTT](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/arduinoRaspberryConnection.png?raw=true "Arrduino Anbindung an den Raspberry via MQTT")
+![Arduino Anbindung an den Raspberry via MQTT](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/arduinoRaspberryConnection.png?raw=true "Arduino Anbindung an den Raspberry via MQTT")
 <div class="page"/>
 
 # Teil 2 - Integration von OpenHab
