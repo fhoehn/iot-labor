@@ -86,7 +86,7 @@ Die einzelnen Konfigurationsschritte werden im Folgenden aufgeführt:
 
 1. Aufbau einer WLAN-Verbindung
     1. Da der Raspberry keine Benutzeroberfläche und Eingabemöglichkeit aufweist, wird für die Konfiguration ein Monitor und eine Tastatur an den Raspberry angeschlossen.
-    2. Der Raspberry muss via Ethernet an das Netzwerk angeschlossen werden. Dazu muss die Konfigurationsdatei geöffnet werden: 
+    2. Der Raspberry muss via Ethernet an das Netzwerk angeschlossen werden. Hierzu wird die Konfigurationsdatei geöffnet: 
    
             sudo nano /etc/wpa_supplicant/wpa_supplicant.conf 
         In dieser Konfigurationsdatei muss eine Ergänzung der Netzwerkverbindungsdaten erfolgen. Die für diesen Laborversuch notwendigen Netzwerkdaten werden in folgender Abbildung zusammengefasst:
