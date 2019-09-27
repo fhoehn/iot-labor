@@ -24,13 +24,13 @@
   - [Installation](#installation)
   - [Anbindung einer Hue Bridge und Hue Lampe](#anbindung-einer-hue-bridge-und-hue-lampe)
 - [Tag 3 Blockchain Integration](#tag-3-blockchain-integration)
-  - [Installation der benötigten Komponente](#installation-der-ben%c3%b6tigten-komponente)
+  - [Installation der benötigten Softwarekomponente](#installation-der-ben%c3%b6tigten-softwarekomponente)
     - [Installation von Truffle](#installation-von-truffle)
     - [Installation von Ganache](#installation-von-ganache)
   - [Einrichtung von Ganache](#einrichtung-von-ganache)
   - [Implementation eines Smart Contracts](#implementation-eines-smart-contracts)
-  - [Einbindung der Blockchain ins IOT-Netz](#einbindung-der-blockchain-ins-iot-netz)
-    - [Installation Web3](#installation-web3)
+  - [Einbindung der Blockchain an das IOT-Netz](#einbindung-der-blockchain-an-das-iot-netz)
+    - [Installation von Web3](#installation-von-web3)
     - [Integration der Blockchain](#integration-der-blockchain)
   - [Beschreibung des angestrebten Smart Contract-Szenarios](#beschreibung-des-angestrebten-smart-contract-szenarios)
 - [Zusammenfassung und Bewertung der Ergebnisse](#zusammenfassung-und-bewertung-der-ergebnisse)
@@ -344,7 +344,7 @@ In der autoConnect-Methode des Wifi-Managers kann der Name und ein Passwort für
 
 ## Anbindung des Wassersensors und Servomotors
 
-Nun sollen die Daten des Wassersensors verarbeitet werden. Im ersten Schritt soll die Steuerung des Servomotors erfolgen, der sich um 90 Grad dreht, sobald der Wassersensor sich im Wasser befindet. Ansonsten ist der Motor auf die Ausgangangslage zurück zu steuern. Dazu muss zunächst der Aufbau einer Verbindung zwischen den einzelnen Sensoren und dem Arduino erfolgen. Um die Sensoren mit den GPIOs des Arduinos zu verbinden, können Steckbrücken Verwendung finden. Nachdem die Sensoren an den Arduino angeschlossen wurden, kann ein Programm zur weiteren Verarbeitung, wie beispielsweise dem nachfolgend aufgeführten Programmcodeausschnitt, erstellt werden: 
+Als nächstes wird die Verarbeitung der Wassersensor-Daten angestrebt. So soll die Steuerung des Servomotors erfolgen, der sich um 90 Grad dreht, sobald der Wassersensor sich im Wasser befindet. Ansonsten ist der Motor auf die Ausgangangslage zurück zu steuern. Dazu muss zunächst der Aufbau einer Verbindung zwischen den einzelnen Sensoren und dem Arduino erfolgen. Um die Sensoren mit den GPIOs des Arduinos zu verbinden, können Steckbrücken Verwendung finden. Nachdem die Sensoren an den Arduino angeschlossen wurden, kann ein Programm zur weiteren Verarbeitung, wie beispielsweise dem nachfolgend aufgeführten Programmcodeausschnitt, erstellt werden: 
 
     /*
     * Watersensor and servo
@@ -503,7 +503,7 @@ Nun sollen die Daten des Wassersensors verarbeitet werden. Im ersten Schritt sol
         delay(5000); 
     }
 
-Die neuen Sensordaten werden alle fünf Sekunden an MQTT geschickt. Ebenso werden alle fünf Sekunden die neuen Nachrichten überprüft. Wenn neue Nachrichten vorhanden sind, werden diese ausgegeben. Wenn das erste Zeichen der empfangenen Nachricht eine "1" ist, wird die eingebaute LED des Arduinos eingeschaltet. Andererseits wird diese ausgeschaltet. Um eine dauerhafte Verbindung mit MQTT sicherzustellen, wird alle fünf Sekunden überprüft, ob eine Verbindung zum MQTT-Server vorhanden ist. Wenn dies nicht der Fall ist, wird versucht eine neue Verbindung aufzubauen. Um das Programm nutzen zu können, müssen die Nutzerdaten des WLANs in der Setup-Methode eingetragen werden. Diese wurden aus Sicherheitsgründen in diesem Beispiel entfernt. 
+Durch den Start des oben aufgeführten Programmcodes werden alle fünf Sekunden neue Sensordaten an den MQTT geschickt. Ebenso werden alle fünf Sekunden die neuen Nachrichten überprüft. Wenn neue Nachrichten vorhanden sind, werden diese ausgegeben. Wenn das erste Zeichen der empfangenen Nachricht eine "1" ist, wird die eingebaute LED des Arduinos eingeschaltet. Andererseits wird diese ausgeschaltet. Um eine dauerhafte Verbindung mit MQTT sicherzustellen, wird alle fünf Sekunden überprüft, ob eine Verbindung zum MQTT-Server vorhanden ist. Wenn dies nicht der Fall ist, wird versucht eine neue Verbindung aufzubauen. Um das Programm nutzen zu können, müssen die Nutzerdaten des WLANs in der Setup-Methode eingetragen werden. Diese wurden aus Sicherheitsgründen in diesem Beispiel entfernt. 
 Nachfolgender Skizzierung ist der aktuelle Aufbau des Laborversuchs zu entnehmen: 
 
 ![Arrduino Anbindung an den Raspberry via MQTT](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/arduinoRaspberryConnection.png?raw=true "Arrduino Anbindung an den Raspberry via MQTT")
@@ -511,7 +511,7 @@ Nachfolgender Skizzierung ist der aktuelle Aufbau des Laborversuchs zu entnehmen
 
 # Teil 2 - Integration von OpenHab
    
-Im nächsten Schritt wird der Laborversuch um die Integrationsplattform „OpenHab“ ergänzt, mit dessen Hilfe die Realisierung einer Homeautomatisierung ermöglicht wird. Dies erfolgt beispielsweise dadurch, dass eine Vielzahl von Bibliotheken mitgeliefert wird. Die Architektur von OpenHab weist einen skalierfähigen Charakter auf und lässt sich mit einem Baukasten vergleichen, da unterschiedliche Technologien und Systeme an die Architektur angebunden werden können. 
+Im nächsten Schritt wird der Laborversuch um die Integrationsplattform „OpenHab“ ergänzt, mit dessen Hilfe die Realisierung einer Homeautomatisierung ermöglicht wird. Dies erfolgt unter anderem durch die Bereitstellung von vielzähligen Bibliotheken. Die Architektur von OpenHab weist dabei einen skalierfähigen Charakter auf und lässt sich mit einem Baukasten vergleichen, da unterschiedliche Technologien und Systeme an die Architektur angebunden werden können. 
 
 Zur Übersicht wird in folgender Abbildung die bisher im Laborversuch aufgebaute IOT-Infrastruktur visualisiert: 
 
@@ -525,7 +525,7 @@ Für die Installation bietet OpenHab eine [Installationsanleitung auf ihrer Webs
 
     wget -qO - 'https://bintray.com/user/downloadSubjectPublicKey?username=openhab' | sudo apt-key add
 
-Im nächsten Schritt wird für das APT der HTTPS-Transport aktiviert:
+Im nächsten Schritt erfolgt die Aktivierung des HTTP-Transport im APT:
 
     sudo apt-get install apt-transport-https
 
@@ -541,7 +541,7 @@ Zusätzlich sind die OpenHab-AddOns zu installieren:
 
     sudo apt-get install openhab2-addons
 
-Nachdem diese Schritte durchgeführt wurden, hat sich unter Zunahme [einer weiteren Installationsanleitung](https://www.openhab.org/docs/installation/linux.html) ergeben, dass die OpenHab-Installation einen installierten Java JDK 8 voraussetzt. Dementsprechend erfolgte die Installation des Java JDK 8s über folgende Kommandozeile:
+Nachdem diese Schritte durchgeführt wurden, hat sich unter Zunahme [einer weiteren Installationsanleitung](https://www.openhab.org/docs/installation/linux.html) ergeben, dass die OpenHab-Installation einen installierten Java JDK 8 voraussetzt. Dementsprechend erfolgte die Installation des Java JDKs 8 über folgende Kommandozeile:
 
     sudo apt-get update && sudo apt-get install open-java8-jdk
 
@@ -554,7 +554,7 @@ Anschließend kann die OpenHab-Seite über die Ip und den Port 8080 aufgerufen w
 
 ## Anbindung einer Hue Bridge und Hue Lampe
 
-Im nächsten Abschnitt des Laborversuchs wurden den Studenten vom Dozenten mit OpenHab anzubindende Geräte vorgestellt. Für die Durchführung des hier dargestellten Laborversuchs, fiel die Wahl auf die Hue Bridge und die Hue Lampe. Die Hue Bridge verfügt über keine WLAN-Funktion, weshalb ein Ethernet Kabel an das Gerät angeschlossen wird. Anschließend kann die Anbindung der Hue Bridge mit OpenHab und der Steuerung der Hue Lampen erfolgen. Für die Anbindung der Hue Bridge muss im OpenHab die "PaperUI" aufgerufen werden und anschließend über den Reiter Add-Ons das Binding „Hue Binding“ installiert werden. Die nachfolgende Abbildung visualisiert das Hinzufügen des Hue Bindings:
+Im nächsten Abschnitt des Laborversuchs wurden den Studenten vom Dozenten mit OpenHab anzubindende Geräte vorgestellt. Für die Durchführung des hier dargestellten Laborversuchs, fiel die Wahl auf die Hue Bridge und die Hue Lampe. Die Hue Bridge verfügt über keine WLAN-Funktion, weshalb ein Ethernet-Kabel an das Gerät angeschlossen wird. Anschließend kann die Anbindung der Hue Bridge mit OpenHab und der Steuerung der Hue Lampen erfolgen. Für die Anbindung der Hue Bridge muss im OpenHab die "PaperUI" aufgerufen und anschließend über den Reiter Add-Ons das Binding „Hue Binding“ installiert werden. Die nachfolgende Abbildung visualisiert die Weboberfläche beim Hinzufügen des Hue Bindings:
 ![Screenshot OpenHab Add-Ons Installation](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/AddHueBinding.png?raw=true "Installation eines Hue Bindings")
 
 Anschließend werden unter dem Reiter „Inbox“ alle für die Kopplung verfügbaren Geräte angezeigt:
@@ -574,7 +574,7 @@ Nach Betätigung des im rechten unteren Rand befindlichen „Link“-Buttons, st
 
 ![Screenshot OpenHab Control-Übersicht](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Overview_Control.png?raw=true "Übersicht der steuerbaren Things")
 
-Als nächstes sollte die Steuerung der Lampe über das Kommunikationsprotokoll „MQTT“ umgesetzt werden. Ziel war es,zunächst, die Hue-Lampe, abhängig vom gemessenen Feuchtigkeitswert (Wassersensor), ein- oder auszuschalten.
+Als nächstes sollte die Steuerung der Lampe über das Kommunikationsprotokoll „MQTT“ umgesetzt werden. Ziel war es, zunächst, die Hue-Lampe, abhängig vom gemessenen Feuchtigkeitswert (Wassersensor), ein- oder auszuschalten.
 Für die Kommunikation über MQTT kann das auf OpenHab verfügbare MQTT-Binding genutzt werden, dessen Installation erneut über den Reiter „Add-Ons“ umgesetzt wird. Als nächstes ist unter dem Reiter „Inbox“ ein neuer Eintrag zu erstellen, der zu folgenden Auswahlmöglichkeiten führt:
 
 ![Screenshot OpenHab MQTT Thing Binding-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Options_MQTT_ThingBinding.png?raw=true "Konfigurationsmöglichkeiten vom MQTT-Binding")
@@ -583,7 +583,7 @@ Für den oben genannten Anwendungsfall werden lediglich ein MQTT Broker und ein 
 
 ![Screenshot OpenHab MQTT Broker-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Configuration_MQTT_Broker.png?raw=true "Konfiguration eines MQTT-Brokers")
 
-Nachdem der MQTT Broker konfiguriert ist, ist im Anschluss ein Generic MQTT Thing zu erstellen. Diesem Thing ist ein Name zu übergeben und einem Broker zuzuweisen. Nach diesen beiden Schritten, können dem neu angelegten MQTT Thing mehrere Channels zugewiesen werden. Für diesen Channel werden folgende Angaben vergeben:
+Nachdem der MQTT Broker konfiguriert ist, ist im Anschluss ein Generic MQTT Thing zu erstellen. Diesem Thing ist ein Name zu übergeben und einem Broker zuzuweisen. Nach diesen beiden Schritten, können dem neu angelegten MQTT Thing mehrere Channels zugewiesen werden. Die jeweilige Channelkonfiguration für das MQTT Thing bedarf folgender Angaben:
 
     •	Channel-Typ: Erwartetes Rückgabeformat (beispielsweise text value)
     •	Channel-ID: Eindeutiger Name oder ID (zur eindeutigen Identifierung des Channels) 
@@ -603,11 +603,11 @@ Um nun die Lampenbeleuchtung über MQTT zu steuern, muss eine Regel unter etc/op
             }
     end
 
-Diese Regel definiert, dass sobald das MQTT THing einen Wassersensor-Wert von über 200 empfängt, eine Anweisung zur Einschaltung der Lampe erfolgt. Dagegen wird die Ausschaltung der Lampe bei einem darunter liegendem Wert ausgelöst. Der Name des zu steuernden Things entspricht dem vergebenen Itemnamen. Dieser Name kann beispielsweise auch über den Aufruf der Openhab-log ermittelt werden:
+Diese Regel definiert, dass sobald das MQTT Thing einen Wassersensor-Wert von über 200 empfängt, eine Anweisung zur Einschaltung der Lampe erfolgt. Dagegen wird die Ausschaltung der Lampe bei einem darunter liegendem Wert ausgelöst. Der Name des zu steuernden Things entspricht dabei dem vergebenen Itemnamen. Die Zustandänderungen der Items können über den Aufruf der Obenhab-Log nachvollzogen werden:
 
     Openhab-cli showlogs
 
-Im nächsten Schritt wurde der Aufbau des Anwendungsfalls angepasst. So wurde nun abhängig von dem ausgegebenen Wassersensor-Wert die Lampenbeleuchtungsstärke um einen entsprechenden prozentualen Wert verringert oder erhöht. Zudem wird die simulierte IOT-Architektur um eine Sicherungsschicht ergänzt, indem die Schaltung nur von einer autorisierten Person, identifizierbar über die NFC-UID (im vorliegenden Beispiel "043E436A643481"), ausgeführt werden kann:
+Im nächsten Schritt wurde der Aufbau des Anwendungsfalls angepasst. So wurde nun, abhängig von dem ausgegebenen Wassersensor-Wert, die Lampenbeleuchtungsstärke um einen entsprechenden prozentualen Wert verringert oder erhöht. Zudem wird die simulierte IOT-Architektur um eine Sicherungsschicht ergänzt, indem die Schaltung nur von einer autorisierten Person, identifizierbar über die NFC-UID (im vorliegenden Beispiel "043E436A643481"), ausgeführt werden kann:
 
     rule "Water_Lamp_on"
     when
@@ -633,23 +633,25 @@ Im nächsten Schritt wurde der Aufbau des Anwendungsfalls angepasst. So wurde nu
             }
     end
 
-Die folgende Abbildung gibt visualisiert die Zustandsänderungen Lampenbeleuchtung an. Für diesen Versuch wurde der Wassersensor im Wechsel befeuchtet und getrocknet. Zu beachten ist, dass die Beleuchtungsänderung nur über die autorisierte NFC-Karte erfolgen kann:
+Die folgende Abbildung visualisiert die Zustandsänderungen der Lampe (Lamp1) und des GenericMQTTThings (Wassersensor-Wert).
 ![Screenshot OpenHab Zustandänderung-Lampe](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/LampsLighting_Change.png?raw=true "Zustandsänderung der Lampenbeleuchtung")
+
+ Für diesen Versuch wurde der Wassersensor im Wechsel befeuchtet und getrocknet. Zu beachten ist, dass die Beleuchtungsänderung nur über eine autorisierte Person bzw. NFC-Karte erfolgen kann.
 <div class="page"/>
 
 # Tag 3 Blockchain Integration
 
-Nachdem in den vorherigen Teilen Zustandsänderungen von Sensoren mittels MQTT verarbeitet werden konnten, soll nun eine Blockchain Integration durchgeführt werden. Ziel dieser Integration ist die erfolgreiche Etablierung eines Smart Contracts. Im vorliegenden Beispiel die Entwicklung eines Smart-Contracts angestrebt, der dem Nutzer, für jedes Schalten der Lampe, einen gewissen Geldbetrag in Rechnung stellt. Die Geldbetragsmenge ergibt sich aus dem gemessenem Wassersensor-Wert. 
-Um diese Szenario umsetzen zu können, sollen die Smart-Contracts von Ethereum eingesetzt werden. Dabei soll bei Übertragung der NFC-UID zunächst geprüft werden, ob dem entsprechenden Nutzer ausreichend Guthaben zur Verfügung steht. Im positiven Fall wird das für die Schaltung der Lampe notwendige Guthaben, vom Nutzerkonto auf das Betreiberkonto übertragen. Nach der erfolgreichen Übertragung des Guthabens, erfolgt anschließend die Schaltung der Lampe. 
+Nachdem in den vorherigen Teilen Zustandsänderungen von Sensoren mittels MQTT verarbeitet werden konnten, soll nun die Integration einer Blockchain erfolgen. Ziel dieser Integration ist primär die erfolgreiche Etablierung eines Smart Contracts. Im vorliegenden Beispiel wird die Entwicklung eines Smart-Contracts angestrebt, der dem Nutzer, für jedes Schalten der Lampe, einen gewissen Geldbetrag in Rechnung stellt. Die Geldbetragsmenge ergibt sich dabei aus dem gemessenem Wassersensor-Wert. 
+Um diese Szenario umsetzen zu können, sollen die Smart-Contracts von Ethereum Verwendung finden. Dabei soll bei Übertragung der NFC-UID zunächst geprüft werden, ob dem entsprechenden Nutzer ausreichend Guthaben zur Verfügung steht. Im positiven Fall wird das für die Schaltung der Lampe notwendige Guthaben, vom Nutzerkonto auf das Betreiberkonto übertragen. Nach der erfolgreichen Übertragung des Guthabens, erfolgt anschließend die Schaltung der Lampe. 
 
-## Installation der benötigten Komponente
+## Installation der benötigten Softwarekomponente
 
-Für die Abbildung des oben geschilderten Szenarios wird Truffle zur Entwicklung und zum Test von Smart Contracts und Ganache zur Simulation einer Blockchain verwendet. Diese beiden Komponenten werden auf einen separaten, und somit außerhalb des Raspberrys, installiert. Im Folgenden werden zunächst die für die Installationen notwendigen Schritte geschildert. Anschließend wird auf die Einrichtung von Ganache und Truffle eingegangen und eine Beispielimplementierung für ein Smart Contract aufgeführt.
+Für die Abbildung des oben geschilderten Szenarios wird Truffle zur Entwicklung und von Smart Contracts und Ganache zur Simulation einer Blockchain verwendet. Diese beiden Komponenten werden auf einen separaten, und somit außerhalb des Raspberrys, installiert. Im Folgenden werden zunächst die für die Installationen notwendigen Schritte geschildert. Anschließend wird auf die Einrichtung von Ganache und Truffle eingegangen und eine Beispielimplementierung für ein Smart Contract vorgestellt.
 
 ### Installation von Truffle 
 
 Bevor mit der Installation von Truffle begonnen werden kann, muss zunächst Node.js installiert werden. Dazu wird die neuste Version von der [Node.js-Homepage]((https://nodejs.org/download)) heruntergeladen. 
-Als nächstes muss [Truffle](https://www.trufflesuite.com/) installiert werden. Dazu führen wird folgender Befehl über NPM ausgeführt:
+Als nächstes kann die Installation von [Truffle](https://www.trufflesuite.com/) erfolgen. Dazu wird folgender Befehl über NPM ausgeführt:
     npm install truffle -g
 
 ### Installation von Ganache
@@ -658,7 +660,7 @@ Die Installation von [Ganache](https://www.trufflesuite.com/ganache) erfolgt ebe
 
 ## Einrichtung von Ganache
 
-Als nächstes muss die Software eingerichtet werden. Hierzu wird die installierte Applikation "Ganache" geöffnet, ein neuer Workspace angelegt und eine Verbindung zu dem Server wird hergestellt (im vorliegenden Fall wird eine Verbindung über den "Localhost" aufgebaut, die Blockchain kann aber auch auf einem separaten Server installiert werden). 
+Als nächstes muss die Software eingerichtet werden. Hierzu wird die installierte Applikation "Ganache" geöffnet, ein neuer Workspace angelegt und eine Verbindung zum Server hergestellt (im vorliegenden Fall wird eine Verbindung über den "Localhost" aufgebaut, die Blockchain kann aber auch auf einem separaten Server installiert werden). 
 
 ![Screenshot Ganache Serverkonfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/ganache/ganacheServerConfiguration.PNG?raw=true "Serverkonfiguration")
 
@@ -669,11 +671,11 @@ Nach dem Speichern des Workspaces öffnet sich eine Liste der aktuell verfügbar
 
 ## Implementation eines Smart Contracts
 
-Für die Implementierung des Smart Contracts musste zunächst ein Projekt erstellt werden. Hierzu muss ein Verzeichnis erstellt und folgender Befehl innerhalb des Verzeichnisses ausgeführt werden:
+Für die Implementierung des Smart Contracts ist zunächst ein Projekt anzulegen. Hierzu muss ein Verzeichnis erzeugt und folgender Befehl innerhalb des Verzeichnisses ausgeführt werden:
 
     truffle init
 
-Mit diesem Befehl wird anschließend die komplette Verzeichnisstruktur für die Implementierung des Smart Contracts initialisiert. Im nächsten Schritt soll ein neuer Smart Contract hinzugefügt werden. Dafür wird im Contracts-Verzeichnis eine neue Datei mit der Endung ".sol" angelegt. Im vorliegenden Fall wird der Smart Contract mit dem Namen "Light_New" erstellt. Der Smart Contract wird basierend auf der Programmiersprache ["Solidity"](https://www.trufflesuite.com/docs/truffle/getting-started/compiling-contracts) implementiert. 
+Mit diesem Befehl wird anschließend die komplette Verzeichnisstruktur für die Implementierung des Smart Contracts initialisiert. Im nächsten Schritt soll ein neuer Smart Contract hinzugefügt werden. Hierfür wird im Contracts-Verzeichnis eine neue Datei mit der Endung ".sol" angelegt. Im vorliegenden Fall erfolgt die Erstellung eines Smart Contracts über den Namen "Light_New". Der Smart Contract wird basierend auf der Programmiersprache ["Solidity"](https://www.trufflesuite.com/docs/truffle/getting-started/compiling-contracts) implementiert. 
 Zu Beginn wurde testweise ein simpler Smart Contract definiert, der die Nachricht "Hello World" zurückgibt. Ein hierfür beispielhafter Programmcode lässt sich folgendermaßen zusammenfassen:
 
     pragma solidity ^0.5.0;
@@ -696,27 +698,27 @@ Zu Beginn wurde testweise ein simpler Smart Contract definiert, der die Nachrich
         }
     }
 
-Um diesen Smart Contract auf die BlockChain zu übertragen, muss der Smart Contract kompiliert und migriert werden. Hierfür werden folgende Truffle-Kommandobefehle verwendet:
+Um diesen Smart Contract auf die BlockChain zu übertragen, muss der Smart Contract kompiliert und migriert werden. Hierfür finden folgende Truffle-Kommandobefehle Verwendung:
     truffle compile
     truffle migrate
 
-Nach der Ausführung dieser Kommandobefehle, steht der Smart Contract auf der BlockChain zur Verfügung. 
+Nach der Ausführung dieser Kommandobefehle, steht der Smart Contract auf der Blockchain zur Verfügung. 
 
 
-## Einbindung der Blockchain ins IOT-Netz
+## Einbindung der Blockchain an das IOT-Netz
 
-Für die Anbindung des IOT-Netzes mit dem simulierten Blockchain-Netzwerk, wird die [Web3.js-Library](https://web3js.readthedocs.io/en/v1.2.1/) verwendet. 
+Für die Anbindung des Blockchain-Netzwerks an das IOT-Netz, wird die [Web3.js-Library](https://web3js.readthedocs.io/en/v1.2.1/) verwendet. 
 
-### Installation Web3
+### Installation von Web3
 
-Für deren Installation kann erneut auf das NPM zurückgegriffen werden. Über den folgenden Befehl wird die Nutzung von Web3.js bereitgestellt:
+Für der Web3.js-Library kann erneut auf das NPM zurückgegriffen werden. Über den folgenden Befehl wird die Nutzung von Web3.js bereitgestellt:
     npm install web3
-Zu berücksichtigen ist, dass hierfür Python mit der Version 2.7 benötigt wird. Die Installation mit einer neueren Python-Version hat im hier beschriebenen Laborversuch zu Problemen geführt. Als spezifischen Lösungsansatz wurde hierzu auf [Anaconda](https://www.anaconda.com/) zurückgegriffen, das die Nutzung der benötigten Version ermöglicht. Für die Installation von Anaconda wurden zusätzlich aktuelle visual studio build tools benötigt, die über folgende Kommandozeile installiert wurden:
+Zu berücksichtigen ist, dass hierfür Python mit der Version 2.7 benötigt wird. Die Installation mit einer neueren Python-Version hat im hier beschriebenen Laborversuch zu Problemen geführt. Als spezifischen Lösungsansatz wurde hierzu auf [Anaconda](https://www.anaconda.com/) zurückgegriffen, das die Nutzung der benötigten Version ermöglicht. Für die Installation von Anaconda wurden zusätzlich aktuelle Visual Studio Build Tools benötigt, die über folgende Kommandozeile installiert wurden:
     npm install –g windows-build-tools
 
 ### Integration der Blockchain
 
-Nach der Installation der benötigten Bibliotheken, kann mit der Integration der Blockchain in das IOT-Scenario begonnen werden. Dazu wird auf dem zu entwickelten Rechner eine neue Javascript-Datei erstellt. In dieser Datei wird ein Programm implementiert, das die Integration zwischen der simulierten Blockchain und der bestehenden IOT-Infrastruktur herstellen soll. Hierzu wird zunächst eine Verbindung zur Blockchain und dem MQTT-Broker hergestellt. Zudem soll bei eingehenden Nachrichten, die im vorliegenden Fall über das abonnierte Topic "water/out" eintreffen, der Smart-Contract aus der Blockchain ausgeführt werden. Der nachfolgende Programmcodeausschnitt visualisiert die technische Umsetzung des soeben beschriebenen Szenarios:
+Nach der Installation der benötigten Bibliotheken, kann die Integration der Blockchain erfolgen. Dazu wird auf dem zu entwickelten Rechner eine neue Javascript-Datei erstellt. In dieser Datei wird ein Programm implementiert, das die Integration zwischen der simulierten Blockchain und der bestehenden IOT-Infrastruktur herstellen soll. Hierzu wird zunächst eine Verbindung zur Blockchain und dem MQTT-Broker hergestellt. Zudem soll bei eingehenden Nachrichten, die im vorliegenden Fall über das abonnierte Topic "water/out" eintreffen, der Smart Contract aus der Blockchain ausgeführt werden. Der nachfolgende Programmcodeausschnitt visualisiert die technische Umsetzung des soeben beschriebenen Szenarios:
 
     var mqtt    = require('mqtt');
     const Web3 = require('web3');
@@ -771,7 +773,7 @@ Nach der Installation der benötigten Bibliotheken, kann mit der Integration der
     console.log("end of script");
 
 Im vorliegenden Programmcode werden zunächst die Module "MQTT" und "Web3" geladen. Anschließend erfolgt mithilfe von Web3 ein Verbindungsaufbau mit der lokalen Blockchain. Zudem wird über MQTT eine Verbindung mit dem Raspberry aufgebaut. 
-Bei eingehenden Nachrichten wird eine Ausgabe auf der Konsole erzeugt und die executedSmartContractAsync()-Methode ausgeführt. Um auf eingehende Sensordaten reagieren zu können, Subscribed sich das Programm auf das Topic "/water/out". Bevor der Smart Contract ausgehführt werden kann, muss die ABI (Application binary interface) des Smart Contracts eingelesen werden. Diese wird benötigt, um auf die Schnittstelle zugreifen zu können. Die ABI des Smart Contracts wird beim Kompilieren erzeugt und im Build-Verzeichnis abgelegt. Dementsprechend wird für die Ermittlung der ABI ein Pfad zu dem Build-Verzeichnis hinterlegt und die ABI ausgelesen.
+Bei eingehenden Nachrichten erfolgt die Erzeugung einer Konsolenausgabe und die Ausführung der executedSmartContractAsync()-Methode. Um auf eingehende Sensordaten reagieren zu können, wird ein Subscribe auf das Message-Queue Topic "/water/out" ausgeführt. Für die Ausführung des Smart Contracts muss deren ABI (Application binary interface) bekannt sein. Diese wird benötigt, um auf die Schnittstelle zugreifen zu können. Die ABI des Smart Contracts wird beim Kompilieren erzeugt und im Build-Verzeichnis abgelegt. Dementsprechend wird für die Ermittlung der ABI ein Pfad zu dem Build-Verzeichnis hinterlegt und die ABI ausgelesen.
 Mithilfe der ABI kann nun auf die getMessage()-Methode des Smart-Contracts zugegriffen werden. 
 Für die Ausführung des Smart Contracts muss das Programm zunächst gestartet werden. Sobald Sensordaten über MQTT eintreffen wird auf der Konsole folgendes ausgegeben:
 
@@ -800,6 +802,6 @@ Im nächsten Schritt wurde der Laborversuch um die Anbindung eines Microcontroll
 
 Im nächsten Abschnitt des Laborversuchs wurde die Integrationsplattform "OpenHab" für die Homeautomatisierung eingeführt. In diesem Kontext wurden eine Hue Bridge und eine Hue Lampe an die simulierte IOT-Infrastruktur angebunden. Durch die von OpenHab mitgelieferten Add-Ons gestaltete sich eine Steuerung dieser Geräte als simpel. So wurde beispielsweise mithilfe einer Regel umgesetzt, dass abhängig vom empfangenen Wassersensor-Wert die Beleuchtungsstärke der Hue Lampe verringert oder erhöht wird. Erweitert wurde dieser Anwendungsfall zusätzlich dahingehend, dass die Steuerung lediglich von einer autorisierten Person (NFC-UID) ausgeführt werden kann.
 
-Im letzten Abschnitt des Laborversuchs sollte die simulierte IOT-Infrastruktur um eine Blockchain-Anbindung angereichert werden. Hierfür erfolgte zunächst die Installation von Truffle, als eine Entwicklungsumgebung für Smart Contracts, und Ganache, das zur Simulation einer Blockchain eingesetzt werden kann. Im Anschluss sollte ein Smart Contract implementiert werden, der bei Schaltung der Lampe zunächst prüft ob der schaltende Nutzer über genügend Guthaben für diese Aktion verfügt und im positiven Fall den entsprechenden Betrag vom Nutzerguthaben abzieht. Aufgrund dessen, dass während der Installationen unterschiedlichste Probleme auftraten (beispielsweise inkompatible Python-Version), konnte das angestrebte Smart Contract-Szenario nicht umgesetzt werden. Dementsprechend wurde im letzten Schritt eine Abbildung vorgestellt, das die geplante technische Umsetzung des Smart Contracts visualisiert. Darüber hinaus erfolgte die Vorstellung des bis zum Ende des Laborversuchs erstellten Smart Contracts.
+Im letzten Abschnitt des Laborversuchs sollte die simulierte IOT-Infrastruktur um eine Blockchain-Anbindung angereichert werden. Hierfür erfolgte zunächst die Installation von Truffle, das eine Entwicklungsumgebung für Smart Contracts bereitstellt, und Ganache, das zur Simulation einer Blockchain eingesetzt werden kann. Im Anschluss sollte ein Smart Contract implementiert werden, der bei Schaltung der Lampe zunächst prüft ob der schaltende Nutzer über genügend Guthaben für diese Aktion verfügt und im positiven Fall den entsprechenden Betrag vom Nutzerguthaben abzieht. Aufgrund dessen, dass während der Installationen unterschiedlichste Probleme auftraten (beispielsweise inkompatible Python-Version), konnte das angestrebte Smart Contract-Szenario nicht umgesetzt werden. Dementsprechend wurde im letzten Schritt eine Abbildung vorgestellt, das die geplante technische Umsetzung des Smart Contracts visualisiert. Darüber hinaus erfolgte die Vorstellung des bis zum Ende des Laborversuchs erstellten Smart Contracts.
 
-Unabhängig von der gescheiterten Implementierung des Smart Contracts kann insgesamt von einem erfolgreichen und lehrreichen Laborversuch gesprochen werden. Der Laborversuch macht deutlich, dass mithilfe von geeigneter Hardware und Software sowie durch intensiver Auseinandersetzung mit der Thematik, bereits in kurzer Zeit eine IOT-Infrastruktur aufgesetzt werden kann. Der Laborversuch zeigt auch, dass die verschiedenen Softwarekomponente den größten Entwicklungsaufwand übernehmen, dass deren Installation aber unter Umständen mühselig und zeitraubend seien kann (beispielsweise bei inkompatibler Python-Version). Zudem ist zu berücksichtigen, dass zumindest Grundkenntnisse in/ allen relevanten Programmiersprachen erforderlich sind. Andernfalls sind bei einem eingeschränkten Zeitrahmen, zeitliche Engpässe zu erwarten, wie es beispielweise bei der Programmierung des Smart Contracts der Fall war.
+Unabhängig von der gescheiterten Implementierung des Smart Contracts kann insgesamt von einem erfolgreichen und lehrreichen Laborversuch gesprochen werden. Der Laborversuch macht deutlich, dass mithilfe von geeigneter Hardware und Software sowie durch intensiver Auseinandersetzung mit der Thematik, bereits in kurzer Zeit eine IOT-Infrastruktur aufgesetzt werden kann. Der Laborversuch zeigt auch, dass die verschiedenen Softwarekomponente den größten Entwicklungsaufwand übernehmen, dass deren Installation aber unter Umständen mühselig und zeitraubend seien kann (beispielsweise bei inkompatibler Python-Version). Zudem ist zu berücksichtigen, dass zumindest Grundkenntnisse in allen relevanten Programmiersprachen erforderlich sind. Andernfalls sind bei einem eingeschränkten Zeitrahmen, zeitliche Engpässe zu erwarten, wie es beispielweise bei der Programmierung des Smart Contracts der Fall war.
