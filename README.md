@@ -154,13 +154,13 @@ Nach erfolgreiche Konfiguration des Raspberrys, soll im nächsten Schritt ein Pr
 
 1. Installation der nxppy-Library
     
-    Die nxppy-Library wird zum Einlesen und Schreiben von NFC-Karten benötigt. Die Installation wird über die folgende Kommandozeile umgesetzt: 
+    Die nxppy-Library wird zum Einlesen und Schreiben von NFC-Karten benötigt. Die Umsetzung der Installation erfolgt über die folgende Kommandozeile: 
 
         pip install nxppy
 
 2. Ausgabe der NFC-UIDs
    
-   Das Auslesen der UIDs von NFC-Karten wird über die Programmiersprache "Python" umgesetzt. Hierzu wurde das folgende Python-Programm 'test1.py', das UIDs von NFC-Karten einliest und auf der Konsole ausgibt, geschrieben:
+   Das Auslesen der UIDs von NFC-Karten erfolgt basierend auf der Programmiersprache "Python". Hierzu wurde das folgende Python-Programm 'test1.py', das UIDs von NFC-Karten einliest und auf der Konsole ausgibt, geschrieben:
 
         test1.py
 
