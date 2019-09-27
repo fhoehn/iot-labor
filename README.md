@@ -106,7 +106,7 @@ Die einzelnen Konfigurationsschritte werden im Folgenden aufgeführt:
     3. Im nächsten Schritt ist der SSH über das Advanced Packaging Tool (APT) zu installieren:
             
             sudo apt-get install ssh
-    4. Der Server kann nun über folgenden Kommandozeilenbefehl erfolgen:
+    4. Der Serverstart kann nun über folgenden Kommandozeilenbefehl erfolgen:
             
             sudo /etc/init.d/ssh start
     5. Zudem ist es hilfreich den automatischen Start der SSH-Funktion zu aktivieren:
