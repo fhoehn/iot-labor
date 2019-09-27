@@ -150,7 +150,7 @@ Die einzelnen Konfigurationsschritte werden im Folgenden aufgeführt:
 
 ## Erfassung von NFC-UIDs
 
-Nach erfolgreiche Konfiguration des Raspberrys, soll im nächsten Schritt ein Programm für das Auslesen von NFC-UIDs geschrieben werden. Die hierfür notwendigen Arbeitsschritte werden nachfolgend aufgeführt.
+Nach erfolgreiche Konfiguration des Raspberrys, soll im nächsten Schritt ein Programm für das Auslesen von NFC-UIDs geschrieben werden. Die hierfür notwendigen Arbeitsschritte sind den nachfolgenden Ausführungen zu entnehmen:
 
 1. Installation der nxppy-Library
     
