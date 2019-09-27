@@ -247,7 +247,7 @@ Basierend auf dem erstellten Python-Programm, das zuständig für das Auslesen d
 
             time.sleep(0.3)
         
-    Dieses Programm stellt eine Erweiterung des zuvor vorgestellten Programms 'test1.py' dar. Im Vergleich zum vorherigen Programm werden die UIDs nicht mehr auf der Konsole ausgegeben, sondern an den MQTT-Broker gesendet. Diese Nachrichten können anschließend von Node-RED abgegriffen werden und der oben vorgestellte Flow wird abgearbeitet. Dieser Vorgang wird für jede, vom Lesegerät empfangene UID, durchgeführt. 
+    Dieses Programm stellt eine Erweiterung des zuvor vorgestellten Programms 'test1.py' dar. Im Vergleich zum vorherigen Programm werden die UIDs nicht nur auf der Konsole ausgegeben, sondern auch an den MQTT-Endpunkt gesendet. Diese Nachrichten können anschließend von Node-RED abgegriffen werden und der oben vorgestellte Flow wird abgearbeitet. Dieser Vorgang wird für jede, vom Lesegerät empfangene UID, durchgeführt. 
     
 5. Einsicht auf DEBUG-Informationen 
    
@@ -257,7 +257,7 @@ Basierend auf dem erstellten Python-Programm, das zuständig für das Auslesen d
 
 ## Bereitstellung eines REST Services
 
-Im Rahmen eines weiteren Anwendungsfalls sollte ein REST Service zur Verfügung gestellt werden. Über diesen REST Service sollen die letzten zehn UIDs abgefragt werden können. Aus zeitlichen Gründen wurde dieser Anwendungsfall nicht durchgeführt. Dies hatte allerdings keinen negativen Einfluss auf den weiteren Verlauf des Laborversuchs. 
+Im Rahmen eines weiteren Anwendungsfalls sollte ein REST Service zur Verfügung gestellt werden. Über diesen REST Service sollen die letzten zehn UIDs als JSON zurückgeliefert werden können. Aus zeitlichen Gründen wurde dieser Anwendungsfall nicht durchgeführt, das den weiteren Laborversuchsablauf aber nicht weiter beeinträchtigt.
 <div class="page"/>
 
 # Einbindung eines Arduinos
@@ -503,7 +503,7 @@ Als nächstes wird die Verarbeitung der Wassersensor-Daten angestrebt. So soll d
         delay(5000); 
     }
 
-Durch den Start des oben aufgeführten Programmcodes werden alle fünf Sekunden neue Sensordaten an den MQTT geschickt. Ebenso werden alle fünf Sekunden die neuen Nachrichten überprüft. Wenn neue Nachrichten vorhanden sind, werden diese ausgegeben. Wenn das erste Zeichen der empfangenen Nachricht eine "1" ist, wird die eingebaute LED des Arduinos eingeschaltet. Andererseits wird diese ausgeschaltet. Um eine dauerhafte Verbindung mit MQTT sicherzustellen, wird alle fünf Sekunden überprüft, ob eine Verbindung zum MQTT-Server vorhanden ist. Wenn dies nicht der Fall ist, wird versucht eine neue Verbindung aufzubauen. Um das Programm nutzen zu können, müssen die Nutzerdaten des WLANs in der Setup-Methode eingetragen werden. Diese wurden aus Sicherheitsgründen in diesem Beispiel entfernt. 
+Durch den Start des oben aufgeführten Programmcodes werden alle fünf Sekunden neue Sensordaten an den MQTT-Endpunkt übertragen. Ebenso werden alle fünf Sekunden die neuen Nachrichten überprüft. Wenn neue Nachrichten vorhanden sind, werden diese ausgegeben. Wenn das erste Zeichen der empfangenen Nachricht eine "1" ist, wird die eingebaute LED des Arduinos eingeschaltet. Andererseits wird diese ausgeschaltet. Um eine dauerhafte Verbindung mit MQTT sicherzustellen, wird alle fünf Sekunden überprüft, ob eine Verbindung zum MQTT-Server vorhanden ist. Wenn dies nicht der Fall ist, wird versucht eine neue Verbindung aufzubauen. Um das Programm nutzen zu können, müssen die Nutzerdaten des WLANs in der Setup-Methode eingetragen werden. Diese wurden aus Sicherheitsgründen in diesem Beispiel entfernt. 
 Nachfolgender Skizzierung ist der aktuelle Aufbau des Laborversuchs zu entnehmen: 
 
 ![Arrduino Anbindung an den Raspberry via MQTT](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/arduinoRaspberryConnection.png?raw=true "Arrduino Anbindung an den Raspberry via MQTT")
@@ -773,7 +773,7 @@ Nach der Installation der benötigten Bibliotheken, kann die Integration der Blo
     console.log("end of script");
 
 Im vorliegenden Programmcode werden zunächst die Module "MQTT" und "Web3" geladen. Anschließend erfolgt mithilfe von Web3 ein Verbindungsaufbau mit der lokalen Blockchain. Zudem wird über MQTT eine Verbindung mit dem Raspberry aufgebaut. 
-Bei eingehenden Nachrichten erfolgt die Erzeugung einer Konsolenausgabe und die Ausführung der executedSmartContractAsync()-Methode. Um auf eingehende Sensordaten reagieren zu können, wird ein Subscribe auf das Message-Queue Topic "/water/out" ausgeführt. Für die Ausführung des Smart Contracts muss deren ABI (Application binary interface) bekannt sein. Diese wird benötigt, um auf die Schnittstelle zugreifen zu können. Die ABI des Smart Contracts wird beim Kompilieren erzeugt und im Build-Verzeichnis abgelegt. Dementsprechend wird für die Ermittlung der ABI ein Pfad zu dem Build-Verzeichnis hinterlegt und die ABI ausgelesen.
+Bei eingehenden Nachrichten erfolgt die Erzeugung einer Konsolenausgabe und die Ausführung der executedSmartContractAsync()-Methode. Um auf eingehende Sensordaten reagieren zu können, wird ein Subscribe auf das Message-Queue Topic "/water/out" ausgeführt. Für die Ausführung des Smart Contracts muss deren ABI (Application binary interface) bekannt sein. Diese wird benötigt, um auf die Methoden des Smart Contracts zugreifen zu können. Die ABI des Smart Contracts wird beim Kompilieren erzeugt und im Build-Verzeichnis abgelegt. Dementsprechend wird für die Ermittlung der ABI ein Pfad zu dem Build-Verzeichnis hinterlegt und die ABI ausgelesen.
 Mithilfe der ABI kann nun auf die getMessage()-Methode des Smart-Contracts zugegriffen werden. 
 Für die Ausführung des Smart Contracts muss das Programm zunächst gestartet werden. Sobald Sensordaten über MQTT eintreffen wird auf der Konsole folgendes ausgegeben:
 
@@ -787,13 +787,13 @@ Das angestrebte Szenario lässt sich mit folgender Abbildung und schrittweiser B
 
 ![Blockchain Integration](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/blockchain_Integration.png?raw=true "Blockchain Integration")
 
-1. Der Arduino frägt alle fünf Sekunden den aktuellen Wasserstand des Wassersensors ab
-2. Der Arduino sendet über MQTT den aktuellen Wasserstand an den Raspberry
-3. Der Raspberry übergibt den aktuellen Wert an den Smart Contract in der Blockchain. Dadurch wird der aktuelle Preis im Smart Contract definiert. 
-4. Wenn nun ein Nutzer seine NFC-Karte auf das Lesegerät legt, wird die UID der Karte ausgelesen und der Prozess initialisiert.
-5. Der Raspberry versucht den Smart Contract auszuführen. Dazu wird die UID der Karte genutzt, um nachzuschauen, ob der Nutzer über genügend Guthaben verfügt. Im positiven Fall wird das für die Schaltung der Lampe notwendige Guthaben vom Nutzerkonto abgezogen und der Prozess zum Einschalten der Lampe auf dem Raspberry initialisiert.
-6. Der Raspberry sendet über MQTT eine Nachricht, bezüglich der der Schaltung der Lampe, an den Arduino.
-7. Der Arduino schaltet die Lampe auf den aktuellen Wert.
+1. Der Arduino frägt alle fünf Sekunden den aktuellen Wassersensor-Wert des Wassersensors ab
+2. Der Arduino sendet über MQTT den aktuellen Wassersensor-Wert an den Raspberry
+3. Der Raspberry übergibt den aktuellen Wert an den Smart Contract in der Blockchain. Dadurch wird der aktuelle Preis im Smart Contract definiert 
+4. Wenn nun ein Nutzer seine NFC-Karte auf das Lesegerät legt, erfolgt das Auslesen der UID durch den Raspberry
+5. Der Raspberry versucht den Smart Contract auszuführen. Dazu wird die UID der Karte genutzt, um nachzuschauen, ob der Nutzer über genügend Guthaben verfügt. Im positiven Fall wird das für die Schaltung der Lampe notwendige Guthaben vom Nutzerkonto abgezogen und der Prozess zum Einschalten der Lampe auf dem Raspberry initialisiert
+6. Der Raspberry sendet über MQTT eine Nachricht zur Schaltung der Lampe an den Arduino
+7. Der Arduino schaltet die Lampe auf den übergebenen Wert
 <div class="page"/>
 
 # Zusammenfassung und Bewertung der Ergebnisse
