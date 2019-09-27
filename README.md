@@ -262,7 +262,7 @@ Im Rahmen eines weiteren Anwendungsfalls sollte ein REST Service zur Verfügung 
 
 # Einbindung eines Arduinos
 
-Der nächste Abschnitt des Laborversuchs befasst sich mit dem Anschluss eines Arduinos (ESP8266MOD) an die bisher erstellte IOT-Infrastruktur. Arduino ist eine aus Software und Hardware bestehende Physical-Computing-Plattform, deren Hardware aus einem Microcontroller und analogen sowie digitalen Ein- und Ausgängen besteht. Ziel des Laborversuchs war es,zunächst, mithilfe des Arduinos eine Lampe an- und ausschalten zu können. Im nächsten Schritt wird der Versuch um den Anschluss eines Wassersensors sowie eines Servomotors ergänzt. Im letzten Schritt soll mithilfe von MQTT der Nachrichtenaustausch vollzogen werden. 
+Der nächste Abschnitt des Laborversuchs befasst sich mit dem Anschluss eines Arduinos (ESP8266MOD) an die bisher erstellte IOT-Infrastruktur. Arduino ist eine aus Software und Hardware bestehende Physical-Computing-Plattform, deren Hardware aus einem Microcontroller und analogen sowie digitalen Ein- und Ausgängen besteht. Ziel des Laborversuchs war es, zunächst, mithilfe des Arduinos eine Lampe an- und ausschalten zu können. Im nächsten Schritt wird der Versuch um den Anschluss eines Wassersensors sowie eines Servomotors ergänzt. Im letzten Schritt soll mithilfe von MQTT der Nachrichtenaustausch vollzogen werden. 
 
 ## Aufsetzen einer Entwicklungsumgebung
 
@@ -274,7 +274,7 @@ Der nächste Abschnitt des Laborversuchs befasst sich mit dem Anschluss eines Ar
 
 2. Installation des Treibers
 
-    Das Aufspielen des C-Codes auf den Arduino erfolgt basierend auf einer Verbindung zwischen dem Entwicklungsrechner und dem Arduino. Die Verbindung wird mithilfe eines USB-Kabels umgesetzt. Zusätzlich wird eine manuelle Installation des Arduino-Treibers vorausgesetzt, da der Entwicklungsrechner die Treiber nicht selbstständig beziehen kann. 
+    Das Aufspielen des C-Codes auf den Arduino erfolgt basierend auf einer Verbindung zwischen dem Entwicklungsrechner und dem Arduino. Der Aufbau dieser Verbindung erfolgt über einen USB-Kabel. Zusätzlich wird eine manuelle Installation des Arduino-Treibers vorausgesetzt, da der Entwicklungsrechner die Treiber nicht selbstständig beziehen kann. 
 
 3. Erstellung eines Beispielprojekts
    
@@ -310,7 +310,7 @@ Der nächste Abschnitt des Laborversuchs befasst sich mit dem Anschluss eines Ar
 - Das Gerät verbindet sich anschließend mit dem WLAN und speichert die Credentials in einem Secure Storage, sodass das Gerät zukünftig automatisch eine Verbindung zu diesem WLAN-Netz aufbaut
 - Ein möglicher Wechsel zu einem anderen Netzwerk setzt das Löschen des internen Speichers voraus
 
-Der WifiManager kann mit folgendem Programmcode auf einfache Art und Weise eingebunden werden. In der autoConnect-Methode des WifiManagers kann der Name und ein Passwort für das Wifi festgelegt werden. Somit wird das neue Wifi vor unberechtigtem Zugriff geschützt. 
+Der Wifi-Manager kann mit folgendem Programmcode auf einfache Art und Weise eingebunden werden:
 
     /*
      * WiFiManager
@@ -340,11 +340,11 @@ Der WifiManager kann mit folgendem Programmcode auf einfache Art und Weise einge
       delay(1000); 
     }
 
-Die konfigurierte WLAN-Verbindung ermöglicht nun die Sendung der Nachrichten an den MQTT-Broker des Raspberrys. 
+In der autoConnect-Methode des Wifi-Managers kann der Name und ein Passwort für das Wifi festgelegt werden. Somit wird das neue Wifi vor unberechtigtem Zugriff geschützt. Die hiermit konfigurierte WLAN-Verbindung ermöglicht die Sendung der Nachrichten an den MQTT-Broker des Raspberrys. 
 
 ## Anbindung des Wassersensors und Servomotors
 
-Nun sollen die Daten des Wassersensors verarbeitet werden. Im ersten Schritt soll ein Servomotor angesteuert werden, der sich um 90 Grad dreht, sobald der Wassersensor sich im Wasser befindet. Ansonsten soll der Motor auf die Ausgangangslage zurück gesteuert werden. Dazu muss zunächst der Aufbau einer Verbindung zwischen den einzelnen Sensoren und dem Arduino erfolgen. Um die Sensoren mit den GPIOs des Arduinos zu verbinden, können Steckbrücken Verwendung finden. Nachdem die Sensoren an den Arduino angeschlossen wurden, kann ein Programm zur weiteren Verarbeitung, wie beispielsweise dem nachfolgend aufgeführten Programmcodeausschnitt, erstellt werden: 
+Nun sollen die Daten des Wassersensors verarbeitet werden. Im ersten Schritt soll die Steuerung des Servomotors erfolgen, der sich um 90 Grad dreht, sobald der Wassersensor sich im Wasser befindet. Ansonsten ist der Motor auf die Ausgangangslage zurück zu steuern. Dazu muss zunächst der Aufbau einer Verbindung zwischen den einzelnen Sensoren und dem Arduino erfolgen. Um die Sensoren mit den GPIOs des Arduinos zu verbinden, können Steckbrücken Verwendung finden. Nachdem die Sensoren an den Arduino angeschlossen wurden, kann ein Programm zur weiteren Verarbeitung, wie beispielsweise dem nachfolgend aufgeführten Programmcodeausschnitt, erstellt werden: 
 
     /*
     * Watersensor and servo
@@ -392,7 +392,7 @@ Nun sollen die Daten des Wassersensors verarbeitet werden. Im ersten Schritt sol
 
 ## Anbindung von MQTT
 
- Neben der Schaltung des Servomotors, sollen die Daten des Wassersensors auch über MQTT an den Raspberry übertragen werden. Dazu muss der Arduino die gesammelten Daten verarbeiten und an den Broker senden. Die Umsetzung dieses Anwendungsfalls kann über folgenden Programmcode erfolgen:
+ Neben der Schaltung des Servomotors, sollen die Daten des Wassersensors auch über MQTT an den Raspberry übertragen werden. Dazu muss der Arduino die gesammelten Daten verarbeiten und an den Broker senden. Die Umsetzung dieses Anwendungsfalls kann beispielsweise über den folgenden Programmcode erfolgen:
 
     /*
     * MQTT
