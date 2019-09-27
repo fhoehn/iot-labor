@@ -114,7 +114,7 @@ Die einzelnen Konfigurationsschritte werden im Folgenden aufgeführt:
             sudo update-rc.d ssh defaults
 
 
-3. Aufbau einer externen Verbindung über das Werkzeug PuTTY
+3. Aufbau einer externen Verbindung über das Werkzeug [PuTTY](https://www.putty.org/)
 
     Nach dem auf dem Raspberry die Kommunikation über SSH aktiviert wurde, kann über das Werkzeug "PuTTY" eine Verbindung zum Raspberry aufgebaut werden. Für den Aufbau der Verbindung werden die Hostadresse, der Nutzername und das Passwort benötigt. 
 
