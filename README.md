@@ -503,8 +503,8 @@ Als nächstes wird die Verarbeitung der Wassersensor-Daten angestrebt. So soll d
         delay(5000); 
     }
 
-Durch den Start des oben aufgeführten Programmcodes werden alle fünf Sekunden neue Sensordaten an den MQTT-Endpunkt übertragen. Ebenso werden alle fünf Sekunden die neuen Nachrichten überprüft. Wenn neue Nachrichten vorhanden sind, werden diese ausgegeben. Wenn das erste Zeichen der empfangenen Nachricht eine "1" ist, wird die eingebaute LED des Arduinos eingeschaltet. Andererseits wird diese ausgeschaltet. Um eine dauerhafte Verbindung mit MQTT sicherzustellen, wird alle fünf Sekunden überprüft, ob eine Verbindung zum MQTT-Server vorhanden ist. Wenn dies nicht der Fall ist, wird versucht eine neue Verbindung aufzubauen. Um das Programm nutzen zu können, müssen die Nutzerdaten des WLANs in der Setup-Methode eingetragen werden. Diese wurden aus Sicherheitsgründen in diesem Beispiel entfernt. 
-Nachfolgender Skizzierung ist der aktuelle Aufbau des Laborversuchs zu entnehmen: 
+Durch den Start des oben aufgeführten Programmcodes werden alle fünf Sekunden neue Sensordaten an den MQTT-Endpunkt übertragen. Ebenso erfolgt im gleichen Intervall eine Überprüfung auf neue Nachrichten in der Message-Queue. Wenn neue Nachrichten vorhanden sind, werden diese Nachrichten auf der Konsole ausgegeben. Falls die Nachricht mit einer "1" beginnt, erfolgt das Einschalten der eingebauten LED (Arduino). Andererseits wird diese ausgeschaltet. Um eine dauerhafte Verbindung mit MQTT sicherzustellen, wird alle fünf Sekunden überprüft, ob eine Verbindung zum MQTT-Server vorhanden ist. Wenn dies nicht der Fall ist, wird versucht eine neue Verbindung aufzubauen. Um das Programm nutzen zu können, müssen die Nutzerdaten des WLANs in der Setup-Methode eingetragen werden. Diese wurden aus Sicherheitsgründen in diesem Beispiel entfernt. 
+Zusammenfassend kann der aktuelle Aufbau des Laborversuchs folgender Skizzierung entnommen werden: 
 
 ![Arrduino Anbindung an den Raspberry via MQTT](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/arduinoRaspberryConnection.png?raw=true "Arrduino Anbindung an den Raspberry via MQTT")
 <div class="page"/>
