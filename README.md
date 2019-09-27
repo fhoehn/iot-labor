@@ -639,8 +639,8 @@ Die folgende Abbildung gibt visualisiert die Zustandsänderungen Lampenbeleuchtu
 
 # Tag 3 Blockchain Integration
 
-Nachdem in den vorherigen Teilen Zustandsänderungen von Sensoren mittels MQTT verarbeitet werden konnten, soll nun eine Blockchain Integration durchgeführt werden. Ziel dieser Integration ist die erfolgreiche Etablierung eines Smart Contracts. Im vorliegenden Beispiel soll ein Smart-Contract entwickelt werden, der dem Nutzer, für jedes Schalten der Lampe einen gewissen Geldbetrag in Rechnung stellt. Die Geldbetragsmenge ergibt sich aus dem gemessenem Wassersensor-Wert. 
-Um diese Szenario umsetzen zu können, sollen die Smart-Contracts von Ethereum eingesetzt werden. Dabei soll bei Übertragung der NFC-UID zunächst geprüft werden, ob dem entsprechenden Nutzer genügend Guthaben zur Verfügung steht. Im positiven Fall wird das für die Schaltung der Lampe notwendige Guthaben, vom Nutzerkonto auf das Betreiberkonto übertragen. Nach erfolgter Übertragung des Guthabens, erfolgt anschließend die Schaltung der Lampe. 
+Nachdem in den vorherigen Teilen Zustandsänderungen von Sensoren mittels MQTT verarbeitet werden konnten, soll nun eine Blockchain Integration durchgeführt werden. Ziel dieser Integration ist die erfolgreiche Etablierung eines Smart Contracts. Im vorliegenden Beispiel die Entwicklung eines Smart-Contracts angestrebt, der dem Nutzer, für jedes Schalten der Lampe, einen gewissen Geldbetrag in Rechnung stellt. Die Geldbetragsmenge ergibt sich aus dem gemessenem Wassersensor-Wert. 
+Um diese Szenario umsetzen zu können, sollen die Smart-Contracts von Ethereum eingesetzt werden. Dabei soll bei Übertragung der NFC-UID zunächst geprüft werden, ob dem entsprechenden Nutzer ausreichend Guthaben zur Verfügung steht. Im positiven Fall wird das für die Schaltung der Lampe notwendige Guthaben, vom Nutzerkonto auf das Betreiberkonto übertragen. Nach der erfolgreichen Übertragung des Guthabens, erfolgt anschließend die Schaltung der Lampe. 
 
 ## Installation der benötigten Komponente
 
