@@ -661,7 +661,7 @@ Die Installation von [Ganache](https://www.trufflesuite.com/ganache) erfolgt ebe
 
 ## Einrichtung von Ganache
 
-Als nächstes muss die Software eingerichtet werden. Hierzu wird die installierte Applikation "Ganache" geöffnet, ein neuer Workspace angelegt und eine Verbindung zum Server hergestellt (im vorliegenden Fall wird eine Verbindung über den "Localhost" aufgebaut, die Blockchain kann aber auch auf einem separaten Server installiert werden). 
+Als nächstes muss die Software eingerichtet werden. Hierzu wird die installierte Applikation "Ganache" geöffnet, ein neuer Workspace angelegt und eine Verbindung zum Server hergestellt (im vorliegenden Fall wird eine Verbindung über die "Localhost-Adresse" aufgebaut, die Blockchain kann aber auch auf einem separaten Server installiert werden). 
 
 ![Screenshot Ganache Serverkonfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/ganache/ganacheServerConfiguration.PNG?raw=true "Serverkonfiguration")
 
