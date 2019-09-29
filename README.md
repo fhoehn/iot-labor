@@ -41,13 +41,13 @@
 
 ## Aufgabenstellung
 
-Ziel dieser Arbeit ist es eine IOT-Infrastruktur bereitzustellen, welche auf den drei Schichten (Perception, Network, und Application Layer) einer IOT-Architektur basiert. Dazu sollen verschiedene Sensoren über ein Gateway mit einer Integrationsplattform verbunden werden. Über diese Integrationsplattform wird die Anbindung von weiteren Geräten, an das IOT-Netz, angestrebt. Darüber hinaus soll eine Zahlungs- und Abwicklungsmöglichkeit für unterschiedlichste Business Cases eingeführt werden. Um dies vertrauenswürdig und sicher zu gewährleisten, wird eine Blockchain in Kombination mit Smart Contracts eingesetzt.   
+Ziel dieser Arbeit ist es eine IOT-Infrastruktur bereitzustellen, welche auf den drei Schichten (Perception, Network, und Application Layer) einer IOT-Architektur basiert. Dazu sollen verschiedene Sensoren über ein Gateway mit einer Integrationsplattform verbunden werden. Über diese Integrationsplattform wird die Anbindung von weiteren Geräten, an das IOT-Netz, angestrebt. Darüber hinaus soll eine Zahlungs- und Abwicklungsmöglichkeit für unterschiedlichste Geschäftsvorfälle eingeführt werden. Um dies vertrauenswürdig und sicher zu gewährleisten, wird eine Blockchain in Kombination mit Smart Contracts eingesetzt.   
 
 ## Aufbau der Arbeit
 Im ersten Teil des Laborversuchs wird zunächst die Einrichtung des Raspberrys vorgenommen und die für den Aufbau notwendige Infrastruktur aufgesetzt. Anschließend werden mithilfe eines Python-Programms UIDs von NFC-Karten ausgelesen. Diese werden mithilfe des Kommunikationsprotokolls "MQTT" an Node-RED übertragen. Im Node-RED wird daraufhin ein sogenannter Flow implementiert, der den Nachrichtenfluss zwischen zwei Instanzen beschreibt.
 Anschließend wird der Laborversuch um weitere Sensoren (Servomotor und Wassersensor) erweitert. Zur Anbindung dieser Sensoren erfolgt der Einsatz eines Microcontrollers (Arduino). Dieser sendet die von den Sensoren übertragenen Nachrichten an die Message Queue, die auf Node-RED ausgewertet werden.
 Für die Bereitstellung einer Benutzeroberfläche zur Homeautomatisierung, wird die Integrationsplattform "OpenHab" eingesetzt.
-Abschließend soll das Szenario um eine Blockchain erweitert werden, bei der mithilfe von Smart Contracts beispielhafte Geschäftsprozesse im IOT-Umfeld abgewickelt werden können. 
+Abschließend soll das Szenario um eine Blockchain erweitert werden, bei der mithilfe von Smart Contracts beispielhafte Geschäftsvorfälle im IOT-Umfeld abgewickelt werden können. 
 ## Eingesetzte Hardware
 Für die Durchführung des Laborversuchs wird folgende Hardware benötigt:
 -   Raspberry Pi
@@ -86,14 +86,14 @@ Die einzelnen Konfigurationsschritte werden im Folgenden aufgeführt:
 
 1. Aufbau einer WLAN-Verbindung
     1. Da der Raspberry keine Benutzeroberfläche und Eingabemöglichkeit aufweist, wird für die Konfiguration ein Monitor und eine Tastatur an den Raspberry angeschlossen.
-    2. Der Raspberry muss via Ethernet an das Netzwerk angeschlossen werden. Hierzu wird die Konfigurationsdatei geöffnet: 
+    2. Anschließend muss der Raspberry via Ethernet an das Netzwerk angeschlossen werden. Hierzu wird die Konfigurationsdatei geöffnet: 
    
             sudo nano /etc/wpa_supplicant/wpa_supplicant.conf 
-        In dieser Konfigurationsdatei muss eine Ergänzung der Netzwerkverbindungsdaten erfolgen. Die für diesen Laborversuch notwendigen Netzwerkdaten werden in folgender Abbildung zusammengefasst:
+        In dieser Konfigurationsdatei muss eine Ergänzung der Netzwerkverbindungsdaten, nach folgendem Schema, erfolgen:
         
             network={
-                ssid="WiLaWiFi063C"
-                psk="p7-15Dex9.4A"
+                ssid="Mein_WLAN_NETZWERK"
+                psk="MEIN_WLAN_PASSWORT"
             }
         
     3. Für die Aktivierung der Änderung muss im nächsten Schritt ein Neustart des Netzwerkmoduls erfolgen. Die für die Ausführung notwendige Kommandozeile wird nachfolgend aufgeführt:
@@ -120,7 +120,7 @@ Die einzelnen Konfigurationsschritte werden im Folgenden aufgeführt:
 
 4. Installation von Python
     
-    Für die weitere Entwicklung sind nun sowohl Python als auch Node-RED zu installieren. Für die Installation dieser Softwarekomponenten wird vom APT Gebrauch gemacht. Wichtig ist, dass die APT zunächst über ein Update auf den aktuellen Stand gebracht wird. Anschließend kann die Installation von Python und Node-RED über folgende Kommandozeile erfolgen: 
+    Für die weitere Entwicklung sind nun sowohl Python als auch Node-RED zu installieren. Für die Installation dieser Softwarekomponenten wird vom APT Gebrauch gemacht. Wichtig ist, dass das APT zunächst über ein Update auf den aktuellen Stand gebracht wird. Anschließend kann die Installation von Python und Node-RED über folgende Kommandozeile erfolgen: 
 
         sudo apt-get update && sudo apt-get install python3 python3-pip cmake nodered
 
@@ -247,17 +247,17 @@ Basierend auf dem erstellten Python-Programm, das zuständig für das Auslesen d
 
             time.sleep(0.3)
         
-    Dieses Programm stellt eine Erweiterung des zuvor vorgestellten Programms 'test1.py' dar. Im Vergleich zum vorherigen Programm werden die UIDs nicht nur auf der Konsole ausgegeben, sondern auch an den MQTT-Endpunkt gesendet. Diese Nachrichten können anschließend von Node-RED abgegriffen werden und der oben vorgestellte Flow wird abgearbeitet. Dieser Vorgang wird für jede, vom Lesegerät empfangene UID, durchgeführt. 
+    Dieses Programm stellt eine Erweiterung des zuvor vorgestellten Programms 'test1.py' dar. Im Vergleich zum vorherigen Programm werden die UIDs nun nicht nur auf der Konsole ausgegeben, sondern auch an den MQTT-Endpunkt gesendet. Diese Nachrichten können anschließend von Node-RED abgegriffen werden und der oben vorgestellte Flow wird abgearbeitet. Dieser Vorgang wird für jede, vom Lesegerät empfangene UID, durchgeführt. 
     
 5. Einsicht auf DEBUG-Informationen 
    
-   Die empfangenen Nachrichten sind auf der Node-RED Oberfläche, wie in folgender Abbildung 5 visualisiert, ersichtlich:
+   Die empfangenen Nachrichten sind auf der Node-RED Oberfläche, wie im rechten Teil der folgenden Abbildung 5 visualisiert, ersichtlich:
 
    ![Screenshot der Node-RED DEBUG-Informationen](https://github.com/fhoehn/iot-labor/blob/master/images/nodeRED/DEBUG_Node-RED.PNG?raw=true "DEBUG-Informationen")
 
 ## Bereitstellung eines REST Services
 
-Im Rahmen eines weiteren Anwendungsfalls sollte ein REST Service zur Verfügung gestellt werden. Über diesen REST Service sind die letzten zehn UIDs als JSON zurückzuliefern. Aus zeitlichen Gründen wurde dieser Anwendungsfall nicht durchgeführt, was den weiteren Laborversuchsablauf aber auch nicht weiter beeinträchtigt.
+Im Rahmen eines weiteren Anwendungsfalls sollte ein REST Service zur Verfügung gestellt werden. Über diesen REST Service sind die letzten zehn UIDs als JSON zurückzuliefern. Aus zeitlichen Gründen wurde dieser Anwendungsfall nicht durchgeführt, was den weiteren Laborversuchsablauf aber auch nicht weiter beeinträchtigt hat.
 <div class="page"/>
 
 # Einbindung eines Arduinos
@@ -340,7 +340,7 @@ Der WiFi-Manager kann mit folgendem Programmcode eingebunden werden:
       delay(1000); 
     }
 
-In der autoConnect-Methode des WiFi-Managers kann der Name und ein Passwort für das WiFi festgelegt werden. Somit wird das neue WiFi vor unberechtigtem Zugriff geschützt. Die hiermit konfigurierte WLAN-Verbindung ermöglicht die Sendung der Nachrichten an den MQTT-Broker des Raspberrys. 
+In der autoConnect-Methode des WiFi-Managers kann der Name und ein Passwort für das WiFi, wie im oben aufgeführtem Codeausschnitt visualisiert, festgelegt werden. Somit wird das neue WiFi vor unberechtigtem Zugriff geschützt. Die hiermit konfigurierte WLAN-Verbindung ermöglicht die Sendung der Nachrichten an den MQTT-Broker des Raspberrys. 
 
 ## Anbindung des Wassersensors und Servomotors
 
@@ -518,7 +518,7 @@ Zur Übersicht wird in folgender Abbildung 7 die für diesen Teil des Laborversu
 
 ![OpenHAB integration](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/nodeRED_OpenHAB_Integration.png?raw=true "OpenHAB Integration")
 
-Die aufgeführte Abbildung 7 macht deutlich, dass neben dem MQTT-Broker auch Node-RED und OpenHAB auf dem Raspberry installiert wurden. Allerdings ist für den produktiven Einsatz die Installation aller Komponenten auf einer einzelnen Instanz nicht anzuraten. Vielmehr empfiehlt es sich, die einzelnen Softwarekomponenten auf jeweils einem eigenen Gerät zu installieren und die Kommunikation untereinander mittels MQTT zu realisieren. Aufgrund der mangelnden Ressourcen werden die Softwarekomponenten für den Laborversuch jedoch auf einem einzelnen Gerät installiert und nur logisch betrachtet voneinander getrennt. Dieser Umstand stellt für die weitere Versuchsdurchführung jedoch kein Problem dar. 
+Die aufgeführte Abbildung 7 macht deutlich, dass neben dem MQTT-Broker auch Node-RED und OpenHAB auf dem Raspberry installiert werden. Allerdings ist für den produktiven Einsatz die Installation aller Komponenten auf einer einzelnen Instanz nicht anzuraten. Vielmehr empfiehlt es sich, die einzelnen Softwarekomponenten auf jeweils einem eigenen Gerät zu installieren und die Kommunikation untereinander mittels MQTT zu realisieren. Aufgrund der mangelnden Ressourcen werden die Softwarekomponenten für den Laborversuch jedoch auf einem einzelnen Gerät installiert und nur logisch betrachtet voneinander getrennt. Dieser Umstand stellt für die weitere Versuchsdurchführung jedoch kein Problem dar. 
 
 ## Installation
 
@@ -542,11 +542,11 @@ Zusätzlich sind die OpenHab-AddOns zu installieren:
 
     sudo apt-get install openhab2-addons
 
-Nachdem diese Schritte durchgeführt wurden, hat sich unter Zunahme [einer weiteren Installationsanleitung](https://www.openhab.org/docs/installation/linux.html) ergeben, dass die OpenHab-Installation einen installierten Java JDK 8 voraussetzt. Dementsprechend erfolgte die Installation des Java JDKs 8 über folgende Kommandozeile:
+Nachdem diese Schritte durchgeführt wurden, hat sich unter Zunahme [einer weiteren Installationsanleitung](https://www.openhab.org/docs/installation/linux.html) ergeben, dass die OpenHab-Installation einen installierten Java JDK 8 voraussetzt. Dementsprechend erfolgte dessen Installation über die folgende Kommandozeile:
 
     sudo apt-get update && sudo apt-get install open-java8-jdk
 
-Allerdings scheiterte die Installation des OpenHab-Pakets erneut, da das Paket als eine unsichere Paketinstallation angesehen wird. Dementsprechend war der Kommandozeilenbefehl, für das Hinzufügen des Repositorys, mit dem Zusatz [trusted=yes] zu versehen. Auf dieser Weise wird allen Quellen in diesem Repository vertraut. Der mit diesem Zusatz angereicherte Befehl lässt sich wie folgt aufschlüsseln:
+Allerdings scheiterte die Installation des OpenHab-Pakets erneut, da das Paket als eine unsichere Paketinstallation angesehen wird. Dementsprechend war der Kommandozeilenbefehl, für das Hinzufügen des Repositorys, mit dem Zusatz "[trusted=yes]" zu versehen. Auf dieser Weise wird allen Quellen in diesem Repository vertraut. Der mit diesem Zusatz angereicherte Befehl lässt sich wie folgt aufschlüsseln:
 
     echo 'deb [trusted=yes] https://dl.bintray.com/openhab/apt-repo2 stable main' | sudo tee /etc/apt/sources.list.d/openhab2.list
 
@@ -555,7 +555,7 @@ Anschließend kann die OpenHAB-Seite über die Ip und den Port 8080 aufgerufen w
 
 ## Anbindung einer Hue Bridge und Hue Lampe
 
-Im nächsten Abschnitt des Laborversuchs wurden den Studenten vom Dozenten mit OpenHAB anzubindende Geräte vorgestellt. Für die Durchführung des hier dargestellten Laborversuchs, fiel die Wahl auf die Hue Bridge und die Hue Lampe. Die Hue Bridge verfügt über keine WLAN-Funktion, weshalb ein Ethernet-Kabel an das Gerät angeschlossen wird. Anschließend kann die Anbindung der Hue Bridge mit OpenHAB und der Steuerung der Hue Lampen erfolgen. Für die Anbindung der Hue Bridge muss im OpenHAB die "PaperUI" aufgerufen und anschließend über den Reiter Add-Ons das Binding „Hue Binding“ installiert werden. Die nachfolgende Abbildung 8 visualisiert die Weboberfläche beim Hinzufügen des Hue Bindings:
+Im nächsten Abschnitt des Laborversuchs wurden den Studenten vom Dozenten mit OpenHAB anzubindende Geräte vorgestellt. Für die Durchführung des hier dargestellten Laborversuchs, fiel die Wahl auf die Hue Bridge und die Hue Lampe. Die Hue Bridge verfügt über keine WLAN-Funktion, weshalb ein Ethernet-Kabel an das Gerät angeschlossen wird. Anschließend kann die Anbindung der Hue Bridge mit OpenHAB und der Steuerung der Hue Lampen erfolgen. Für die Anbindung der Hue Bridge muss im OpenHAB die "PaperUI" aufgerufen und anschließend über den Reiter "Add-Ons" das Binding „Hue Binding“ installiert werden. Die nachfolgende Abbildung 8 visualisiert die Weboberfläche beim Hinzufügen des Hue Bindings:
 ![Screenshot OpenHab Add-Ons Installation](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/AddHueBinding.png?raw=true "Installation eines Hue Bindings")
 
 Anschließend werden unter dem Reiter „Inbox“ alle für die Kopplung verfügba-ren Geräte, wie in untenstehender Abbildung 9 ersichtlich wird, angezeigt:
@@ -567,7 +567,7 @@ Alle verfügbaren [Things](https://www.openhab.org/docs/concepts/things.html) (s
 ![Screenshot OpenHAB Configuration_Things-Übersicht](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Configuration_Things2.png?raw=true "Übersicht der konfigurierbaren Things")
 
 Für die Anbindung und Steuerung des Things ist ein [Channel](https://www.openhab.org/docs/concepts/things.html) und ein [Item](https://www.openhab.org/docs/configuration/items.html) zu konfigurieren. Während das Thing als eine physische Entität einer Information angesehen werden kann, stellt der Channel eine konkrete Funktion des Things dar. Zudem sind Channels mit Items verlinkt, die wiederum im OpenHAB-Umfeld als Ausprägung der Funktion (Channel) zu verstehen sind. So kann beispielsweise das Item "MyNFCThing_" definiert werden, mit dem Item-Typ "String". Dabei gibt der Item-Typ an, dass nur Werte im String-Format entgegengenommen und angezeigt werden können. Der Itemname dient hauptsächlich zur eindeutigen Identifikation des Items (dies ist beispielsweise bei der Implementierung einer Regel von Bedeutung).
-Die Channel-konfiguration kann über einen Doppelklick auf dem zu ergänzenden Thing erfolgen. In der aufgepoppten Channel-Konfiguration ist anschließend ein Channelname, Label und der Typ des Channels zu definieren. Zur Verdeutlichung wird in unten aufgeführter Abbildung 11 eine beispielhafte Channel-Konfiguration aufgeführt:
+Die Channel-Konfiguration kann über einen Doppelklick auf dem zu ergänzenden Thing erfolgen. In der aufgepoppten Channel-Konfiguration ist anschließend ein Channelname, Label und der Typ des Channels zu definieren. Zur Verdeutlichung wird in unten aufgeführter Abbildung 11 eine beispielhafte Channel-Konfiguration aufgeführt:
 
 ![Screenshot OpenHAB Channel-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Link_Channel.png?raw=true "Beispielhafte Channel-Konfiguration")
 
@@ -580,7 +580,7 @@ Für die Kommunikation über MQTT kann das auf OpenHAB verfügbare MQTT-Binding 
 
 ![Screenshot OpenHAB MQTT Thing Binding-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Options_MQTT_ThingBinding.png?raw=true "Konfigurationsmöglichkeiten vom MQTT-Binding")
 
-Für den oben genannten Anwendungsfall werden lediglich ein MQTT Broker und ein Generic MQTT Thing benötigt. Dementsprechend wird als erstes ein MQTT Broker erstellt. Dem Broker sind anschließend ein Name und die IP-Adresse des Raspberrys zu übergeben. Als Port wird die 1883 gewählt. Die hier beschriebenen Brokereinstellungen sind der nächsten Abbildung 14 zu entnehmen:
+Für den oben genannten Anwendungsfall werden lediglich ein MQTT Broker und ein "Generic MQTT Thing" benötigt. Dementsprechend wird als erstes ein MQTT Broker erstellt. Dem Broker sind anschließend ein Name und die IP-Adresse des Raspberrys zu übergeben. Als Port wird die 1883 gewählt. Die hier beschriebenen Brokereinstellungen sind der nächsten Abbildung 14 zu entnehmen:
 
 ![Screenshot OpenHAB MQTT Broker-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Configuration_MQTT_Broker.png?raw=true "Konfiguration eines MQTT-Brokers")
 
