@@ -20,7 +20,7 @@
   - [Aufbau einer WLAN-Verbindung](#aufbau-einer-wlan-verbindung)
   - [Anbindung des Wassersensors und Servomotors](#anbindung-des-wassersensors-und-servomotors)
   - [Anbindung von MQTT](#anbindung-von-mqtt)
-- [Teil 2 - Integration von OpenHab](#teil-2---integration-von-openhab)
+- [Teil 2 - Integration von OpenHAB](#teil-2---integration-von-openhab)
   - [Installation](#installation)
   - [Anbindung einer Hue Bridge und Hue Lampe](#anbindung-einer-hue-bridge-und-hue-lampe)
 - [Tag 3 Blockchain Integration](#tag-3-blockchain-integration)
@@ -67,7 +67,7 @@ Folgende Softwarekomponenten sind für den Laborversuch erforderlich:
 -   PuTTY
 -   Arduino-Treiber für Windows
 -   Visual Studio Code inclusive PlattformIO
--   OpenHab
+-   OpenHAB
 -   Node-RED
 -   Truffle
 -   Ganache
@@ -510,9 +510,9 @@ Zusammenfassend kann der aktuelle Aufbau des Laborversuchs folgender Abbildung 6
 ![Arduino Anbindung an den Raspberry via MQTT](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/arduinoRaspberryConnection.png?raw=true "Arduino Anbindung an den Raspberry via MQTT")
 <div class="page"/>
 
-# Teil 2 - Integration von OpenHab
+# Teil 2 - Integration von OpenHAB
    
-Im nächsten Schritt wird der Laborversuch um die Integrationsplattform „OpenHab“ ergänzt, mit dessen Hilfe die Realisierung einer Homeautomatisierung ermöglicht wird. Dies erfolgt unter anderem durch die Bereitstellung von vielzähligen Bibliotheken. Die Architektur von OpenHab weist dabei einen skalierfähigen Charakter auf und lässt sich mit einem Baukasten vergleichen, da unterschiedliche Technologien und Systeme an die Architektur angebunden werden können. 
+Im nächsten Schritt wird der Laborversuch um die Integrationsplattform „OpenHAB“ ergänzt, mit dessen Hilfe die Realisierung einer Homeautomatisierung ermöglicht wird. Dies erfolgt unter anderem durch die Bereitstellung von vielzähligen Bibliotheken. Die Architektur von OpenHAB weist dabei einen skalierfähigen Charakter auf und lässt sich mit einem Baukasten vergleichen, da unterschiedliche Technologien und Systeme an die Architektur angebunden werden können. 
 
 Zur Übersicht wird in folgender Abbildung 7 die bisher im Laborversuch aufgebaute IOT-Infrastruktur visualisiert: 
 
@@ -522,7 +522,7 @@ Die aufgeführte Abbildung 7 macht deutlich, dass neben dem MQTT-Broker auch Nod
 
 ## Installation
 
-Für die Installation bietet OpenHab eine [Installationsanleitung auf ihrer Website](https://www.openhab.org/download/) an. Im Rahmen der Installation wird zunächst der Repository Key hinzugefügt und auf dem Raspberry der folgende Befehl ausgeführt:
+Für die Installation bietet OpenHAB eine [Installationsanleitung auf ihrer Website](https://www.openhab.org/download/) an. Im Rahmen der Installation wird zunächst der Repository Key hinzugefügt und auf dem Raspberry der folgende Befehl ausgeführt:
 
     wget -qO - 'https://bintray.com/user/downloadSubjectPublicKey?username=openhab' | sudo apt-key add
 
@@ -530,7 +530,7 @@ Im nächsten Schritt erfolgt die Aktivierung des HTTP-Transports im APT:
 
     sudo apt-get install apt-transport-https
 
-Zudem wird auf dem Raspberry das OpenHab-Repository hinzugefügt:
+Zudem wird auf dem Raspberry das OpenHAB-Repository hinzugefügt:
 
     echo 'deb https://dl.bintray.com/openhab/apt-repo2 stable main' | sudo tee /etc/apt/sources.list.d/openhab2.list
 
@@ -550,39 +550,39 @@ Allerdings scheiterte die Installation des OpenHab-Pakets erneut, da das Paket a
 
     echo 'deb [trusted=yes] https://dl.bintray.com/openhab/apt-repo2 stable main' | sudo tee /etc/apt/sources.list.d/openhab2.list
 
-Anschließend kann die OpenHab-Seite über die Ip und den Port 8080 aufgerufen werden. Da der Port 8080 bereits von einer anderen Anwendung belegt war, musste der Port umgeändert werden. Die Änderung des Ports kann durch eine Anpassung der Konfigurationsdatei, die auf dem Verzeichnis "etc/default" abgelegt ist, erfolgen.
+Anschließend kann die OpenHAB-Seite über die Ip und den Port 8080 aufgerufen werden. Da der Port 8080 bereits von einer anderen Anwendung belegt war, musste der Port umgeändert werden. Die Änderung des Ports kann durch eine Anpassung der Konfigurationsdatei, die auf dem Verzeichnis "etc/default" abgelegt ist, erfolgen.
 
 
 ## Anbindung einer Hue Bridge und Hue Lampe
 
-Im nächsten Abschnitt des Laborversuchs wurden den Studenten vom Dozenten mit OpenHab anzubindende Geräte vorgestellt. Für die Durchführung des hier dargestellten Laborversuchs, fiel die Wahl auf die Hue Bridge und die Hue Lampe. Die Hue Bridge verfügt über keine WLAN-Funktion, weshalb ein Ethernet-Kabel an das Gerät angeschlossen wird. Anschließend kann die Anbindung der Hue Bridge mit OpenHab und der Steuerung der Hue Lampen erfolgen. Für die Anbindung der Hue Bridge muss im OpenHab die "PaperUI" aufgerufen und anschließend über den Reiter Add-Ons das Binding „Hue Binding“ installiert werden. Die nachfolgende Abbildung 8 visualisiert die Weboberfläche beim Hinzufügen des Hue Bindings:
+Im nächsten Abschnitt des Laborversuchs wurden den Studenten vom Dozenten mit OpenHAB anzubindende Geräte vorgestellt. Für die Durchführung des hier dargestellten Laborversuchs, fiel die Wahl auf die Hue Bridge und die Hue Lampe. Die Hue Bridge verfügt über keine WLAN-Funktion, weshalb ein Ethernet-Kabel an das Gerät angeschlossen wird. Anschließend kann die Anbindung der Hue Bridge mit OpenHAB und der Steuerung der Hue Lampen erfolgen. Für die Anbindung der Hue Bridge muss im OpenHAB die "PaperUI" aufgerufen und anschließend über den Reiter Add-Ons das Binding „Hue Binding“ installiert werden. Die nachfolgende Abbildung 8 visualisiert die Weboberfläche beim Hinzufügen des Hue Bindings:
 ![Screenshot OpenHab Add-Ons Installation](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/AddHueBinding.png?raw=true "Installation eines Hue Bindings")
 
 Anschließend werden unter dem Reiter „Inbox“ alle für die Kopplung verfügba-ren Geräte, wie in untenstehender Abbildung 9 ersichtlich wird, angezeigt:
 
-![Screenshot OpenHab Inbox-Übersicht](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Inbox.png?raw=true "Übersicht der anzukoppelnden Geräte")
+![Screenshot OpenHAB Inbox-Übersicht](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Inbox.png?raw=true "Übersicht der anzukoppelnden Geräte")
 
 Alle verfügbaren [Things](https://www.openhab.org/docs/concepts/things.html) (steuerbare Geräte mit Sensoren, die beispielsweise über "ZigBee" angesprochen werden können) stehen nach Betätigung der Häkchen über den Reiter „Configuration“ zur Konfiguration zur Verfügung (siehe Abbildung 10):
 
-![Screenshot OpenHab Configuration_Things-Übersicht](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Configuration_Things2.png?raw=true "Übersicht der konfigurierbaren Things")
+![Screenshot OpenHAB Configuration_Things-Übersicht](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Configuration_Things2.png?raw=true "Übersicht der konfigurierbaren Things")
 
-Für die Anbindung und Steuerung des Things ist ein [Channel](https://www.openhab.org/docs/concepts/things.html) und ein [Item](https://www.openhab.org/docs/configuration/items.html) zu konfigurieren. Während das Thing als eine physische Entität einer Information angesehen werden kann, stellt der Channel eine konkrete Funktion des Things dar. Zudem sind Channels mit Items verlinkt, die wiederum im OpenHab-Umfeld als Ausprägung der Funktion (Channel) zu verstehen sind. So kann beispielsweise das Item "MyNFCThing_" definiert werden, mit dem Item-Typ "String". Dabei gibt der Item-Typ an, dass nur Werte im String-Format entgegengenommen und angezeigt werden können. Der Itemname dient hauptsächlich zur eindeutigen Identifikation des Items (dies ist beispielsweise bei der Implementierung einer Regel von Bedeutung).
+Für die Anbindung und Steuerung des Things ist ein [Channel](https://www.openhab.org/docs/concepts/things.html) und ein [Item](https://www.openhab.org/docs/configuration/items.html) zu konfigurieren. Während das Thing als eine physische Entität einer Information angesehen werden kann, stellt der Channel eine konkrete Funktion des Things dar. Zudem sind Channels mit Items verlinkt, die wiederum im OpenHAB-Umfeld als Ausprägung der Funktion (Channel) zu verstehen sind. So kann beispielsweise das Item "MyNFCThing_" definiert werden, mit dem Item-Typ "String". Dabei gibt der Item-Typ an, dass nur Werte im String-Format entgegengenommen und angezeigt werden können. Der Itemname dient hauptsächlich zur eindeutigen Identifikation des Items (dies ist beispielsweise bei der Implementierung einer Regel von Bedeutung).
 Die Channel-konfiguration kann über einen Doppelklick auf dem zu ergänzenden Thing erfolgen. In der aufgepoppten Channel-Konfiguration ist anschließend ein Channelname, Label und der Typ des Channels zu definieren. Zur Verdeutlichung wird in unten aufgeführter Abbildung 11 eine beispielhafte Channel-Konfiguration aufgeführt:
 
-![Screenshot OpenHab Channel-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Link_Channel.png?raw=true "Beispielhafte Channel-Konfiguration")
+![Screenshot OpenHAB Channel-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Link_Channel.png?raw=true "Beispielhafte Channel-Konfiguration")
 
 Nach Betätigung des im rechten unteren Rand befindlichen „Link“-Buttons, steht das zu steuernde Thing im Reiter "Control" zur Steuerung zur Verfügung:
 
-![Screenshot OpenHab Control-Übersicht](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Overview_Control.png?raw=true "Übersicht der steuerbaren Things")
+![Screenshot OpenHAB Control-Übersicht](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Overview_Control.png?raw=true "Übersicht der steuerbaren Things")
 
 Als nächstes sollte die Steuerung der Lampe über das Kommunikationsprotokoll „MQTT“ umgesetzt werden. Ziel war es, zunächst, die Hue-Lampe, abhängig vom gemessenen Feuchtigkeitswert (Wassersensor), ein- oder auszuschalten.
-Für die Kommunikation über MQTT kann das auf OpenHab verfügbare MQTT-Binding genutzt werden, dessen Installation erneut über den Reiter „Add-Ons“ umgesetzt wird. Als nächstes ist unter dem Reiter „Inbox“ ein neuer Eintrag zu erstellen, der zu folgenden Auswahlmöglichkeiten führt (siehe Abbildung 13):
+Für die Kommunikation über MQTT kann das auf OpenHAB verfügbare MQTT-Binding genutzt werden, dessen Installation erneut über den Reiter „Add-Ons“ umgesetzt wird. Als nächstes ist unter dem Reiter „Inbox“ ein neuer Eintrag zu erstellen, der zu folgenden Auswahlmöglichkeiten führt (siehe Abbildung 13):
 
-![Screenshot OpenHab MQTT Thing Binding-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Options_MQTT_ThingBinding.png?raw=true "Konfigurationsmöglichkeiten vom MQTT-Binding")
+![Screenshot OpenHAB MQTT Thing Binding-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Options_MQTT_ThingBinding.png?raw=true "Konfigurationsmöglichkeiten vom MQTT-Binding")
 
 Für den oben genannten Anwendungsfall werden lediglich ein MQTT Broker und ein Generic MQTT Thing benötigt. Dementsprechend wird als erstes ein MQTT Broker erstellt. Dem Broker sind anschließend ein Name und die IP-Adresse des Raspberrys zu übergeben. Als Port wird die 1883 gewählt. Die hier beschriebenen Brokereinstellungen sind der nächsten Abbildung 14 zu entnehmen:
 
-![Screenshot OpenHab MQTT Broker-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Configuration_MQTT_Broker.png?raw=true "Konfiguration eines MQTT-Brokers")
+![Screenshot OpenHAB MQTT Broker-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Configuration_MQTT_Broker.png?raw=true "Konfiguration eines MQTT-Brokers")
 
 Nachdem der MQTT Broker konfiguriert ist, ist im Anschluss ein Generic MQTT Thing zu erstellen. Diesem Thing ist ein Name zu übergeben und einem Broker zuzuweisen. Nach diesen beiden Schritten, können dem neu angelegten MQTT Thing mehrere Channels zugewiesen werden. Die jeweilige Channel-Konfiguration für das MQTT Thing bedarf folgender Angaben:
 
@@ -635,7 +635,7 @@ Im nächsten Schritt wurde der Aufbau des Anwendungsfalls angepasst. So wurde nu
     end
 
 Die folgende Abbildung 15 visualisiert die Zustandsänderungen der Lampe (Lamp1) und des GenericMQTTThings (Wassersensor-Wert).
-![Screenshot OpenHab Zustandänderung-Lampe](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/LampsLighting_Change.png?raw=true "Zustandsänderung der Lampenbeleuchtung")
+![Screenshot OpenHAB Zustandsänderung-Lampe](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/LampsLighting_Change.png?raw=true "Zustandsänderung der Lampenbeleuchtung")
 
  Für diesen Versuch wurde der Wassersensor im Wechsel befeuchtet und getrocknet. Zu beachten ist, dass die Beleuchtungsänderung nur über eine autorisierte Person bzw. NFC-Karte erfolgen kann.
 <div class="page"/>
@@ -780,7 +780,7 @@ Der nachfolgende Programmcodeausschnitt visualisiert die technische Umsetzung de
 
 ## Beschreibung des angestrebten Smart Contract-Szenarios
 
-Aus zeitlichen Gründen konnte das ursprünglich angedachte Smart Contract-Szenario nicht fertiggestellt werden. Der angestrebte Smart Contract sollte das im Kapitel "OpenHab" beschriebene Szenario dahingehend erweitern, dass relativ zur prozentualen Beleuchtungserhöhung der entsprechende Betrag auf der Blockchain abgezogen wird. So wird beispielsweise bei einem Beleuchtungserhöhung von 100%, 1 Ether abgerechnet, während eine Beleuchtungserhöhung von 10% Kosten in Höhe von 0,1 Ether zur Folge haben. Die Zuordnung für das abzurechnende Konto, erfolgt über die NFC-UID und die Beleuchtungsänderung über den aktuell gemessenen Wassersensor-Wert.
+Aus zeitlichen Gründen konnte das ursprünglich angedachte Smart Contract-Szenario nicht fertiggestellt werden. Der angestrebte Smart Contract sollte das im Kapitel "OpenHAB" beschriebene Szenario dahingehend erweitern, dass relativ zur prozentualen Beleuchtungserhöhung der entsprechende Betrag auf der Blockchain abgezogen wird. So wird beispielsweise bei einem Beleuchtungserhöhung von 100%, 1 Ether abgerechnet, während eine Beleuchtungserhöhung von 10% Kosten in Höhe von 0,1 Ether zur Folge haben. Die Zuordnung für das abzurechnende Konto, erfolgt über die NFC-UID und die Beleuchtungsänderung über den aktuell gemessenen Wassersensor-Wert.
 Das angestrebte Szenario lässt sich mit folgender Abbildung und schrittweiser Beschreibung verdeutlichen:
 
 ![Blockchain Integration](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/blockchain_Integration.png?raw=true "Blockchain Integration")
@@ -799,7 +799,7 @@ Zu Beginn des Laborberichts wurde die Konfiguration des Raspberrys vorgenommen. 
 
 Im nächsten Schritt wurde der Laborversuch um die Anbindung eines Microcontrollers (Arduino) ergänzt. Dies setzt den Aufbau einer Entwicklungsumgebung (Visual Studio Code) und für den Nachrichtenaustausch mit einem definierten Netzwerk, eine WLAN-Verbindung voraus. Um den Nachrichtenaustausch zwischen dem Arduino und den beiden Sensoren herzustellen, wurde eine Verbindung mithilfe von Steckbrücken hergestellt. Mithilfe eines C-Programmes wurde der Servomotor so programmiert, dass er abhängig vom empfangenen Wassersensor-Wert gedreht wird. Darüber hinaus erfolgte eine erfolgreiche Anbindung des Arduinos mit dem MQTT-Broker.
 
-Im nächsten Abschnitt des Laborversuchs wurde die Integrationsplattform "OpenHab" für die Homeautomatisierung eingeführt. In diesem Kontext wurden eine Hue Bridge und eine Hue Lampe an die simulierte IOT-Infrastruktur angebunden. Durch die von OpenHab mitgelieferten Add-Ons gestaltete sich eine Steuerung dieser Geräte als simpel. So wurde beispielsweise mithilfe einer Regel umgesetzt, dass abhängig vom empfangenen Wassersensor-Wert die Beleuchtungsstärke der Hue Lampe verringert oder erhöht wird. Erweitert wurde dieser Anwendungsfall zusätzlich dahingehend, dass die Steuerung lediglich von einer autorisierten Person (NFC-UID) ausgeführt werden kann.
+Im nächsten Abschnitt des Laborversuchs wurde die Integrationsplattform "OpenHAB" für die Homeautomatisierung eingeführt. In diesem Kontext wurden eine Hue Bridge und eine Hue Lampe an die simulierte IOT-Infrastruktur angebunden. Durch die von OpenHAB mitgelieferten Add-Ons gestaltete sich eine Steuerung dieser Geräte als simpel. So wurde beispielsweise mithilfe einer Regel umgesetzt, dass abhängig vom empfangenen Wassersensor-Wert die Beleuchtungsstärke der Hue Lampe verringert oder erhöht wird. Erweitert wurde dieser Anwendungsfall zusätzlich dahingehend, dass die Steuerung lediglich von einer autorisierten Person (NFC-UID) ausgeführt werden kann.
 
 Im letzten Abschnitt des Laborversuchs sollte die simulierte IOT-Infrastruktur um eine Blockchain-Anbindung angereichert werden. Hierfür erfolgte zunächst die Installation von Truffle, das eine Entwicklungsumgebung für Smart Contracts bereitstellt, und Ganache, das zur Simulation einer Blockchain eingesetzt werden kann. Im Anschluss sollte ein Smart Contract implementiert werden, der bei Schaltung der Lampe zunächst prüft ob der schaltende Nutzer über genügend Guthaben für diese Aktion verfügt und im positiven Fall den entsprechenden Betrag vom Nutzerguthaben abzieht. Aufgrund dessen, dass während der Installationen unterschiedlichste Probleme auftraten (beispielsweise inkompatible Python-Version), konnte das angestrebte Smart Contract-Szenario nicht umgesetzt werden. Dementsprechend wurde im letzten Schritt die Abbildung 18 vorgestellt, das die geplante technische Umsetzung des Smart Contracts visualisiert. Darüber hinaus erfolgte die Vorstellung des bis zum Ende des Laborversuchs erstellten Smart Contracts.
 
