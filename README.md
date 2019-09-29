@@ -604,7 +604,7 @@ Um nun die Lampenbeleuchtung über MQTT zu steuern, muss eine Regel unter etc/op
             }
     end
 
-Diese Regel definiert, dass sobald das MQTT Thing einen Wassersensor-Wert von über 200 empfängt, eine Anweisung zur Einschaltung der Lampe erfolgt. Dagegen wird die Ausschaltung der Lampe bei einem darunter liegendem Wert ausgelöst. Der Name des zu steuernden Things entspricht dabei dem vergebenen Itemnamen. Die Zustandsänderungen der Items können über den Aufruf der Obenhab-Log nachvollzogen werden:
+Diese Regel definiert, dass sobald das MQTT Thing einen Wassersensor-Wert von über 200 empfängt, eine Anweisung zur Einschaltung der Lampe erfolgt. Dagegen wird die Ausschaltung der Lampe bei einem darunter liegendem Wert ausgelöst. Der Name des zu steuernden Things entspricht dabei dem vergebenen Itemnamen. Die Zustandsänderungen der Items können über den Aufruf der OpenHAB-Log nachvollzogen werden:
 
     Openhab-cli showlogs
 
@@ -647,7 +647,7 @@ Um diese Szenario umsetzen zu können, sollen die Smart-Contracts von Ethereum V
 
 ## Installation der benötigten Softwarekomponenten
 
-Für die Abbildung des oben geschilderten Szenarios wird Truffle zur Entwicklung und von Smart Contracts und Ganache zur Simulation einer Blockchain verwendet. Diese beiden Komponenten werden auf einen separaten, und somit außerhalb des Raspberrys, Gerät installiert. Im Folgenden werden zunächst die für die Installationen notwendigen Schritte geschildert. Anschließend wird auf die Einrichtung von Ganache und Truffle eingegangen und eine Beispielimplementierung für ein Smart Contract vorgestellt.
+Für die Abbildung des oben geschilderten Szenarios wird Truffle zur Entwicklung von Smart Contracts und Ganache zur Simulation einer Blockchain verwendet. Diese beiden Komponenten werden auf einen separaten, und somit außerhalb des Raspberrys, Gerät installiert. Im Folgenden werden zunächst die für die Installationen notwendigen Schritte geschildert. Anschließend wird auf die Einrichtung von Ganache und Truffle eingegangen und eine Beispielimplementierung für ein Smart Contract vorgestellt.
 
 ### Installation von Truffle 
 
@@ -708,19 +708,19 @@ Nach der Ausführung dieser Kommandobefehle, steht der Smart Contract auf der Bl
 
 ## Einbindung der Blockchain an das IOT-Netz
 
-Für die Anbindung des Blockchain-Netzwerks an das IOT-Netz, wird die [Web3.js-Library](https://web3js.readthedocs.io/en/v1.2.1/) verwendet. 
+Für die Anbindung des Blockchain-Netzwerks an das IOT-Netz, wird die Web3.js-Library verwendet. 
 
 ### Installation von Web3
 
-Für der Web3.js-Library kann erneut auf das NPM zurückgegriffen werden. Über den folgenden Befehl wird die Nutzung von Web3.js bereitgestellt:
+Für die Installation der [Web3.js-Library](https://web3js.readthedocs.io/en/v1.2.1/) kann erneut auf das NPM zurückgegriffen werden. Über den folgenden Befehl wird die Nutzung von Web3.js bereitgestellt:
     npm install web3
-Zu berücksichtigen ist, dass hierfür Python mit der Version 2.7 benötigt wird. Die Installation mit einer neueren Python-Version hat im hier beschriebenen Laborversuch zu Problemen geführt. Als spezifischen Lösungsansatz wurde hierzu auf [Anaconda](https://www.anaconda.com/) zurückgegriffen, das die Nutzung der benötigten Version ermöglicht. Für die Installation von Anaconda wurden zusätzlich aktuelle Visual Studio Build Tools benötigt, die über folgende Kommandozeile installiert wurden:
+Zu berücksichtigen ist, dass hierfür Python mit der Version 2.7 benötigt wird. Die Installation mit einer neueren Python-Version hat im hier beschriebenen Laborversuch zu Problemen geführt. Als spezifischen Lösungsansatz wurde hierzu auf [Anaconda](https://www.anaconda.com/) zurückgegriffen, das die Nutzung der benötigten Version ermöglicht. Für die Installation von Anaconda wurden zusätzlich aktuelle Visual Studio Build Tools benötigt, die über folgende Kommandozeile installiert werden können:
     npm install –g windows-build-tools
 
 ### Integration der Blockchain
 
 Nach der Installation der benötigten Bibliotheken, kann die Integration der Blockchain erfolgen. Dazu wird auf dem zu entwickelten Rechner eine neue Javascript-Datei erstellt. In dieser Datei wird ein Programm implementiert, das die Integration zwischen der simulierten Blockchain und der bestehenden IOT-Infrastruktur herstellen soll. Hierzu wird zunächst eine Verbindung zur Blockchain und dem MQTT-Broker hergestellt. Zudem soll bei eingehenden Nachrichten, die im vorliegenden Fall über das abonnierte Topic "water/out" eintreffen, der Smart Contract aus der Blockchain ausgeführt werden.
-Hierzu werden im Programmcode zunächst die Module "MQTT" und "Web3" geladen. Anschließend erfolgt mithilfe von Web3 ein Verbindungsaufbau mit der lokalen Blockchain. Zudem wird über MQTT eine Verbindung mit dem Raspberry aufgebaut. Bei eingehenden Nachrichten erfolgen die Erzeugung einer Konsolenausgabe und die Ausführung der executedSmartContractAsync()-Methode. Um auf eingehende Sensordaten reagieren zu können, wird ein Subscribe auf das Message-Queue Topic "/water/out" ausgeführt. Für die Ausführung des Smart Contracts muss deren ABI (Application binary interface) bekannt sein. Diese wird benötigt, um auf die Methoden des Smart Contracts zugreifen zu können. Die ABI des Smart Contracts wird beim Kompilieren erzeugt und im Build-Verzeichnis abgelegt. Dementsprechend wird für die Ermittlung der ABI ein Pfad zu dem Build-Verzeichnis hinterlegt und die ABI ausgelesen. Mithilfe der ABI kann nun auf die getMessage()-Methode des Smart-Contracts zugegriffen werden. Für die Ausführung des Smart Contracts muss das Programm zunächst gestartet werden. Sobald Sensordaten über MQTT eintreffen wird auf der Konsole folgendes ausgegeben:
+Hierzu werden im Programmcode zunächst die Module "MQTT" und "Web3" geladen. Anschließend erfolgt mithilfe von Web3 ein Verbindungsaufbau mit der lokalen Blockchain. Zudem wird über MQTT eine Verbindung mit dem Raspberry aufgebaut. Bei eingehenden Nachrichten erfolgen die Erzeugung einer Konsolenausgabe und die Ausführung der "executedSmartContractAsync()"-Methode. Um auf eingehende Sensordaten reagieren zu können, wird ein Subscribe auf das Message-Queue Topic "/water/out" ausgeführt. Für die Ausführung des Smart Contracts muss deren ABI (Application binary interface) bekannt sein. Diese wird benötigt, um auf die Methoden des Smart Contracts zugreifen zu können. Die ABI des Smart Contracts wird beim Kompilieren erzeugt und im Build-Verzeichnis abgelegt. Dementsprechend wird für die Ermittlung der ABI ein Pfad zu dem Build-Verzeichnis hinterlegt und die ABI ausgelesen. Mithilfe der ABI kann nun auf die "getMessage()"-Methode des Smart-Contracts zugegriffen werden. Für die Ausführung des Smart Contracts muss das Programm zunächst gestartet werden. Sobald Sensordaten über MQTT eintreffen wird auf der Konsole folgendes ausgegeben:
 
 Contract answered: Hello World
 
@@ -781,7 +781,7 @@ Der nachfolgende Programmcodeausschnitt visualisiert die technische Umsetzung de
 ## Beschreibung des angestrebten Smart Contract-Szenarios
 
 Aus zeitlichen Gründen konnte das ursprünglich angedachte Smart Contract-Szenario nicht fertiggestellt werden. Der angestrebte Smart Contract sollte das im Kapitel "OpenHAB" beschriebene Szenario dahingehend erweitern, dass relativ zur prozentualen Beleuchtungserhöhung der entsprechende Betrag auf der Blockchain abgezogen wird. So wird beispielsweise bei einem Beleuchtungserhöhung von 100%, 1 Ether abgerechnet, während eine Beleuchtungserhöhung von 10% Kosten in Höhe von 0,1 Ether zur Folge haben. Die Zuordnung für das abzurechnende Konto, erfolgt über die NFC-UID und die Beleuchtungsänderung über den aktuell gemessenen Wassersensor-Wert.
-Das angestrebte Szenario lässt sich mit folgender Abbildung und schrittweiser Beschreibung verdeutlichen:
+Das angestrebte Szenario lässt sich mit folgender Abbildung 18 und schrittweiser Beschreibung verdeutlichen:
 
 ![Blockchain Integration](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/blockchain_Integration.png?raw=true "Blockchain Integration")
 
@@ -790,12 +790,12 @@ Das angestrebte Szenario lässt sich mit folgender Abbildung und schrittweiser B
 3. Der Raspberry übergibt den aktuellen Wert an den Smart Contract in der Blockchain. Dadurch wird der aktuelle Preis im Smart Contract definiert 
 4. Wenn nun ein Nutzer seine NFC-Karte auf das Lesegerät legt, erfolgt das Auslesen der UID durch den Raspberry
 5. Der Raspberry versucht den Smart Contract auszuführen. Dazu wird die UID der Karte genutzt, um nachzuschauen, ob der Nutzer über genügend Guthaben verfügt. Im positiven Fall wird das für die Schaltung der Lampe notwendige Guthaben vom Nutzerkonto abgezogen und der Prozess zum Einschalten der Lampe auf dem Raspberry initialisiert
-6. Der Raspberry sendet über MQTT eine Nachricht zur Schaltung der Lampe an den Arduino
+6. Der Raspberry sendet über MQTT eine Nachricht, die die Anweisung und zur Schaltung der Lampe und Beleuchtungsänderungswert enthält, an den Arduino
 7. Der Arduino schaltet die Lampe auf den übergebenen Wert
 <div class="page"/>
 
 # Zusammenfassung und Bewertung der Ergebnisse
-Zu Beginn des Laborberichts wurde die Konfiguration des Raspberrys vorgenommen. Hierbei konnten nach anfänglichen Schwierigkeiten alle notwendigen Konfigurationsschritte vollzogen werden. Als weniger problematisch stellte sich das anschließende Schreiben eines Python-Programms für das Auslesen von NFC-UIDs dar. Basierend auf diesem Programm sollte im nächsten Schritt eine Übertragung der UIDs an einen MQTT-Broker erfolgen. Hierzu wurde zunächst Node-RED installiert. Auf der Weboberfläche von Node-RED erfolgte daraufhin die Erstellung eines Flows, welches Nachrichten vom MQTT-Broker durch ein Abonnement auf eine Message-Queue entgegennimmt. Mithilfe eines weiteren Python-Programms konnte anschließend realisiert werden, dass die UIDs an den MQTT Broker übergeben und auf der Node-RED Oberfläche als DEBUG-Information angezeigt werden. Die zusätzliche Bereitstellung eines REST-Services, das die letzten zehn übertragenen UIDs bereitstellt, konnte aus zeitlichen Gründen nicht umgesetzt werden.
+Zu Beginn des Laborberichts wurde die Konfiguration des Raspberrys vorgenommen. Hierbei konnten nach anfänglichen Schwierigkeiten alle notwendigen Konfigurationsschritte vollzogen werden. Als weniger problematisch stellte sich das anschließende Schreiben eines Python-Programms für das Auslesen von NFC-UIDs dar. Basierend auf diesem Programm sollte im nächsten Schritt eine Übertragung der UIDs an einen MQTT-Broker erfolgen. Hierzu wurde zunächst Node-RED installiert. Auf der Weboberfläche von Node-RED erfolgte daraufhin die Erstellung eines Flows, welches Nachrichten vom MQTT-Broker durch ein Abonnement auf eine Message-Queue entgegennimmt. Mithilfe eines weiteren Python-Programms konnte anschließend realisiert werden, dass die UIDs an den MQTT Broker übergeben und auf der Node-RED Oberfläche als DEBUG-Information angezeigt werden. Die zusätzliche Bereitstellung eines REST-Services, der die letzten zehn übertragenen UIDs als JSON zurückliefert, konnte aus zeitlichen Gründen nicht umgesetzt werden.
 
 Im nächsten Schritt wurde der Laborversuch um die Anbindung eines Microcontrollers (Arduino) ergänzt. Dies setzt den Aufbau einer Entwicklungsumgebung (Visual Studio Code) und für den Nachrichtenaustausch mit einem definierten Netzwerk, eine WLAN-Verbindung voraus. Um den Nachrichtenaustausch zwischen dem Arduino und den beiden Sensoren herzustellen, wurde eine Verbindung mithilfe von Steckbrücken hergestellt. Mithilfe eines C-Programmes wurde der Servomotor so programmiert, dass er abhängig vom empfangenen Wassersensor-Wert gedreht wird. Darüber hinaus erfolgte eine erfolgreiche Anbindung des Arduinos mit dem MQTT-Broker.
 
