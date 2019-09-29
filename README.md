@@ -23,7 +23,7 @@
 - [Teil 2 - Integration von OpenHAB](#teil-2---integration-von-openhab)
   - [Installation](#installation)
   - [Anbindung einer Hue Bridge und Hue Lampe](#anbindung-einer-hue-bridge-und-hue-lampe)
-- [Tag 3 Blockchain Integration](#tag-3-blockchain-integration)
+- [Tag 3 – Blockchain Integration](#tag-3-%e2%80%93-blockchain-integration)
   - [Installation der benötigten Softwarekomponenten](#installation-der-ben%c3%b6tigten-softwarekomponenten)
     - [Installation von Truffle](#installation-von-truffle)
     - [Installation von Ganache](#installation-von-ganache)
@@ -640,7 +640,7 @@ Die folgende Abbildung 15 visualisiert die Zustandsänderungen der Lampe (Lamp1)
  Für diesen Versuch wurde der Wassersensor im Wechsel befeuchtet und getrocknet. Zu beachten ist, dass die Beleuchtungsänderung nur über eine autorisierte Person bzw. NFC-Karte erfolgen kann.
 <div class="page"/>
 
-# Tag 3 Blockchain Integration
+# Tag 3 – Blockchain Integration
 
 Nachdem in den vorherigen Teilen Zustandsänderungen von Sensoren mittels MQTT verarbeitet werden konnten, soll nun die Integration einer Blockchain erfolgen. Ziel dieser Integration ist primär die erfolgreiche Etablierung eines Smart Contracts. Im vorliegenden Beispiel wird die Entwicklung eines Smart-Contracts angestrebt, der dem Nutzer, für jedes Schalten der Lampe, einen gewissen Geldbetrag in Rechnung stellt. Die Geldbetragsmenge ergibt sich dabei aus dem gemessenem Wassersensor-Wert. 
 Um diese Szenario umsetzen zu können, sollen die Smart-Contracts von Ethereum Verwendung finden. Dabei soll bei Übertragung der NFC-UID zunächst geprüft werden, ob dem entsprechenden Nutzer ausreichend Guthaben zur Verfügung steht. Im positiven Fall wird das für die Schaltung der Lampe notwendige Guthaben, vom Nutzerkonto auf das Betreiberkonto übertragen. Nach der erfolgreichen Übertragung des Guthabens, erfolgt anschließend die Schaltung der Lampe. 
