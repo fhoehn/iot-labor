@@ -514,11 +514,11 @@ Zusammenfassend kann der aktuelle Aufbau des Laborversuchs folgender Abbildung 6
    
 Im nächsten Schritt wird der Laborversuch um die Integrationsplattform „OpenHAB“ ergänzt, mit dessen Hilfe die Realisierung einer Homeautomatisierung ermöglicht wird. Dies erfolgt unter anderem durch die Bereitstellung von vielzähligen Bibliotheken. Die Architektur von OpenHAB weist dabei einen skalierfähigen Charakter auf und lässt sich mit einem Baukasten vergleichen, da unterschiedliche Technologien und Systeme an die Architektur angebunden werden können. 
 
-Zur Übersicht wird in folgender Abbildung 7 die bisher im Laborversuch aufgebaute IOT-Infrastruktur visualisiert: 
+Zur Übersicht wird in folgender Abbildung 7 die für diesen Teil des Laborversuchs angestrebte IOT-Infrastruktur visualisiert: 
 
 ![OpenHAB integration](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/nodeRED_OpenHAB_Integration.png?raw=true "OpenHAB Integration")
 
-Die aufgeführte Abbildung 7 macht deutlich, dass neben dem MQTT-Broker auch Node-RED und OpenHAB auf dem Rapsberry installiert wurden. Allerdings ist für den produktiven Einsatz die Installation aller Komponenten auf einer einzelnen Instanz nicht zu empfehlen. Vielmehr empfiehlt es sich, die einzelnen Softwarekomponenten auf jeweils einem eigenen Gerät zu installieren und die Kommunikation untereinander mittels MQTT zu realisieren. Aufgrund der mangelnden Ressourcen werden die Softwarekomponenten für den Laborversuch jedoch auf einem einzelnen Gerät installiert und nur logisch betrachtet voneinander getrennt. Dieser Umstand stellt für die weitere Versuchsdurchführung jedoch kein Problem dar. 
+Die aufgeführte Abbildung 7 macht deutlich, dass neben dem MQTT-Broker auch Node-RED und OpenHAB auf dem Raspberry installiert wurden. Allerdings ist für den produktiven Einsatz die Installation aller Komponenten auf einer einzelnen Instanz nicht anzuraten. Vielmehr empfiehlt es sich, die einzelnen Softwarekomponenten auf jeweils einem eigenen Gerät zu installieren und die Kommunikation untereinander mittels MQTT zu realisieren. Aufgrund der mangelnden Ressourcen werden die Softwarekomponenten für den Laborversuch jedoch auf einem einzelnen Gerät installiert und nur logisch betrachtet voneinander getrennt. Dieser Umstand stellt für die weitere Versuchsdurchführung jedoch kein Problem dar. 
 
 ## Installation
 
