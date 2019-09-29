@@ -20,17 +20,17 @@
   - [Aufbau einer WLAN-Verbindung](#aufbau-einer-wlan-verbindung)
   - [Anbindung des Wassersensors und Servomotors](#anbindung-des-wassersensors-und-servomotors)
   - [Anbindung von MQTT](#anbindung-von-mqtt)
-- [Teil 2 - Integration von OpenHAB](#teil-2---integration-von-openhab)
+- [Teil 2 - OpenHAB Integration](#teil-2---openhab-integration)
   - [Installation](#installation)
   - [Anbindung einer Hue Bridge und Hue Lampe](#anbindung-einer-hue-bridge-und-hue-lampe)
-- [Tag 3 – Blockchain Integration](#tag-3-%e2%80%93-blockchain-integration)
+- [Teil 3 – Blockchain Integration](#teil-3-%e2%80%93-blockchain-integration)
   - [Installation der benötigten Softwarekomponenten](#installation-der-ben%c3%b6tigten-softwarekomponenten)
     - [Installation von Truffle](#installation-von-truffle)
     - [Installation von Ganache](#installation-von-ganache)
   - [Einrichtung von Ganache](#einrichtung-von-ganache)
   - [Implementation eines Smart Contracts](#implementation-eines-smart-contracts)
   - [Einbindung der Blockchain an das IOT-Netz](#einbindung-der-blockchain-an-das-iot-netz)
-    - [Installation von Web3](#installation-von-web3)
+    - [Installation von Web3.js](#installation-von-web3js)
     - [Integration der Blockchain](#integration-der-blockchain)
   - [Beschreibung des angestrebten Smart Contract-Szenarios](#beschreibung-des-angestrebten-smart-contract-szenarios)
 - [Zusammenfassung und Bewertung der Ergebnisse](#zusammenfassung-und-bewertung-der-ergebnisse)
@@ -510,7 +510,7 @@ Zusammenfassend kann der aktuelle Aufbau des Laborversuchs folgender Abbildung 6
 ![Arduino Anbindung an den Raspberry via MQTT](https://github.com/fhoehn/iot-labor/blob/master/images/architecture/arduinoRaspberryConnection.png?raw=true "Arduino Anbindung an den Raspberry via MQTT")
 <div class="page"/>
 
-# Teil 2 - Integration von OpenHAB
+# Teil 2 - OpenHAB Integration
    
 Im nächsten Schritt wird der Laborversuch um die Integrationsplattform „OpenHAB“ ergänzt, mit dessen Hilfe die Realisierung einer Homeautomatisierung ermöglicht wird. Dies erfolgt unter anderem durch die Bereitstellung von vielzähligen Bibliotheken. Die Architektur von OpenHAB weist dabei einen skalierfähigen Charakter auf und lässt sich mit einem Baukasten vergleichen, da unterschiedliche Technologien und Systeme an die Architektur angebunden werden können. 
 
@@ -640,7 +640,7 @@ Die folgende Abbildung 15 visualisiert die Zustandsänderungen der Lampe (Lamp1)
  Für diesen Versuch wurde der Wassersensor im Wechsel befeuchtet und getrocknet. Zu beachten ist, dass die Beleuchtungsänderung nur über eine autorisierte Person bzw. NFC-Karte erfolgen kann.
 <div class="page"/>
 
-# Tag 3 – Blockchain Integration
+# Teil 3 – Blockchain Integration
 
 Nachdem in den vorherigen Teilen Zustandsänderungen von Sensoren mittels MQTT verarbeitet werden konnten, soll nun die Integration einer Blockchain erfolgen. Ziel dieser Integration ist primär die erfolgreiche Etablierung eines Smart Contracts. Im vorliegenden Beispiel wird die Entwicklung eines Smart-Contracts angestrebt, der dem Nutzer, für jedes Schalten der Lampe, einen gewissen Geldbetrag in Rechnung stellt. Die Geldbetragsmenge ergibt sich dabei aus dem gemessenem Wassersensor-Wert. 
 Um diese Szenario umsetzen zu können, sollen die Smart-Contracts von Ethereum Verwendung finden. Dabei soll bei Übertragung der NFC-UID zunächst geprüft werden, ob dem entsprechenden Nutzer ausreichend Guthaben zur Verfügung steht. Im positiven Fall wird das für die Schaltung der Lampe notwendige Guthaben, vom Nutzerkonto auf das Betreiberkonto übertragen. Nach der erfolgreichen Übertragung des Guthabens, erfolgt anschließend die Schaltung der Lampe. 
@@ -710,7 +710,7 @@ Nach der Ausführung dieser Kommandobefehle, steht der Smart Contract auf der Bl
 
 Für die Anbindung des Blockchain-Netzwerks an das IOT-Netz, wird die Web3.js-Library verwendet. 
 
-### Installation von Web3
+### Installation von Web3.js
 
 Für die Installation der [Web3.js-Library](https://web3js.readthedocs.io/en/v1.2.1/) kann erneut auf das NPM zurückgegriffen werden. Über den folgenden Befehl wird die Nutzung von Web3.js bereitgestellt:
     npm install web3
