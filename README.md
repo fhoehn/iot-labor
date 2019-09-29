@@ -567,9 +567,9 @@ Alle verfügbaren [Things](https://www.openhab.org/docs/concepts/things.html) (s
 ![Screenshot OpenHAB Configuration_Things-Übersicht](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Configuration_Things2.png?raw=true "Übersicht der konfigurierbaren Things")
 
 Für die Anbindung und Steuerung des Things ist ein [Channel](https://www.openhab.org/docs/concepts/things.html) und ein [Item](https://www.openhab.org/docs/configuration/items.html) zu konfigurieren. Während das Thing als eine physische Entität einer Information angesehen werden kann, stellt der Channel eine konkrete Funktion des Things dar. Zudem sind Channels mit Items verlinkt, die wiederum im OpenHAB-Umfeld als Ausprägung der Funktion (Channel) zu verstehen sind. So kann beispielsweise das Item "MyNFCThing_" definiert werden, mit dem Item-Typ "String". Dabei gibt der Item-Typ an, dass nur Werte im String-Format entgegengenommen und angezeigt werden können. Der Itemname dient hauptsächlich zur eindeutigen Identifikation des Items (dies ist beispielsweise bei der Implementierung einer Regel von Bedeutung).
-Die Channel-Konfiguration kann über einen Doppelklick auf dem zu ergänzenden Thing erfolgen. In der aufgepoppten Channel-Konfiguration ist anschließend ein Channelname, Label und der Typ des Channels zu definieren. Zur Verdeutlichung wird in unten aufgeführter Abbildung 11 eine beispielhafte Channel-Konfiguration aufgeführt:
+Die Channel Konfiguration kann über einen Doppelklick auf dem zu ergänzenden Thing erfolgen. In der aufgepoppten Channel Konfiguration ist anschließend ein Channelname, Label und der Typ des Channels zu definieren. Zur Verdeutlichung wird in unten aufgeführter Abbildung 11 eine beispielhafte Channel Konfiguration aufgeführt:
 
-![Screenshot OpenHAB Channel-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Link_Channel.png?raw=true "Beispielhafte Channel-Konfiguration")
+![Screenshot OpenHAB Channel Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Link_Channel.png?raw=true "Beispielhafte Channel Konfiguration")
 
 Nach Betätigung des im rechten unteren Rand befindlichen „Link“-Buttons, steht das zu steuernde Thing im Reiter "Control" zur Steuerung zur Verfügung:
 
@@ -584,7 +584,7 @@ Für den oben genannten Anwendungsfall werden lediglich ein MQTT Broker und ein 
 
 ![Screenshot OpenHAB MQTT Broker-Konfiguration](https://github.com/fhoehn/iot-labor/blob/master/images/OpenHab/Configuration_MQTT_Broker.png?raw=true "Konfiguration eines MQTT-Brokers")
 
-Nachdem der MQTT Broker konfiguriert ist, ist im Anschluss ein Generic MQTT Thing zu erstellen. Diesem Thing ist ein Name zu übergeben und einem Broker zuzuweisen. Nach diesen beiden Schritten, können dem neu angelegten MQTT Thing mehrere Channels zugewiesen werden. Die jeweilige Channel-Konfiguration für das MQTT Thing bedarf folgender Angaben:
+Nachdem der MQTT Broker konfiguriert ist, ist im Anschluss ein Generic MQTT Thing zu erstellen. Diesem Thing ist ein Name zu übergeben und einem Broker zuzuweisen. Nach diesen beiden Schritten, können dem neu angelegten MQTT Thing mehrere Channels zugewiesen werden. Die jeweilige Channel Konfiguration für das MQTT Thing bedarf folgender Angaben:
 
     •	Channel-Typ: Erwartetes Rückgabeformat (beispielsweise text value)
     •	Channel-ID: Eindeutiger Name oder ID (zur eindeutigen Identifizierung des Channels) 
